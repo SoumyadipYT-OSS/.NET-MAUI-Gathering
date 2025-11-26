@@ -7,5 +7,5 @@ The .NET Multi-platform App UI (.NET MAUI) is a framework for building cross-pla
 It allows developers to create native applications for Android, iOS, macOS, and Windows from a single codebase. 
 The .NET MAUI is the evolution of Xamarin.Forms and is part of the .NET ecosystem.
 
-Adding image from my computer with custom image size 
-![.NET MAUI App UI Logo](./pictures/NET_App_UI.png = 250x250)
+Adding image from my computer with custom image size
+<-- ![.NET MAUI App logo](./pictures/NET_APP_UI.png "MAUI Logo") -->
