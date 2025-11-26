@@ -56,7 +56,7 @@ It is extending its capabilities beyond mobile to include desktop applications. 
 	/>
 
  <img 
-	src="pictures/Architecture_NETMaui.png"
+	src="pictures/architecture-diagram.png"
 	alt="Architecture diagram of .NET MAUI"
 	width="650" height="500"
 	/>
