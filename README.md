@@ -8,4 +8,4 @@ It allows developers to create native applications for Android, iOS, macOS, and 
 The .NET MAUI is the evolution of Xamarin.Forms and is part of the .NET ecosystem.
 
 Adding image from my computer with custom image size
-<-- ![.NET MAUI App logo](./pictures/NET_APP_UI.png "MAUI Logo") -->
+<-- ![.NET MAUI App logo](/pictures/NET_APP_UI.png "MAUI Logo") -->
