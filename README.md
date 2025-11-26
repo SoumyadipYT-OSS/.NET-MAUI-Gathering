@@ -80,3 +80,6 @@ _Architecture-diagram_
  - Windows: Apps are compiled from C# into Intermediate Language (IL) and then Just-In-Time (JIT) compiled into native x86 or ARM or x64 code at runtime.
 
  For more details on **WinUI 3**, refer to the official documentation: [WinUI Docs](https://learn.microsoft.com/en-us/windows/apps/winui/).
+
+
+ **_NOTE:_** Building apps for iOS or macOS, requires a Mac or iOS device (for SDKs).
