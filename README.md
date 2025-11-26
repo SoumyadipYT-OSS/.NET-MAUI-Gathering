@@ -50,7 +50,7 @@ It is extending its capabilities beyond mobile to include desktop applications. 
  illustrates a high-level architecture of a .NET MAUI application:
 
  <img 
-	src="pictures/Architecture_NETMaui"
+	src="pictures/Architecture_NETMaui.png"
 	alt="Architecture of .NET MAUI Application"
 	width="550" height="450"
 	/>
