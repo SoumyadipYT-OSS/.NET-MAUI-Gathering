@@ -55,7 +55,7 @@ It is extending its capabilities beyond mobile to include desktop applications. 
 	width="650" height="500"
 	/>
 
-	----------------------
+_Architecture-diagram_
 
  <img 
 	src="pictures/architecture-diagram.png"
