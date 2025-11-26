@@ -27,9 +27,9 @@ It is extending its capabilities beyond mobile to include desktop applications. 
  .NET MAUI is designed for developers who aim to:
  - Build cross-platform applications using **XAML** and **C#** whithin a single, shared codebase in **Visual Studio**. 
 
- - Build cross-platform applications using **XAML** and **C#** whithin a single, shared codebase in **Visual Studio**.
-	- Maintain a consistent UI layout and design across multiple platforms while allowing for platform-specific customizations.
-	- Reuse code, unit tests and business logic seamlessly across different operating systems.
+ - Maintain a consistent UI layout and design across multiple platforms while allowing for platform-specific customizations.
+	
+ - Reuse code, unit tests and business logic seamlessly across different operating systems.
 
 
  ## How .NET MAUI works
