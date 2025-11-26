@@ -52,5 +52,29 @@ It is extending its capabilities beyond mobile to include desktop applications. 
  <img 
 	src="pictures/Architecture_NETMaui.png"
 	alt="Architecture of .NET MAUI Application"
-	width="750" height="550"
+	width="650" height="500"
 	/>
+
+ <img 
+	src="pictures/Architecture_NETMaui.png"
+	alt="Architecture diagram of .NET MAUI"
+	width="650" height="500"
+	/>
+
+ In a .NET MAUI apps, your code primarily interacts with the .NET MAUI controls and API layer(1), which serves as the 
+ abstraction for building cross-platform UIs. This layer communicates directly with the native platform APIs(3), 
+ ensuring that your app delivers a truly native experience. When necessary, developers can also invoke 
+ platform-specific APIs(2) directly for advanced customization.
+
+ .NET MAUI apps can be developed on Windows or macOS and compiled into native application packages for each target 
+ platform.
+
+ - Android: Apps are compiled from C# into Intermediate Language (IL) and then Just-In-Time (JIT) compiled into native ARM or x86 at runtime.
+
+ - iOS: Apps are Ahead-Of-Time (AOT) compiled from C# into native ARM code during the build process, as iOS does not support JIT compilation.
+
+ - macOS: Apps can be either AOT compiled into native ARM or x86 code or run using JIT compilation, depending on the deployment method.
+
+ - Windows: Apps are compiled from C# into Intermediate Language (IL) and then Just-In-Time (JIT) compiled into native x86 or ARM or x64 code at runtime.
+
+ For more details on **WinUI 3**, refer to the official documentation: [WinUI Docs](https://learn.microsoft.com/en-us/windows/apps/winui/).
