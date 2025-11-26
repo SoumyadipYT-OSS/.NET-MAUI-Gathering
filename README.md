@@ -10,5 +10,5 @@ The .NET MAUI is the evolution of Xamarin.Forms and is part of the .NET ecosyste
 <img 
 	src="pictures/NET_App_UI.png" 
 	alt="Project Logo" 
-	width="400" height="400" 
+	width="550" height="450" 
 	/>
