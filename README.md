@@ -9,7 +9,7 @@ The .NET MAUI is the evolution of Xamarin.Forms and is part of the .NET ecosyste
 
 <img 
 	src="pictures/NET_App_UI.png" 
-	alt="Project Logo" 
+	alt=".NET APP UI" 
 	width="550" height="450" 
 	/>
 
@@ -25,7 +25,7 @@ It is extending its capabilities beyond mobile to include desktop applications. 
 
  ## Who .NET MAUI is For
  .NET MAUI is designed for developers who aim to:
- - Build cross-platform applications using **XAML** and **C#** whithin a single, shared codebase in **Visual Studio**. 
+ - Build cross-platform applications using **XAML** and **C#** whithin a single, shared codebase in **Visual Studio**, **Rider**, **VsCode**. 
 
  - Maintain a consistent UI layout and design across multiple platforms while allowing for platform-specific customizations.
 	
@@ -37,7 +37,6 @@ It is extending its capabilities beyond mobile to include desktop applications. 
  applications: .NET for Android, .NET for iOS, .NET for Mac Catalyst, Windows UI 3 (WinUI 3) and Tizen OS. These frameworks 
  share a common foundation - the .NET Base Class Library (BCL) - which abstracts platform-specific details, enabling developers 
  to write consistent, reusable business logic across devices.
-
  The BCL operates on top of the .NET runtime, which provides the execution environment for your applications. On Android, 
  iOS and macOS, this environment is powered by **Mono (.NET Runtime Libraries)**, a proven  implementation of the .NET runtime. 
  On Windows, Tizen the .NET Common Language Runtime (CLR) takes the lead.
@@ -46,3 +45,12 @@ It is extending its capabilities beyond mobile to include desktop applications. 
  offers unique UI paradigms and interaction models. Developers can choose to craft native UIs using the respective 
  frameworks - Android UI Toolkit, iOS UIKit, Mac Catalyst AppKit, WinUI 3 and Tizen NUI - to deliver optimal user experiences. 
  However, this approach often results in maintaining separate codebases for each device family.
+
+ .NET MAUI provides a single framework for building the UIs for mobile and desktop apps. The following diagram 
+ illustrates a high-level architecture of a .NET MAUI application:
+
+ <img 
+	src="pictures/Architecture_NETMaui"
+	alt="Architecture of .NET MAUI Application"
+	width="550" height="450"
+	/>
