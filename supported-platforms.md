@@ -11,8 +11,10 @@
 - **macOS**: Version 12 or higher, using _Mac Catalyst_.
 - Requires an updated platform-specific __WebView__ control. For details, see the [_Blazor Supported Platforms_](https://learn.microsoft.com/aspnet/core/blazor/supported-platforms?view=aspnetcore-10.0) docs.
 
-`
-#### Important
+
+```#### Important
 For specific requirements related to __XCode__, __Android SDK__, __JDK__ and __Windows App SDK__ for each .NET MAUI release, 
 refer to the offical [_Release Versions documentation_](https://github.com/dotnet/maui/wiki/Release-Versions).
-`
+```
+
+## Additional Platform Support
