@@ -110,7 +110,7 @@ and Windows within one project.
  - **Single Project System**: Multi-targeting architecture for Android, iOS, macOS and Windows within one project.
 	
  - **.NET Hot Reload**: Instantly apply changes to XAML and C# code while the app runs, without rebuilding for 
-faster iteration. [.NET Hot Reload]
+faster iteration. [.NET Hot Reload] (https://github.com/SoumyadipYT-OSS/.NET-MAUI-Gathering?tab=readme-ov-file#hot-reload).
 	
 	
  ## Cross-Platform APIs for Device Features
