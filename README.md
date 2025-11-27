@@ -1,6 +1,14 @@
-# .NET-MAUI-Gathering
+# .NET-MAUI
 The .NET MAUI (Multi-platform App UI)  a cross-platform framework for delivering native experience mobile and desktop applications with C# in the backend and XAML in the frontend.
 
+__In this article__
+ - [What is .NET MAUI?](#what-is-net-maui)
+ - [Who .NET MAUI is For](#who-net-maui-is-for)
+ - [How .NET MAUI works](#how-net-maui-works)
+ - [What .NET MAUI Offers](#what-net-maui-offers)
+ - [Cross-Platform APIs for Device Features](#cross-platform-apis-for-device-features)
+ - [Single Project Architecture in .NET MAUI](#single-project-architecture-in-net-maui)
+ - [Hot Reload](#hot-reload)
 
 ## What is .NET MAUI?
 The .NET Multi-platform App UI (.NET MAUI) is a framework for building cross-platform applications using C# and XAML. 
