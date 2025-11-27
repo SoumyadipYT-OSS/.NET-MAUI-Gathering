@@ -10,7 +10,7 @@ This directory contains brief, focused tutorials demonstrating essential .NET MA
 Below is the project output screenshot:
 
 <img 
-	src="pictures/tutorial_project.png" 
-	alt=".NET APP UI" 
+	src="../pictures/tutorial_project.png" 
+	alt="Tutorial Project Screenshot" 
 	width="550" height="450" 
 	/>
