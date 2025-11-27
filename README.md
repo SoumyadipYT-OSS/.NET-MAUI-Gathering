@@ -37,7 +37,7 @@ It is extending its capabilities beyond mobile to include desktop applications. 
 
  - Maintain a consistent UI layout and design across multiple platforms while allowing for platform-specific customizations.
 	
- - Reuse code, unit tests and business logic seamlessly across different operating systems.
+ - Reuse code, unit tests and business logic seamlessly across different operating systems. [_Supported platforms_](supported-platforms.md) docs.
 
 
  ## How .NET MAUI works
