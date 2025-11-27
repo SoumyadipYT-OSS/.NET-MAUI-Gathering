@@ -1,2 +1,40 @@
 # Visual Studio
-.vs/ 
+.vs/
+.idea/
+*.iml
+
+# Build outputs
+bin/
+obj/
+**/build/
+DerivedData/
+xcuserdata/
+
+# Windows packaging
+AppPackages/
+*.msix
+*.msixbundle
+*.appx
+*.appxbundle
+Package.StoreAssociation.xml
+
+# Android artifacts and gradle
+.gradle/
+local.properties
+*.apk
+*.aab
+*.apks
+*.keystore
+*.jks
+
+# iOS/macOS artifacts
+*.ipa
+
+# Certificates/keys (do not commit)
+*.pfx
+*.p12
+*.snk
+
+# OS cruft
+.DS_Store
+Thumbs.db
