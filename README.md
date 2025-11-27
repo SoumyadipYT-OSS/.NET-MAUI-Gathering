@@ -62,6 +62,7 @@ _Architecture-diagram_
 	alt="Architecture diagram of .NET MAUI"
 	width="650" height="500"
 	/>
+	*[Source: Microsoft Docs]*
 
  In a .NET MAUI apps, your code primarily interacts with the .NET MAUI controls and API layer(1), which serves as the 
  abstraction for building cross-platform UIs. This layer communicates directly with the native platform APIs(3), 
@@ -81,5 +82,7 @@ _Architecture-diagram_
 
  For more details on **WinUI 3**, refer to the official documentation: [WinUI Docs](https://learn.microsoft.com/en-us/windows/apps/winui/).
 
-
+ `
  **_NOTE:_** Building apps for iOS or macOS, requires a Mac or iOS device (for SDKs).
+ `
+
