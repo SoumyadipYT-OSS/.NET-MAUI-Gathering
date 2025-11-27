@@ -18,7 +18,8 @@ refer to the offical [_Release Versions documentation_](https://github.com/dotne
 
 
 ## Additional Platform Support
-.NET MAUI also supports __Tizen__, provided by __Samsung__, __MB.OS__ by__Mercedes Benz__.
+.NET MAUI also supports __Tizen__ provided by __Samsung__, __MB.OS__ by __Mercedes Benz__.
+
 [_Samsung Developers_](https://developer.samsung.com/tizen/get-started/create-app.html) docs.
 [_Tizen OS_](https://docs.tizen.org/platform/what-is-tizen/overview/) docs.
 [_MB.OS_](https://group.mercedes-benz.com/innovation/digitalisation/connectivity/mb-os.html) docs.
