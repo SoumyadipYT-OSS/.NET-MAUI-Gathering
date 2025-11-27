@@ -1,6 +1,5 @@
-# _01) Tutorials
+# Tutorials
 
-See full tutorials: [TUTORIALS.md](TUTORIALS.md)
 
 This directory contains focused .NET MAUI examples:
 - Multi-target setup (Android, iOS/macOS, Windows)
