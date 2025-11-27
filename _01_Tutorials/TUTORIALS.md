@@ -9,4 +9,8 @@ This directory contains brief, focused tutorials demonstrating essential .NET MA
 
 Below is the project output screenshot:
 
-![Project Output](pictures/tutorial_project.png)
+<img 
+	src="pictures/tutorial_project.png" 
+	alt=".NET APP UI" 
+	width="550" height="450" 
+	/>
