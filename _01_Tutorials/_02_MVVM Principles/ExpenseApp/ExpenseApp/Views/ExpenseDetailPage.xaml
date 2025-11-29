@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:ExpenseApp.ViewModels"
+             x:DataType="vm:ExpenseDetailViewModel"
+             x:Class="ExpenseApp.Views.ExpenseDetailPage"
+             Title="ExpenseDetailPage">
+
+
+    <ScrollView>
+        <VerticalStackLayout Padding="16" Spacing="14">
+            <Label Text="Expense Detail" FontAttributes="Bold" FontSize="20" />
+            <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto,Auto,Auto,Auto">
+                <Label Grid.Row="0" Grid.Column="0" Text="Category:" FontAttributes="Bold" />
+                <Label Grid.Row="0" Grid.Column="1" Text="{Binding Category}" />
+
+                <Label Grid.Row="1" Grid.Column="0" Text="Amount:" FontAttributes="Bold" />
+                <Label Grid.Row="1" Grid.Column="1" Text="{Binding Amount, StringFormat='{}{0:C}'}" />
+
+                <Label Grid.Row="2" Grid.Column="0" Text="Created:" FontAttributes="Bold" />
+                <Label Grid.Row="2" Grid.Column="1" Text="{Binding CreatedAt, StringFormat='{}{0:g}'}" />
+
+                <Label Grid.Row="3" Grid.Column="0" Text="Details:" FontAttributes="Bold" />
+            </Grid>
+
+            <Editor AutoSize="TextChanges"
+                Placeholder="Add notes / details..."
+                Text="{Binding Details, Mode=TwoWay}" />
+
+            <Button Text="Save Details"
+                Command="{Binding SaveCommand}"
+                IsEnabled="{Binding IsLoaded}" />
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>
