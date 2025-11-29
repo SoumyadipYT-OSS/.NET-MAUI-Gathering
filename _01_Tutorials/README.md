@@ -67,8 +67,3 @@ Key features
 	  src="../pictures/mvvm_three.png" 
 	  alt="Tutorial Project Screenshot" 
 	  width="550" height="450" />
-	Screenshot (Checking the list from the details page):
-	<img 
-	  src="../pictures/mvvm_four.png" 
-	  alt="Tutorial Project Screenshot" 
-	  width="550" height="450" />
