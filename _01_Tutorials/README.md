@@ -28,7 +28,6 @@ Key features
 - Architecture
   - Models, ViewModels, and Views separated into their own folders.
   - DI registers pages and view models so pages receive VMs via constructor injection.
-  - A small `IExpenseStore` service demonstrates persistence abstraction.
 
 - ObservableCollection
   - The main expenses list is an `ObservableCollection<Expense>` so the UI updates automatically when items are added, removed, or changed.
