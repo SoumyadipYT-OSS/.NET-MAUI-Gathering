@@ -2,11 +2,11 @@
 
 A comprehensive .NET MAUI learning project demonstrating XAML fundamentals through self-contained, interactive modules. Built with MVVM pattern, compiled bindings, Shell navigation, and Hot Reload-friendly practices.
 
-## ?? Project Overview
+## Project Overview
 
 This project serves as a hands-on learning resource for understanding XAML concepts in .NET MAUI. Each module focuses on specific topics with working examples, explanations, and links to official documentation.
 
-## ?? Modules
+## Modules
 
 | Module | Description | Key Concepts |
 |--------|-------------|--------------|
@@ -18,46 +18,46 @@ This project serves as a hands-on learning resource for understanding XAML conce
 | **States Arena** | Visual State Manager | CommonStates, custom state groups, inline vs style-based VSM |
 | **Theme Switcher** | Light/Dark theming | AppThemeBinding, DynamicResource, runtime theme switching |
 
-## ??? Architecture
+## Architecture
 
 ```
 _01_Overview/
-??? App.xaml                    # App-level resources, converters, styles
-??? AppShell.xaml               # Shell navigation with flyout menu
-??? Controls/
-?   ??? CardView.xaml(.cs)      # Custom ContentView with ControlTemplate
-??? Converters/
-?   ??? InverseBoolConverter.cs
-?   ??? StringToBoolConverter.cs
-?   ??? DoubleToMultipliedValueConverter.cs
-??? Pages/
-?   ??? MainPage.xaml(.cs)           # Navigation hub
-?   ??? LayoutLabPage.xaml(.cs)      # Layout demonstrations
-?   ??? BindingLabPage.xaml(.cs)     # Binding demonstrations
-?   ??? StylesStudioPage.xaml(.cs)   # Styles demonstrations
-?   ??? TemplateForgePage.xaml(.cs)  # Template demonstrations
-?   ??? TriggerClinicPage.xaml(.cs)  # Trigger demonstrations
-?   ??? StatesArenaPage.xaml(.cs)    # VSM demonstrations
-?   ??? ThemeSwitcherPage.xaml(.cs)  # Theming demonstrations
-??? Resources/
-?   ??? Styles/
-?       ??? Colors.xaml         # Color palette
-?       ??? Styles.xaml         # Default control styles
-?       ??? LightTheme.xaml     # Light theme colors
-?       ??? DarkTheme.xaml      # Dark theme colors
-??? ViewModels/
-    ??? BaseViewModel.cs        # INotifyPropertyChanged base class
-    ??? MainPageViewModel.cs
-    ??? LayoutLabViewModel.cs
-    ??? BindingLabViewModel.cs
-    ??? StylesStudioViewModel.cs
-    ??? TemplateForgeViewModel.cs
-    ??? TriggerClinicViewModel.cs
-    ??? StatesArenaViewModel.cs
-    ??? ThemeSwitcherViewModel.cs
+- App.xaml                    # App-level resources, converters, styles
+- AppShell.xaml               # Shell navigation with flyout menu
+- Controls/
+  - CardView.xaml(.cs)        # Custom ContentView with ControlTemplate
+- Converters/
+  - InverseBoolConverter.cs
+  - StringToBoolConverter.cs
+  - DoubleToMultipliedValueConverter.cs
+- Pages/
+  - MainPage.xaml(.cs)           # Navigation hub
+  - LayoutLabPage.xaml(.cs)      # Layout demonstrations
+  - BindingLabPage.xaml(.cs)     # Binding demonstrations
+  - StylesStudioPage.xaml(.cs)   # Styles demonstrations
+  - TemplateForgePage.xaml(.cs)  # Template demonstrations
+  - TriggerClinicPage.xaml(.cs)  # Trigger demonstrations
+  - StatesArenaPage.xaml(.cs)    # VSM demonstrations
+  - ThemeSwitcherPage.xaml(.cs)  # Theming demonstrations
+- Resources/
+  - Styles/
+    - Colors.xaml           # Color palette
+    - Styles.xaml           # Default control styles
+    - LightTheme.xaml       # Light theme colors
+    - DarkTheme.xaml        # Dark theme colors
+- ViewModels/
+  - BaseViewModel.cs        # INotifyPropertyChanged base class
+  - MainPageViewModel.cs
+  - LayoutLabViewModel.cs
+  - BindingLabViewModel.cs
+  - StylesStudioViewModel.cs
+  - TemplateForgeViewModel.cs
+  - TriggerClinicViewModel.cs
+  - StatesArenaViewModel.cs
+  - ThemeSwitcherViewModel.cs
 ```
 
-## ? Key Features
+## Key Features
 
 ### Compiled Bindings (x:DataType)
 All pages use compiled bindings for:
@@ -99,7 +99,7 @@ public class BindingLabViewModel : BaseViewModel
 - No blocking code in code-behind
 - XAML-only triggers and visual states
 
-## ?? Styles Demonstrated
+## Styles Demonstrated
 
 ### Implicit Styles (no x:Key)
 Automatically apply to all controls of the target type:
@@ -126,7 +126,7 @@ Must be referenced explicitly:
 </Style>
 ```
 
-## ?? ControlTemplate Example
+## ControlTemplate Example
 
 The `CardView` control demonstrates:
 - Bindable properties (`CardTitle`, `CardFooter`, `BorderColor`)
@@ -141,7 +141,7 @@ The `CardView` control demonstrates:
 </controls:CardView>
 ```
 
-## ? Triggers
+## Triggers
 
 ### DataTrigger (Save button disabled when empty)
 ```xml
@@ -168,7 +168,7 @@ The `CardView` control demonstrates:
 </MultiDataTrigger>
 ```
 
-## ?? Theming
+## Theming
 
 ### AppThemeBinding (Automatic)
 ```xml
@@ -187,7 +187,7 @@ Application.Current.UserAppTheme = AppTheme.Dark;
 Application.Current.UserAppTheme = AppTheme.Unspecified;
 ```
 
-## ?? .NET MAUI 10 Stretch Goal
+## .NET MAUI 10 Stretch Goal
 
 ### Implicit/Global XAML Namespaces
 
@@ -212,7 +212,7 @@ This enables cleaner XAML without repetitive namespace declarations:
 
 **Note**: This feature requires opt-in and may affect existing projects. Test thoroughly before enabling.
 
-## ?? Documentation Links
+## Documentation Links
 
 - [XAML Overview](https://learn.microsoft.com/dotnet/maui/xaml/)
 - [Data Binding](https://learn.microsoft.com/dotnet/maui/fundamentals/data-binding/)
@@ -224,19 +224,19 @@ This enables cleaner XAML without repetitive namespace declarations:
 - [Visual States](https://learn.microsoft.com/dotnet/maui/user-interface/visual-states)
 - [Theming](https://learn.microsoft.com/dotnet/maui/user-interface/theming)
 
-## ??? Requirements
+## Requirements
 
 - .NET 10 SDK
 - Visual Studio 2022 17.12+ or VS Code with .NET MAUI extension
 - Android SDK (for Android deployment)
 - Xcode (for iOS deployment on macOS)
 
-## ?? Target Platforms
+## Target Platforms
 
 - Android 21+
 - iOS 15+
 
-## ?? Running the Project
+## Running the Project
 
 ```bash
 # Clone the repository
@@ -252,10 +252,10 @@ dotnet build -t:Run -f net10.0-android
 dotnet build -t:Run -f net10.0-ios
 ```
 
-## ?? License
+## License
 
 This project is for educational purposes. Feel free to use, modify, and distribute.
 
 ---
 
-**Happy Learning! ??**
+**Happy Learning!**
