@@ -17,9 +17,11 @@ bringing your UI to life.
 - Thanks to its XML-based structure, XAML naturally reflects the parent-child hierarchy of UI elements, providing a clear, visual representation 
 of the interface layout.
 
-** XAML also comes with certain limitations, which are typical of markup languages:**
+**XAML also comes with certain limitations, which are typical of markup languages:**
 - *No inline code:* Event handlers must be implemented in a seperate code-behind file.
-- *No loops for repetitive tasks:* While XAML doesn't support loops, controls like `CollectionView`. > **⚠️ Important:** In .NET MAUI 10, `ListView` is deprecated. 
+- *No loops for repetitive tasks:* While XAML doesn't support loops, controls like `CollectionView`. 
+	> **⚠️ Important:** In .NET MAUI 10, `ListView` is deprecated. 
+
 - *No conditional logic:* XAML lacks native support for conditional statements. However, you can achieve similar functionality using data binding with converters or
 - *Constructor restrictions:* XAML requires a parameterless constructor for instantiating objects. If your class lacks one, you'll need to provide a default constructor.
 - *Cannot call all methods directly:* Invoking methods from XAML is typically not supported, but certain techniques can bypass this limitation.
