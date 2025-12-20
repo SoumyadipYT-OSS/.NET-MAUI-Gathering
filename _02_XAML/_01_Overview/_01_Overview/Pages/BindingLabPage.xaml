@@ -1,0 +1,369 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<!--
+    BindingLabPage: Demonstrates data binding concepts including:
+    - Compiled bindings (x:DataType)
+    - View-to-view binding with x:Reference
+    - Binding modes (OneWay, TwoWay, OneTime)
+    - Value converters
+    - Query parameters via [QueryProperty]
+    Docs: https://learn.microsoft.com/dotnet/maui/fundamentals/data-binding/
+-->
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:_01_Overview.ViewModels"
+             x:Class="_01_Overview.Pages.BindingLabPage"
+             x:DataType="viewmodels:BindingLabViewModel"
+             Title="Binding Lab">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="15">
+
+            <Label Text="🔗 Binding Lab"
+                   Style="{StaticResource PageTitleStyle}" />
+            
+            <Label Text="Explore data binding concepts and techniques."
+                   Style="{StaticResource DescriptionStyle}"
+                   HorizontalTextAlignment="Center" />
+
+            <!-- 
+                ═══════════════════════════════════════════════════════════════
+                SECTION 1: Query Parameter Demo
+                Shows message received from navigation query parameter.
+                Docs: https://learn.microsoft.com/dotnet/maui/fundamentals/shell/navigation#pass-data
+                ═══════════════════════════════════════════════════════════════
+            -->
+            <Border Style="{StaticResource AccentCardStyle}">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="📬 Query Parameter"
+                           Style="{StaticResource SectionHeaderStyle}" />
+                    <Label Text="This message was passed via Shell navigation query parameter:"
+                           Style="{StaticResource DescriptionStyle}" />
+                    <Label Text="{Binding Message}"
+                           FontSize="16"
+                           FontAttributes="Bold"
+                           TextColor="{StaticResource Primary}" />
+                    <Label Text="[QueryProperty(nameof(Message), &quot;message&quot;)]"
+                           Style="{StaticResource CodeBlockStyle}" />
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- 
+                ═══════════════════════════════════════════════════════════════
+                SECTION 2: Two-Way Binding with Entry
+                Entry.Text is TwoWay bound to UserName property.
+                Docs: https://learn.microsoft.com/dotnet/maui/fundamentals/data-binding/binding-mode
+                ═══════════════════════════════════════════════════════════════
+            -->
+            <Border Style="{StaticResource ElevatedCardStyle}">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="Two-Way Binding"
+                           Style="{StaticResource SectionHeaderStyle}" />
+                    <Label Text="Entry uses TwoWay binding by default. Changes update the ViewModel immediately."
+                           Style="{StaticResource DescriptionStyle}" />
+                    
+                    <Entry Placeholder="Enter your name..."
+                           Text="{Binding UserName}" />
+                    
+                    <Label Text="{Binding Greeting}"
+                           FontSize="18"
+                           FontAttributes="Bold"
+                           TextColor="{StaticResource Primary}" />
+
+                    <Label Text="Mode: TwoWay (default for Entry.Text)"
+                           Style="{StaticResource CodeBlockStyle}" />
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- 
+                ═══════════════════════════════════════════════════════════════
+                SECTION 3: View-to-View Binding with x:Reference
+                One control binds directly to another control's property.
+                Docs: https://learn.microsoft.com/dotnet/maui/fundamentals/data-binding/relative-bindings
+                ═══════════════════════════════════════════════════════════════
+            -->
+            <Border Style="{StaticResource ElevatedCardStyle}">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="View-to-View Binding"
+                           Style="{StaticResource SectionHeaderStyle}" />
+                    <Label Text="Use {x:Reference} to bind one view's property to another view directly."
+                           Style="{StaticResource DescriptionStyle}" />
+                    
+                    <Slider x:Name="rotationSlider"
+                            Minimum="0"
+                            Maximum="360"
+                            Value="0" />
+                    
+                    <!-- This label's Rotation binds to the slider's Value -->
+                    <Label Text="🔄 Rotating Text"
+                           FontSize="24"
+                           HorizontalOptions="Center"
+                           Rotation="{Binding Source={x:Reference rotationSlider}, Path=Value}" />
+                    
+                    <Label Text="{Binding Source={x:Reference rotationSlider}, Path=Value, StringFormat='Rotation: {0:F0}°'}"
+                           HorizontalOptions="Center" />
+
+                    <Label Text="Rotation=&quot;{Binding Source={x:Reference rotationSlider}, Path=Value}&quot;"
+                           Style="{StaticResource CodeBlockStyle}" />
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- 
+                ═══════════════════════════════════════════════════════════════
+                SECTION 4: Slider with Value Converter
+                Uses converter to multiply slider value.
+                Docs: https://learn.microsoft.com/dotnet/maui/fundamentals/data-binding/converters
+                ═══════════════════════════════════════════════════════════════
+            -->
+            <Border Style="{StaticResource ElevatedCardStyle}">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="Value Converter"
+                           Style="{StaticResource SectionHeaderStyle}" />
+                    <Label Text="Converters transform values during binding. Here we multiply the slider value."
+                           Style="{StaticResource DescriptionStyle}" />
+                    
+                    <Slider x:Name="scaleSlider"
+                            Minimum="0"
+                            Maximum="100"
+                            Value="50" />
+                    
+                    <Grid ColumnDefinitions="*,*" ColumnSpacing="10">
+                        <VerticalStackLayout Grid.Column="0">
+                            <Label Text="Original" HorizontalOptions="Center" />
+                            <Label Text="{Binding Source={x:Reference scaleSlider}, Path=Value, StringFormat='{0:F1}'}"
+                                   FontSize="24"
+                                   HorizontalOptions="Center" />
+                        </VerticalStackLayout>
+                        
+                        <VerticalStackLayout Grid.Column="1">
+                            <Label Text="×2 (Converter)" HorizontalOptions="Center" />
+                            <Label Text="{Binding Source={x:Reference scaleSlider}, Path=Value, Converter={StaticResource DoubleMultiplier}, ConverterParameter=2, StringFormat='{0:F1}'}"
+                                   FontSize="24"
+                                   FontAttributes="Bold"
+                                   TextColor="{StaticResource Primary}"
+                                   HorizontalOptions="Center" />
+                        </VerticalStackLayout>
+                    </Grid>
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- 
+                ═══════════════════════════════════════════════════════════════
+                SECTION 5: ViewModel Binding with Commands
+                Demonstrates OneWay binding and ICommand pattern.
+                ═══════════════════════════════════════════════════════════════
+            -->
+            <Border Style="{StaticResource ElevatedCardStyle}">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="Commands &amp; Counter"
+                           Style="{StaticResource SectionHeaderStyle}" />
+                    <Label Text="Buttons bind to ICommand properties. Counter demonstrates OneWay binding."
+                           Style="{StaticResource DescriptionStyle}" />
+                    
+                    <Label Text="{Binding Counter}"
+                           FontSize="48"
+                           FontAttributes="Bold"
+                           HorizontalOptions="Center"
+                           TextColor="{StaticResource Primary}" />
+                    
+                    <HorizontalStackLayout HorizontalOptions="Center" Spacing="10">
+                        <Button Text="➖"
+                                Command="{Binding DecrementCommand}"
+                                Style="{StaticResource SecondaryButtonStyle}"
+                                WidthRequest="60" />
+                        <Button Text="➕"
+                                Command="{Binding IncrementCommand}"
+                                Style="{StaticResource PrimaryButtonStyle}"
+                                WidthRequest="60" />
+                    </HorizontalStackLayout>
+
+                    <Label Text="Note: Decrement is disabled when Counter = 0 (CanExecute)"
+                           FontSize="11"
+                           TextColor="{StaticResource Gray500}"
+                           HorizontalOptions="Center" />
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- 
+                ═══════════════════════════════════════════════════════════════
+                SECTION 6: Slider with ViewModel Binding
+                Slider bound to SliderValue property with computed properties.
+                ═══════════════════════════════════════════════════════════════
+            -->
+            <Border Style="{StaticResource ElevatedCardStyle}">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="Slider Binding"
+                           Style="{StaticResource SectionHeaderStyle}" />
+                    <Label Text="Slider is TwoWay bound to ViewModel property. Labels show computed properties."
+                           Style="{StaticResource DescriptionStyle}" />
+                    
+                    <Slider Minimum="0"
+                            Maximum="100"
+                            Value="{Binding SliderValue}" />
+                    
+                    <Grid ColumnDefinitions="*,*">
+                        <Label Grid.Column="0"
+                               Text="{Binding SliderDisplayValue}"
+                               HorizontalOptions="Center" />
+                        <Label Grid.Column="1"
+                               Text="{Binding SliderPercentage}"
+                               HorizontalOptions="Center"
+                               FontAttributes="Bold"
+                               TextColor="{StaticResource Primary}" />
+                    </Grid>
+
+                    <!-- Progress bar also bound to same property -->
+                    <ProgressBar Progress="{Binding SliderValue, Converter={StaticResource DoubleMultiplier}, ConverterParameter=0.01}"
+                                 ProgressColor="{StaticResource Primary}" />
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- 
+                ═══════════════════════════════════════════════════════════════
+                SECTION 7: CheckBox and Switch Binding
+                Boolean bindings with status display.
+                ═══════════════════════════════════════════════════════════════
+            -->
+            <Border Style="{StaticResource ElevatedCardStyle}">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="Boolean Binding"
+                           Style="{StaticResource SectionHeaderStyle}" />
+                    
+                    <HorizontalStackLayout Spacing="10">
+                        <CheckBox IsChecked="{Binding IsChecked}" />
+                        <Label Text="{Binding CheckboxStatus}"
+                               VerticalOptions="Center" />
+                    </HorizontalStackLayout>
+
+                    <Label Text="IsVisible bound with InverseBoolConverter:"
+                           FontSize="12"
+                           TextColor="{StaticResource Gray500}" />
+                    
+                    <Label Text="✅ Checked! This label is visible when checked."
+                           TextColor="{StaticResource Primary}"
+                           FontAttributes="Bold"
+                           IsVisible="{Binding IsChecked}" />
+                    
+                    <Label Text="❌ Unchecked. This label is visible when NOT checked."
+                           TextColor="{StaticResource Gray500}"
+                           IsVisible="{Binding IsChecked, Converter={StaticResource InverseBoolConverter}}" />
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- 
+                ═══════════════════════════════════════════════════════════════
+                SECTION 8: DatePicker Binding
+                Date binding with formatted display.
+                ═══════════════════════════════════════════════════════════════
+            -->
+            <Border Style="{StaticResource ElevatedCardStyle}">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="Date Binding"
+                           Style="{StaticResource SectionHeaderStyle}" />
+                    
+                    <DatePicker Date="{Binding SelectedDate}" />
+                    
+                    <Label Text="{Binding FormattedDate}"
+                           FontSize="16"
+                           FontAttributes="Bold" />
+                    
+                    <Label Text="{Binding DaysUntilDate}"
+                           TextColor="{StaticResource Primary}" />
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- 
+                ═══════════════════════════════════════════════════════════════
+                SECTION 9: Compiled Bindings Note
+                Information about x:DataType.
+                ═══════════════════════════════════════════════════════════════
+            -->
+            <Border Style="{StaticResource AccentCardStyle}">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="💡 Compiled Bindings"
+                           Style="{StaticResource SectionHeaderStyle}" />
+                    <Label Text="This page uses compiled bindings via x:DataType at the page level. This provides:"
+                           Style="{StaticResource DescriptionStyle}" />
+                    <Label Text="• Compile-time validation of binding paths" />
+                    <Label Text="• IntelliSense support in XAML" />
+                    <Label Text="• Better performance (no reflection at runtime)" />
+                    <Label Text="• Binding errors caught at build time" />
+                    
+                    <Label Text="x:DataType=&quot;viewmodels:BindingLabViewModel&quot;"
+                           Style="{StaticResource CodeBlockStyle}" />
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- 
+                ═══════════════════════════════════════════════════════════════
+                NEW SECTION: FallbackValue and TargetNullValue
+                Handles null values and binding failures gracefully.
+                ═══════════════════════════════════════════════════════════════
+            -->
+            <Border Style="{StaticResource ElevatedCardStyle}">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="Null Handling"
+                           Style="{StaticResource SectionHeaderStyle}" />
+                    <Label Text="FallbackValue handles binding failures. TargetNullValue handles null source values."
+                           Style="{StaticResource DescriptionStyle}" />
+                    
+                    <Label Text="{Binding NullableProperty, 
+                      TargetNullValue='(No value set)', 
+                      FallbackValue='(Binding failed)'}"
+                           FontSize="16"
+                           TextColor="{StaticResource Gray600}" />
+                    
+                    <Label Text="TargetNullValue=&quot;(No value set)&quot;"
+                           Style="{StaticResource CodeBlockStyle}" />
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- 
+                ═══════════════════════════════════════════════════════════════
+                NEW SECTION: OneTime Binding
+                Binding that only reads the initial value.
+                ═══════════════════════════════════════════════════════════════
+            -->
+            <Border Style="{StaticResource ElevatedCardStyle}">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="OneTime Binding"
+                           Style="{StaticResource SectionHeaderStyle}" />
+                    <Label Text="OneTime binding reads the value once and never updates. Good for static data."
+                           Style="{StaticResource DescriptionStyle}" />
+                    
+                    <Label Text="{Binding InitialTimestamp, Mode=OneTime}"
+                           FontSize="16"
+                           FontAttributes="Bold" />
+                    
+                    <Label Text="Mode=OneTime (captured at page load)"
+                           Style="{StaticResource CodeBlockStyle}" />
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- 
+                ═══════════════════════════════════════════════════════════════
+                NEW SECTION: RelativeSource Self Binding
+                Bind to properties of the same element.
+                ═══════════════════════════════════════════════════════════════
+            -->
+            <Border Style="{StaticResource ElevatedCardStyle}">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="RelativeSource Self"
+                           Style="{StaticResource SectionHeaderStyle}" />
+                    <Label Text="Bind to the same element's properties using RelativeSource Self."
+                           Style="{StaticResource DescriptionStyle}" />
+                    
+                    <BoxView x:Name="colorBox"
+                             HeightRequest="50"
+                             WidthRequest="{Binding Source={RelativeSource Self}, Path=HeightRequest}"
+                             BackgroundColor="{StaticResource Primary}"
+                             HorizontalOptions="Center" />
+                    
+                    <Label Text="WidthRequest=&quot;{Binding Source={RelativeSource Self}, Path=HeightRequest}&quot;"
+                           Style="{StaticResource CodeBlockStyle}" />
+                </VerticalStackLayout>
+            </Border>
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>

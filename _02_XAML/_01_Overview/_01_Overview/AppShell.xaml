@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+    AppShell.xaml: Shell navigation for XAML Overview Learning Project.
+    Defines routes for all modules using both ShellContent and registered routes.
+    Docs: https://learn.microsoft.com/dotnet/maui/fundamentals/shell/navigation
+-->
+<Shell
+    x:Class="_01_Overview.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:pages="clr-namespace:_01_Overview.Pages"
+    Title="XAML Overview"
+    Shell.FlyoutBehavior="Flyout"
+    FlyoutBackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource OffBlack}}">
+
+    <!-- Flyout Header -->
+    <Shell.FlyoutHeader>
+        <Grid HeightRequest="150"
+              BackgroundColor="{StaticResource Primary}"
+              Padding="20">
+            <VerticalStackLayout VerticalOptions="Center">
+                <Label Text="XAML Fundamentals"
+                       TextColor="White"
+                       FontSize="24"
+                       FontAttributes="Bold" />
+                <Label Text=".NET MAUI Learning Project"
+                       TextColor="{StaticResource Secondary}"
+                       FontSize="14" />
+            </VerticalStackLayout>
+        </Grid>
+    </Shell.FlyoutHeader>
+
+    <!-- 
+        ═══════════════════════════════════════════════════════════════
+        SHELL CONTENT ITEMS
+        Each module is registered as a route for navigation.
+        Use GoToAsync("RouteName") to navigate programmatically.
+        Docs: https://learn.microsoft.com/dotnet/maui/fundamentals/shell/navigation
+        ═══════════════════════════════════════════════════════════════
+    -->
+
+    <!-- Home/Main Page -->
+    <FlyoutItem Title="Home" Icon="{OnPlatform Android=home, iOS=house}">
+        <ShellContent
+            Title="Home"
+            ContentTemplate="{DataTemplate pages:MainPage}"
+            Route="MainPage" />
+    </FlyoutItem>
+
+    <!-- Layout Lab Module -->
+    <FlyoutItem Title="Layout Lab" Icon="{OnPlatform Android=grid_view, iOS=rectangle.grid.2x2}">
+        <ShellContent
+            Title="Layout Lab"
+            ContentTemplate="{DataTemplate pages:LayoutLabPage}"
+            Route="LayoutLab" />
+    </FlyoutItem>
+
+    <!-- Binding Lab Module -->
+    <FlyoutItem Title="Binding Lab" Icon="{OnPlatform Android=link, iOS=link}">
+        <ShellContent
+            Title="Binding Lab"
+            ContentTemplate="{DataTemplate pages:BindingLabPage}"
+            Route="BindingLab" />
+    </FlyoutItem>
+
+    <!-- Styles Studio Module -->
+    <FlyoutItem Title="Styles Studio" Icon="{OnPlatform Android=palette, iOS=paintbrush}">
+        <ShellContent
+            Title="Styles Studio"
+            ContentTemplate="{DataTemplate pages:StylesStudioPage}"
+            Route="StylesStudio" />
+    </FlyoutItem>
+
+    <!-- Template Forge Module -->
+    <FlyoutItem Title="Template Forge" Icon="{OnPlatform Android=widgets, iOS=square.stack}">
+        <ShellContent
+            Title="Template Forge"
+            ContentTemplate="{DataTemplate pages:TemplateForgePage}"
+            Route="TemplateForge" />
+    </FlyoutItem>
+
+    <!-- Trigger Clinic Module -->
+    <FlyoutItem Title="Trigger Clinic" Icon="{OnPlatform Android=bolt, iOS=bolt}">
+        <ShellContent
+            Title="Trigger Clinic"
+            ContentTemplate="{DataTemplate pages:TriggerClinicPage}"
+            Route="TriggerClinic" />
+    </FlyoutItem>
+
+    <!-- States Arena Module -->
+    <FlyoutItem Title="States Arena" Icon="{OnPlatform Android=toggle_on, iOS=switch.2}">
+        <ShellContent
+            Title="States Arena"
+            ContentTemplate="{DataTemplate pages:StatesArenaPage}"
+            Route="StatesArena" />
+    </FlyoutItem>
+
+    <!-- Theme Switcher Module -->
+    <FlyoutItem Title="Theme Switcher" Icon="{OnPlatform Android=dark_mode, iOS=moon}">
+        <ShellContent
+            Title="Theme Switcher"
+            ContentTemplate="{DataTemplate pages:ThemeSwitcherPage}"
+            Route="ThemeSwitcher" />
+    </FlyoutItem>
+
+</Shell>

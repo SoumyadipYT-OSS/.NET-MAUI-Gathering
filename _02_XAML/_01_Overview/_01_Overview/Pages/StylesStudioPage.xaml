@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+    StylesStudioPage: Demonstrates XAML styles including:
+    - Implicit styles (no x:Key)
+    - Explicit styles (with x:Key)
+    - Style inheritance (BasedOn)
+    - Resource scope (App, Page, Control)
+    - StaticResource vs DynamicResource
+    Docs: https://learn.microsoft.com/dotnet/maui/user-interface/styles/xaml
+-->
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:_01_Overview.ViewModels"
+             x:Class="_01_Overview.Pages.StylesStudioPage"
+             x:DataType="viewmodels:StylesStudioViewModel"
+             Title="Styles Studio">
+
+    <!-- 
+        Page-level resources demonstrate style scoping.
+        These styles only apply within this page.
+        Docs: https://learn.microsoft.com/dotnet/maui/fundamentals/resource-dictionaries
+    -->
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            
+            <!-- 
+                ???????????????????????????????????????????????????????????????
+                IMPLICIT STYLE (no x:Key)
+                Automatically applies to ALL BoxView elements in this page.
+                ???????????????????????????????????????????????????????????????
+            -->
+            <Style TargetType="BoxView">
+                <Setter Property="CornerRadius" Value="8" />
+                <Setter Property="HeightRequest" Value="50" />
+            </Style>
+
+            <!-- 
+                ???????????????????????????????????????????????????????????????
+                EXPLICIT STYLES (with x:Key)
+                Must be explicitly referenced via Style="{StaticResource KeyName}"
+                ???????????????????????????????????????????????????????????????
+            -->
+            <Style x:Key="PageLevelLabelStyle" TargetType="Label">
+                <Setter Property="FontSize" Value="16" />
+                <Setter Property="TextColor" Value="{StaticResource Magenta}" />
+                <Setter Property="FontAttributes" Value="Italic" />
+            </Style>
+
+            <Style x:Key="SuccessLabelStyle" TargetType="Label">
+                <Setter Property="TextColor" Value="#28A745" />
+                <Setter Property="FontAttributes" Value="Bold" />
+            </Style>
+
+            <Style x:Key="WarningLabelStyle" TargetType="Label">
+                <Setter Property="TextColor" Value="#FFC107" />
+                <Setter Property="FontAttributes" Value="Bold" />
+            </Style>
+
+            <Style x:Key="ErrorLabelStyle" TargetType="Label">
+                <Setter Property="TextColor" Value="#DC3545" />
+                <Setter Property="FontAttributes" Value="Bold" />
+            </Style>
+
+            <!-- 
+                ???????????????????????????????????????????????????????????????
+                STYLE INHERITANCE (BasedOn)
+                Derived styles extend base styles.
+                ???????????????????????????????????????????????????????????????
+            -->
+            <Style x:Key="BaseButtonStyle" TargetType="Button">
+                <Setter Property="FontSize" Value="14" />
+                <Setter Property="CornerRadius" Value="8" />
+                <Setter Property="Padding" Value="15,10" />
+                <Setter Property="Margin" Value="5" />
+            </Style>
+
+            <!-- Inherits from BaseButtonStyle and adds/overrides properties -->
+            <Style x:Key="PrimaryInheritedButtonStyle" TargetType="Button" BasedOn="{StaticResource BaseButtonStyle}">
+                <Setter Property="BackgroundColor" Value="{StaticResource Primary}" />
+                <Setter Property="TextColor" Value="White" />
+                <Setter Property="FontAttributes" Value="Bold" />
+            </Style>
+
+            <Style x:Key="OutlineInheritedButtonStyle" TargetType="Button" BasedOn="{StaticResource BaseButtonStyle}">
+                <Setter Property="BackgroundColor" Value="Transparent" />
+                <Setter Property="TextColor" Value="{StaticResource Primary}" />
+                <Setter Property="BorderColor" Value="{StaticResource Primary}" />
+                <Setter Property="BorderWidth" Value="2" />
+            </Style>
+
+            <Style x:Key="DangerInheritedButtonStyle" TargetType="Button" BasedOn="{StaticResource BaseButtonStyle}">
+                <Setter Property="BackgroundColor" Value="#DC3545" />
+                <Setter Property="TextColor" Value="White" />
+            </Style>
+
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="15">
+
+            <Label Text="?? Styles Studio"
+                   Style="{StaticResource PageTitleStyle}" />
+            
+            <Label Text="Learn about XAML styles, inheritance, and resource scoping."
+                   Style="{StaticResource DescriptionStyle}"
+                   HorizontalTextAlignment="Center" />
+
+            <!-- 
+                ???????????????????????????????????????????????????????????????
+                SECTION 1: Implicit vs Explicit Styles
+                ???????????????????????????????????????????????????????????????
+            -->
+            <Border Style="{StaticResource ElevatedCardStyle}">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="Implicit vs Explicit Styles"
+                           Style="{StaticResource SectionHeaderStyle}" />
+                    
+                    <Label Text="{Binding StyleDescription}"
+                           Style="{StaticResource DescriptionStyle}" />
+
+                    <!-- Implicit style is applied automatically to all BoxViews -->
+                    <Label Text="These BoxViews get IMPLICIT style (no x:Key):"
+                           FontSize="12"
+                           TextColor="{StaticResource Gray500}" />
+                    
+                    <HorizontalStackLayout Spacing="10">
+                        <BoxView Color="{StaticResource Primary}" WidthRequest="60" />
+                        <BoxView Color="{StaticResource Secondary}" WidthRequest="60" />
+                        <BoxView Color="{StaticResource Tertiary}" WidthRequest="60" />
+                    </HorizontalStackLayout>
+
+                    <Label Text="Style TargetType=&quot;BoxView&quot; (no x:Key)"
+                           Style="{StaticResource CodeBlockStyle}" />
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- 
+                ???????????????????????????????????????????????????????????????
+                SECTION 2: Explicit Styles Demo
+                ???????????????????????????????????????????????????????????????
+            -->
+            <Border Style="{StaticResource ElevatedCardStyle}">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="Explicit Styles (with x:Key)"
+                           Style="{StaticResource SectionHeaderStyle}" />
+                    
+                    <Label Text="Explicit styles must be referenced via Style property:"
+                           Style="{StaticResource DescriptionStyle}" />
+
+                    <!-- Default label (no explicit style) -->
+                    <Label Text="Default Label (no style applied)" />
+
+                    <!-- Labels with explicit styles -->
+                    <Label Text="Page-Level Style"
+                           Style="{StaticResource PageLevelLabelStyle}" />
+                    
+                    <Label Text="? Success Style"
+                           Style="{StaticResource SuccessLabelStyle}" />
+                    
+                    <Label Text="?? Warning Style"
+                           Style="{StaticResource WarningLabelStyle}" />
+                    
+                    <Label Text="? Error Style"
+                           Style="{StaticResource ErrorLabelStyle}" />
+
+                    <Label Text="Style=&quot;{StaticResource SuccessLabelStyle}&quot;"
+                           Style="{StaticResource CodeBlockStyle}" />
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- 
+                ???????????????????????????????????????????????????????????????
+                SECTION 3: Style Inheritance (BasedOn)
+                ???????????????????????????????????????????????????????????????
+            -->
+            <Border Style="{StaticResource ElevatedCardStyle}">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="Style Inheritance (BasedOn)"
+                           Style="{StaticResource SectionHeaderStyle}" />
+                    
+                    <Label Text="Derived styles extend base styles using BasedOn. Child styles inherit all setters and can override them."
+                           Style="{StaticResource DescriptionStyle}" />
+
+                    <Label Text="Base style defines: FontSize, CornerRadius, Padding, Margin"
+                           FontSize="12"
+                           TextColor="{StaticResource Gray500}" />
+
+                    <FlexLayout Wrap="Wrap" JustifyContent="Start">
+                        <Button Text="Primary"
+                                Style="{StaticResource PrimaryInheritedButtonStyle}" />
+                        
+                        <Button Text="Outline"
+                                Style="{StaticResource OutlineInheritedButtonStyle}" />
+                        
+                        <Button Text="Danger"
+                                Style="{StaticResource DangerInheritedButtonStyle}" />
+                    </FlexLayout>
+
+                    <Label Text="BasedOn=&quot;{StaticResource BaseButtonStyle}&quot;"
+                           Style="{StaticResource CodeBlockStyle}" />
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- 
+                ???????????????????????????????????????????????????????????????
+                SECTION 4: Resource Scope
+                ???????????????????????????????????????????????????????????????
+            -->
+            <Border Style="{StaticResource ElevatedCardStyle}">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="Resource Scope"
+                           Style="{StaticResource SectionHeaderStyle}" />
+                    
+                    <Label Text="Resources can be defined at different levels with different scope:"
+                           Style="{StaticResource DescriptionStyle}" />
+
+                    <Grid RowDefinitions="Auto,Auto,Auto" ColumnDefinitions="Auto,*" RowSpacing="8" ColumnSpacing="15">
+                        <Label Grid.Row="0" Grid.Column="0" Text="?? App.xaml" FontAttributes="Bold" />
+                        <Label Grid.Row="0" Grid.Column="1" Text="Available everywhere in the application" />
+                        
+                        <Label Grid.Row="1" Grid.Column="0" Text="?? Page.Resources" FontAttributes="Bold" />
+                        <Label Grid.Row="1" Grid.Column="1" Text="Available only within that page" />
+                        
+                        <Label Grid.Row="2" Grid.Column="0" Text="?? Control.Resources" FontAttributes="Bold" />
+                        <Label Grid.Row="2" Grid.Column="1" Text="Available only within that control" />
+                    </Grid>
+
+                    <!-- Control-level resources example -->
+                    <Border Padding="10" BackgroundColor="{StaticResource Gray100}" StrokeShape="RoundRectangle 8">
+                        <Border.Resources>
+                            <!-- This style only applies inside this Border -->
+                            <Style x:Key="LocalLabelStyle" TargetType="Label">
+                                <Setter Property="TextColor" Value="{StaticResource Tertiary}" />
+                                <Setter Property="FontAttributes" Value="Bold" />
+                            </Style>
+                        </Border.Resources>
+                        
+                        <VerticalStackLayout Spacing="5">
+                            <Label Text="This Border has its own Resources"
+                                   Style="{StaticResource LocalLabelStyle}" />
+                            <Label Text="LocalLabelStyle only exists here"
+                                   Style="{StaticResource LocalLabelStyle}" />
+                        </VerticalStackLayout>
+                    </Border>
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- 
+                ???????????????????????????????????????????????????????????????
+                SECTION 5: StaticResource vs DynamicResource
+                ???????????????????????????????????????????????????????????????
+            -->
+            <Border Style="{StaticResource ElevatedCardStyle}">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="StaticResource vs DynamicResource"
+                           Style="{StaticResource SectionHeaderStyle}" />
+                    
+                    <Label Text="Understanding when to use each type of resource reference:"
+                           Style="{StaticResource DescriptionStyle}" />
+
+                    <Grid RowDefinitions="Auto,Auto,Auto,Auto" ColumnDefinitions="Auto,*" RowSpacing="8" ColumnSpacing="15">
+                        <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" 
+                               Text="StaticResource" 
+                               FontAttributes="Bold" 
+                               TextColor="{StaticResource Primary}" />
+                        <Label Grid.Row="1" Grid.Column="0" Text="??" />
+                        <Label Grid.Row="1" Grid.Column="1" Text="Resolved once at load time" />
+                        
+                        <Label Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" 
+                               Text="DynamicResource" 
+                               FontAttributes="Bold" 
+                               TextColor="{StaticResource Tertiary}" />
+                        <Label Grid.Row="3" Grid.Column="0" Text="??" />
+                        <Label Grid.Row="3" Grid.Column="1" Text="Updates when resource changes at runtime (e.g., theming)" />
+                    </Grid>
+
+                    <Label Text="Use DynamicResource for theme colors that may change at runtime."
+                           FontSize="12"
+                           FontAttributes="Italic"
+                           TextColor="{StaticResource Gray500}" />
+
+                    <Label Text="TextColor=&quot;{DynamicResource ThemePrimary}&quot;"
+                           Style="{StaticResource CodeBlockStyle}" />
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- 
+                ???????????????????????????????????????????????????????????????
+                SECTION 6: App-Level Styles Demo
+                ???????????????????????????????????????????????????????????????
+            -->
+            <Border Style="{StaticResource ElevatedCardStyle}">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="App-Level Styles"
+                           Style="{StaticResource SectionHeaderStyle}" />
+                    
+                    <Label Text="These styles are defined in App.xaml and available app-wide:"
+                           Style="{StaticResource DescriptionStyle}" />
+
+                    <Label Text="PageTitleStyle (from App.xaml)"
+                           Style="{StaticResource PageTitleStyle}" />
+                    
+                    <Label Text="SectionHeaderStyle (from App.xaml)"
+                           Style="{StaticResource SectionHeaderStyle}" />
+                    
+                    <Label Text="DescriptionStyle (from App.xaml)"
+                           Style="{StaticResource DescriptionStyle}" />
+
+                    <Button Text="PrimaryButtonStyle"
+                            Style="{StaticResource PrimaryButtonStyle}" />
+                    
+                    <Button Text="SecondaryButtonStyle"
+                            Style="{StaticResource SecondaryButtonStyle}" />
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- 
+                ???????????????????????????????????????????????????????????????
+                SECTION 7: Style Tips
+                ???????????????????????????????????????????????????????????????
+            -->
+            <Border Style="{StaticResource AccentCardStyle}">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="?? Style Best Practices"
+                           Style="{StaticResource SectionHeaderStyle}" />
+                    
+                    <Label Text="• Use implicit styles for consistent baseline styling" />
+                    <Label Text="• Use explicit styles for variations (success, warning, error)" />
+                    <Label Text="• Use BasedOn for style inheritance to reduce duplication" />
+                    <Label Text="• Place common styles in App.xaml for reuse" />
+                    <Label Text="• Use DynamicResource for theme-aware colors" />
+                    <Label Text="• Group related styles in separate ResourceDictionary files" />
+                </VerticalStackLayout>
+            </Border>
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>

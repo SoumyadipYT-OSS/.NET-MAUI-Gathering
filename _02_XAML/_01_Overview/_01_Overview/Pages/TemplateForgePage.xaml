@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+    TemplateForgePage: Demonstrates ControlTemplate concepts including:
+    - Custom ContentView with bindable properties
+    - ControlTemplate with TemplateBinding
+    - Applying templates via styles
+    - ContentPresenter usage
+    Docs: https://learn.microsoft.com/dotnet/maui/fundamentals/controltemplate
+-->
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:_01_Overview.ViewModels"
+             xmlns:controls="clr-namespace:_01_Overview.Controls"
+             x:Class="_01_Overview.Pages.TemplateForgePage"
+             x:DataType="viewmodels:TemplateForgeViewModel"
+             Title="Template Forge">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            
+            <!-- 
+                ???????????????????????????????????????????????????????????????
+                CUSTOM CONTROLTEMPLATE
+                This template can be applied to CardView controls.
+                Uses TemplateBinding to bind to control properties.
+                ???????????????????????????????????????????????????????????????
+            -->
+            <ControlTemplate x:Key="RoundedCardTemplate">
+                <Border Stroke="{TemplateBinding BorderColor}"
+                        StrokeThickness="3"
+                        StrokeShape="RoundRectangle 20"
+                        BackgroundColor="{TemplateBinding CardBackgroundColor}"
+                        Padding="20">
+                    <Border.Shadow>
+                        <Shadow Brush="{StaticResource Gray500Brush}"
+                                Offset="6,6"
+                                Radius="12"
+                                Opacity="0.4" />
+                    </Border.Shadow>
+                    
+                    <Grid RowDefinitions="Auto,Auto,*,Auto" RowSpacing="10">
+                        <!-- Decorative line -->
+                        <BoxView Grid.Row="0"
+                                 HeightRequest="4"
+                                 Color="{TemplateBinding BorderColor}"
+                                 CornerRadius="2" />
+                        
+                        <!-- Title with icon -->
+                        <HorizontalStackLayout Grid.Row="1" Spacing="10">
+                            <Label Text="??" FontSize="24" />
+                            <Label Text="{TemplateBinding CardTitle}"
+                                   FontSize="22"
+                                   FontAttributes="Bold"
+                                   TextColor="{TemplateBinding BorderColor}"
+                                   VerticalOptions="Center" />
+                        </HorizontalStackLayout>
+                        
+                        <!-- Content goes here via ContentPresenter -->
+                        <ContentPresenter Grid.Row="2" />
+                        
+                        <!-- Footer -->
+                        <VerticalStackLayout Grid.Row="3" 
+                                             IsVisible="{TemplateBinding HasFooter}"
+                                             Spacing="5">
+                            <BoxView HeightRequest="1" Color="{StaticResource Gray300}" />
+                            <Label Text="{TemplateBinding CardFooter}"
+                                   FontSize="12"
+                                   TextColor="{StaticResource Gray500}"
+                                   FontAttributes="Italic" />
+                        </VerticalStackLayout>
+                    </Grid>
+                </Border>
+            </ControlTemplate>
+
+            <!-- Minimal template example -->
+            <ControlTemplate x:Key="MinimalCardTemplate">
+                <Border Stroke="{TemplateBinding BorderColor}"
+                        StrokeThickness="1"
+                        StrokeShape="RoundRectangle 4"
+                        BackgroundColor="{TemplateBinding CardBackgroundColor}"
+                        Padding="12">
+                    <VerticalStackLayout Spacing="8">
+                        <Label Text="{TemplateBinding CardTitle}"
+                               FontSize="14"
+                               FontAttributes="Bold"
+                               TextColor="{TemplateBinding BorderColor}" />
+                        <ContentPresenter />
+                    </VerticalStackLayout>
+                </Border>
+            </ControlTemplate>
+
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="15">
+
+            <Label Text="?? Template Forge"
+                   Style="{StaticResource PageTitleStyle}" />
+            
+            <Label Text="Learn about ControlTemplates and custom controls."
+                   Style="{StaticResource DescriptionStyle}"
+                   HorizontalTextAlignment="Center" />
+
+            <!-- 
+                ???????????????????????????????????????????????????????????????
+                SECTION 1: Custom CardView Control
+                ???????????????????????????????????????????????????????????????
+            -->
+            <Border Style="{StaticResource ElevatedCardStyle}">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="Custom CardView Control"
+                           Style="{StaticResource SectionHeaderStyle}" />
+                    <Label Text="CardView is a custom ContentView with bindable properties (CardTitle, CardFooter, BorderColor)."
+                           Style="{StaticResource DescriptionStyle}" />
+                    
+                    <!-- CardView with default template -->
+                    <controls:CardView CardTitle="{Binding CardTitle}"
+                                       CardFooter="{Binding CardFooter}"
+                                       BorderColor="{Binding CardBorderColor}"
+                                       CardBackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Gray900}}">
+                        <Label Text="{Binding CardContent}"
+                               LineBreakMode="WordWrap" />
+                    </controls:CardView>
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- 
+                ???????????????????????????????????????????????????????????????
+                SECTION 2: Interactive Controls
+                ???????????????????????????????????????????????????????????????
+            -->
+            <Border Style="{StaticResource ElevatedCardStyle}">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="Control Properties"
+                           Style="{StaticResource SectionHeaderStyle}" />
+                    <Label Text="Modify the CardView properties to see changes:"
+                           Style="{StaticResource DescriptionStyle}" />
+                    
+                    <Entry Placeholder="Card Title"
+                           Text="{Binding CardTitle}" />
+                    
+                    <Entry Placeholder="Card Footer"
+                           Text="{Binding CardFooter}" />
+
+                    <Label Text="Border Color:" />
+                    <HorizontalStackLayout Spacing="10">
+                        <Button Text="Purple"
+                                Command="{Binding ChangeBorderColorCommand}"
+                                CommandParameter="Purple"
+                                BackgroundColor="Purple"
+                                TextColor="White"
+                                WidthRequest="70" />
+                        <Button Text="Blue"
+                                Command="{Binding ChangeBorderColorCommand}"
+                                CommandParameter="Blue"
+                                BackgroundColor="Blue"
+                                TextColor="White"
+                                WidthRequest="70" />
+                        <Button Text="Green"
+                                Command="{Binding ChangeBorderColorCommand}"
+                                CommandParameter="Green"
+                                BackgroundColor="Green"
+                                TextColor="White"
+                                WidthRequest="70" />
+                        <Button Text="Orange"
+                                Command="{Binding ChangeBorderColorCommand}"
+                                CommandParameter="Orange"
+                                BackgroundColor="Orange"
+                                TextColor="White"
+                                WidthRequest="70" />
+                    </HorizontalStackLayout>
+
+                    <Button Text="{Binding ShowFooter, StringFormat='Toggle Footer (Currently: {0}'}"
+                            Command="{Binding ToggleFooterCommand}"
+                            Style="{StaticResource SecondaryButtonStyle}" />
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- 
+                ???????????????????????????????????????????????????????????????
+                SECTION 3: Different Templates
+                ???????????????????????????????????????????????????????????????
+            -->
+            <Border Style="{StaticResource ElevatedCardStyle}">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="Custom ControlTemplates"
+                           Style="{StaticResource SectionHeaderStyle}" />
+                    <Label Text="Same CardView control with different ControlTemplate applied:"
+                           Style="{StaticResource DescriptionStyle}" />
+
+                    <!-- CardView with RoundedCardTemplate -->
+                    <controls:CardView CardTitle="Rounded Template"
+                                       CardFooter="Using RoundedCardTemplate"
+                                       BorderColor="{StaticResource Primary}"
+                                       ControlTemplate="{StaticResource RoundedCardTemplate}"
+                                       CardBackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Gray900}}">
+                        <Label Text="This CardView uses a custom ControlTemplate with rounded corners, shadow, and decorative elements."
+                               LineBreakMode="WordWrap" />
+                    </controls:CardView>
+
+                    <!-- CardView with MinimalCardTemplate -->
+                    <controls:CardView CardTitle="Minimal Template"
+                                       BorderColor="{StaticResource Tertiary}"
+                                       ControlTemplate="{StaticResource MinimalCardTemplate}"
+                                       CardBackgroundColor="{AppThemeBinding Light={StaticResource Gray100}, Dark={StaticResource Gray900}}">
+                        <Label Text="A minimal template with less visual elements."
+                               LineBreakMode="WordWrap" />
+                    </controls:CardView>
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- 
+                ???????????????????????????????????????????????????????????????
+                SECTION 4: Template via Style
+                ???????????????????????????????????????????????????????????????
+            -->
+            <Border Style="{StaticResource ElevatedCardStyle}">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="Template via Style"
+                           Style="{StaticResource SectionHeaderStyle}" />
+                    <Label Text="ControlTemplates can be applied via Style (defined in App.xaml):"
+                           Style="{StaticResource DescriptionStyle}" />
+
+                    <!-- CardView using StyledCardView style from App.xaml -->
+                    <controls:CardView CardTitle="Styled CardView"
+                                       CardFooter="Template applied via Style"
+                                       Style="{StaticResource StyledCardView}">
+                        <VerticalStackLayout Spacing="5">
+                            <Label Text="This CardView uses Style='{StaticResource StyledCardView}'" />
+                            <Label Text="The style sets both ControlTemplate and default property values." 
+                                   TextColor="{StaticResource Gray500}"
+                                   FontSize="12" />
+                        </VerticalStackLayout>
+                    </controls:CardView>
+
+                    <Label Text="Style x:Key=&quot;StyledCardView&quot; sets ControlTemplate property"
+                           Style="{StaticResource CodeBlockStyle}" />
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- 
+                ???????????????????????????????????????????????????????????????
+                SECTION 5: TemplateBinding Explained
+                ???????????????????????????????????????????????????????????????
+            -->
+            <Border Style="{StaticResource ElevatedCardStyle}">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="TemplateBinding"
+                           Style="{StaticResource SectionHeaderStyle}" />
+                    <Label Text="TemplateBinding connects template elements to control's bindable properties:"
+                           Style="{StaticResource DescriptionStyle}" />
+
+                    <Label Text="Inside ControlTemplate:"
+                           FontAttributes="Bold" />
+                    <Label Text="Text=&quot;{TemplateBinding CardTitle}&quot;"
+                           Style="{StaticResource CodeBlockStyle}" />
+                    
+                    <Label Text="Stroke=&quot;{TemplateBinding BorderColor}&quot;"
+                           Style="{StaticResource CodeBlockStyle}" />
+
+                    <Label Text="Unlike regular Binding, TemplateBinding:"
+                           FontAttributes="Bold"
+                           Margin="0,10,0,0" />
+                    <Label Text="• Works inside ControlTemplate definitions" />
+                    <Label Text="• Binds to the templated parent's properties" />
+                    <Label Text="• Is compile-time checked (safer)" />
+                    <Label Text="• Is one-way only (template ? control)" />
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- 
+                ???????????????????????????????????????????????????????????????
+                SECTION 6: ContentPresenter
+                ???????????????????????????????????????????????????????????????
+            -->
+            <Border Style="{StaticResource AccentCardStyle}">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="?? ContentPresenter"
+                           Style="{StaticResource SectionHeaderStyle}" />
+                    <Label Text="ContentPresenter is where the control's Content property gets rendered within the template."
+                           Style="{StaticResource DescriptionStyle}" />
+                    
+                    <Label Text="&lt;ContentPresenter Grid.Row=&quot;1&quot; /&gt;"
+                           Style="{StaticResource CodeBlockStyle}" />
+                    
+                    <Label Text="Without ContentPresenter, any content placed inside the control would not be visible."
+                           FontSize="12"
+                           FontAttributes="Italic"
+                           TextColor="{StaticResource Gray500}" />
+                </VerticalStackLayout>
+            </Border>
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>

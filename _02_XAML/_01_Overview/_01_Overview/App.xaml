@@ -1,0 +1,260 @@
+﻿<?xml version = "1.0" encoding = "UTF-8" ?>
+<!--
+    App.xaml: Application-level resources for XAML Overview Learning Project.
+    Contains converters, styles (implicit & explicit), and theme resources.
+    Docs: https://learn.microsoft.com/dotnet/maui/fundamentals/resource-dictionaries
+-->
+<Application xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:_01_Overview"
+             xmlns:converters="clr-namespace:_01_Overview.Converters"
+             xmlns:controls="clr-namespace:_01_Overview.Controls"
+             x:Class="_01_Overview.App">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Resources/Styles/Colors.xaml" />
+                <ResourceDictionary Source="Resources/Styles/Styles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <!-- 
+                ═══════════════════════════════════════════════════════════════
+                CONVERTERS
+                Value converters transform data during binding.
+                Docs: https://learn.microsoft.com/dotnet/maui/fundamentals/data-binding/converters
+                ═══════════════════════════════════════════════════════════════
+            -->
+            <converters:InverseBoolConverter x:Key="InverseBoolConverter" />
+            <converters:StringToBoolConverter x:Key="StringToBoolConverter" />
+            <converters:DoubleToMultipliedValueConverter x:Key="DoubleMultiplier" />
+
+            <!-- 
+                ═══════════════════════════════════════════════════════════════
+                CUSTOM THEME COLORS (using AppThemeBinding)
+                These switch automatically based on system Light/Dark theme.
+                Docs: https://learn.microsoft.com/dotnet/maui/user-interface/theming
+                ═══════════════════════════════════════════════════════════════
+            -->
+            <Color x:Key="PageBackgroundColor">#FFFFFF</Color>
+            <Color x:Key="CardBackgroundColor">#F8F8F8</Color>
+            <Color x:Key="TextPrimaryColor">#1F1F1F</Color>
+            <Color x:Key="TextSecondaryColor">#6B6B6B</Color>
+            <Color x:Key="AccentColor">#512BD4</Color>
+
+            <!-- 
+                ═══════════════════════════════════════════════════════════════
+                EXPLICIT STYLES (with x:Key)
+                Must be explicitly referenced: Style="{StaticResource StyleKey}"
+                Docs: https://learn.microsoft.com/dotnet/maui/user-interface/styles/xaml
+                ═══════════════════════════════════════════════════════════════
+            -->
+
+            <!-- Explicit Style: Page Title Label -->
+            <Style x:Key="PageTitleStyle" TargetType="Label">
+                <Setter Property="FontSize" Value="28" />
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryDark}}" />
+                <Setter Property="HorizontalOptions" Value="Center" />
+                <Setter Property="Margin" Value="0,10,0,5" />
+            </Style>
+
+            <!-- Explicit Style: Section Header -->
+            <Style x:Key="SectionHeaderStyle" TargetType="Label">
+                <Setter Property="FontSize" Value="18" />
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource Tertiary}, Dark={StaticResource Secondary}}" />
+                <Setter Property="Margin" Value="0,15,0,5" />
+            </Style>
+
+            <!-- Explicit Style: Description Text -->
+            <Style x:Key="DescriptionStyle" TargetType="Label">
+                <Setter Property="FontSize" Value="14" />
+                <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource Gray600}, Dark={StaticResource Gray300}}" />
+                <Setter Property="LineBreakMode" Value="WordWrap" />
+                <Setter Property="Margin" Value="0,0,0,10" />
+            </Style>
+
+            <!-- Explicit Style: Code Block Label -->
+            <Style x:Key="CodeBlockStyle" TargetType="Label">
+                <Setter Property="FontFamily" Value="monospace" />
+                <Setter Property="FontSize" Value="12" />
+                <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource Gray100}, Dark={StaticResource Gray900}}" />
+                <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource Gray900}, Dark={StaticResource Gray100}}" />
+                <Setter Property="Padding" Value="10" />
+            </Style>
+
+            <!-- Explicit Style: Primary Action Button -->
+            <Style x:Key="PrimaryButtonStyle" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="{StaticResource Primary}" />
+                <Setter Property="TextColor" Value="White" />
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="CornerRadius" Value="10" />
+                <Setter Property="Padding" Value="20,12" />
+                <Setter Property="Margin" Value="5" />
+            </Style>
+
+            <!-- Explicit Style: Secondary Button -->
+            <Style x:Key="SecondaryButtonStyle" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="Transparent" />
+                <Setter Property="TextColor" Value="{StaticResource Primary}" />
+                <Setter Property="BorderColor" Value="{StaticResource Primary}" />
+                <Setter Property="BorderWidth" Value="2" />
+                <Setter Property="CornerRadius" Value="10" />
+                <Setter Property="Padding" Value="20,12" />
+                <Setter Property="Margin" Value="5" />
+            </Style>
+
+            <!-- 
+                ═══════════════════════════════════════════════════════════════
+                STYLE INHERITANCE (BasedOn)
+                Derived styles extend base styles.
+                Docs: https://learn.microsoft.com/dotnet/maui/user-interface/styles/xaml#style-inheritance
+                ═══════════════════════════════════════════════════════════════
+            -->
+
+            <!-- Base Card Style -->
+            <Style x:Key="BaseCardStyle" TargetType="Border">
+                <Setter Property="StrokeShape" Value="RoundRectangle 12" />
+                <Setter Property="StrokeThickness" Value="1" />
+                <Setter Property="Stroke" Value="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray600}}" />
+                <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Gray900}}" />
+                <Setter Property="Padding" Value="16" />
+                <Setter Property="Margin" Value="8" />
+            </Style>
+
+            <!-- Elevated Card (inherits from BaseCardStyle) -->
+            <Style x:Key="ElevatedCardStyle" TargetType="Border" BasedOn="{StaticResource BaseCardStyle}">
+                <Setter Property="Shadow">
+                    <Setter.Value>
+                        <Shadow Brush="{StaticResource Gray400Brush}"
+                                Offset="4,4"
+                                Radius="8"
+                                Opacity="0.3" />
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <!-- Accent Card (inherits from BaseCardStyle) -->
+            <Style x:Key="AccentCardStyle" TargetType="Border" BasedOn="{StaticResource BaseCardStyle}">
+                <Setter Property="Stroke" Value="{StaticResource Primary}" />
+                <Setter Property="StrokeThickness" Value="2" />
+            </Style>
+
+            <!-- 
+                ═══════════════════════════════════════════════════════════════
+                CARDVIEW CONTROLTEMPLATE
+                Custom template for CardView control demonstrating TemplateBinding.
+                Docs: https://learn.microsoft.com/dotnet/maui/fundamentals/controltemplate
+                ═══════════════════════════════════════════════════════════════
+            -->
+            <ControlTemplate x:Key="AlternateCardTemplate">
+                <Border Stroke="{TemplateBinding BorderColor}"
+                        StrokeThickness="3"
+                        StrokeShape="RoundRectangle 16"
+                        BackgroundColor="{TemplateBinding CardBackgroundColor}"
+                        Padding="20">
+                    <Grid RowDefinitions="Auto,*,Auto" RowSpacing="12">
+                        <!-- Alternate Header with Icon -->
+                        <HorizontalStackLayout Grid.Row="0" Spacing="8">
+                            <Label Text="📝" FontSize="20" />
+                            <Label Text="{TemplateBinding CardTitle}"
+                                   FontSize="20"
+                                   FontAttributes="Bold"
+                                   TextColor="{TemplateBinding BorderColor}"
+                                   VerticalOptions="Center" />
+                        </HorizontalStackLayout>
+                        
+                        <ContentPresenter Grid.Row="1" />
+                        
+                        <BoxView Grid.Row="2"
+                                 HeightRequest="1"
+                                 Color="{TemplateBinding BorderColor}"
+                                 IsVisible="{TemplateBinding HasFooter}" />
+                        <Label Grid.Row="2"
+                               Text="{TemplateBinding CardFooter}"
+                               FontSize="11"
+                               FontAttributes="Italic"
+                               TextColor="{StaticResource Gray500}"
+                               IsVisible="{TemplateBinding HasFooter}"
+                               Margin="0,5,0,0" />
+                    </Grid>
+                </Border>
+            </ControlTemplate>
+
+            <!-- Style for CardView using ControlTemplate -->
+            <Style x:Key="StyledCardView" TargetType="controls:CardView">
+                <Setter Property="ControlTemplate" Value="{StaticResource AlternateCardTemplate}" />
+                <Setter Property="BorderColor" Value="{StaticResource Tertiary}" />
+                <Setter Property="CardBackgroundColor" Value="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Gray900}}" />
+            </Style>
+
+            <!-- 
+                ═══════════════════════════════════════════════════════════════
+                NAVIGATION BUTTON STYLE
+                For module navigation buttons on MainPage.
+                ═══════════════════════════════════════════════════════════════
+            -->
+            <Style x:Key="NavButtonStyle" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource Secondary}, Dark={StaticResource Gray600}}" />
+                <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource Tertiary}, Dark={StaticResource White}}" />
+                <Setter Property="FontSize" Value="16" />
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="CornerRadius" Value="12" />
+                <Setter Property="HeightRequest" Value="60" />
+                <Setter Property="Margin" Value="5" />
+                <Setter Property="VisualStateManager.VisualStateGroups">
+                    <VisualStateGroupList>
+                        <VisualStateGroup x:Name="CommonStates">
+                            <VisualState x:Name="Normal" />
+                            <VisualState x:Name="PointerOver">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="{StaticResource Primary}" />
+                                    <Setter Property="TextColor" Value="White" />
+                                </VisualState.Setters>
+                            </VisualState>
+                            <VisualState x:Name="Pressed">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="{StaticResource Tertiary}" />
+                                    <Setter Property="Scale" Value="0.98" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </Setter>
+            </Style>
+
+            <!-- 
+                ═══════════════════════════════════════════════════════════════
+                TRIGGER CLINIC STYLES
+                Styles with triggers for TriggerClinicPage demonstrations.
+                ═══════════════════════════════════════════════════════════════
+            -->
+
+            <!-- Validation Entry Style with Focus Trigger -->
+            <Style x:Key="ValidationEntryStyle" TargetType="Entry">
+                <Setter Property="BackgroundColor" Value="Transparent" />
+                <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}" />
+                <Style.Triggers>
+                    <!-- Property Trigger: Change appearance when focused -->
+                    <Trigger TargetType="Entry" Property="IsFocused" Value="True">
+                        <Setter Property="BackgroundColor" Value="{StaticResource Secondary}" />
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+
+            <!-- Submit Button Style with Disabled State Trigger -->
+            <Style x:Key="SubmitButtonStyle" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="{StaticResource Primary}" />
+                <Setter Property="TextColor" Value="White" />
+                <Setter Property="CornerRadius" Value="8" />
+                <Style.Triggers>
+                    <Trigger TargetType="Button" Property="IsEnabled" Value="False">
+                        <Setter Property="BackgroundColor" Value="{StaticResource Gray300}" />
+                        <Setter Property="TextColor" Value="{StaticResource Gray500}" />
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

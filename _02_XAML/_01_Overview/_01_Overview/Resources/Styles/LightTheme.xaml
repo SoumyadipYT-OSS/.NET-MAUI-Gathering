@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+    Light Theme Resources for XAML Overview Learning Project.
+    These colors use x:Key so they can be referenced via DynamicResource for runtime switching.
+    Docs: https://learn.microsoft.com/dotnet/maui/user-interface/theming
+-->
+<ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                    x:Class="_01_Overview.Resources.Styles.LightTheme">
+
+    <!-- Primary Colors -->
+    <Color x:Key="ThemePrimary">#512BD4</Color>
+    <Color x:Key="ThemePrimaryDark">#3B1F9E</Color>
+    <Color x:Key="ThemeSecondary">#DFD8F7</Color>
+    <Color x:Key="ThemeAccent">#2B0B98</Color>
+    
+    <!-- Background Colors -->
+    <Color x:Key="ThemePageBackground">#FFFFFF</Color>
+    <Color x:Key="ThemeCardBackground">#F8F8F8</Color>
+    <Color x:Key="ThemeSurfaceBackground">#FAFAFA</Color>
+    
+    <!-- Text Colors -->
+    <Color x:Key="ThemeTextPrimary">#1F1F1F</Color>
+    <Color x:Key="ThemeTextSecondary">#6B6B6B</Color>
+    <Color x:Key="ThemeTextMuted">#9B9B9B</Color>
+    <Color x:Key="ThemeTextOnPrimary">#FFFFFF</Color>
+    
+    <!-- Border & Divider Colors -->
+    <Color x:Key="ThemeBorder">#E0E0E0</Color>
+    <Color x:Key="ThemeDivider">#EEEEEE</Color>
+    
+    <!-- Status Colors -->
+    <Color x:Key="ThemeSuccess">#28A745</Color>
+    <Color x:Key="ThemeWarning">#FFC107</Color>
+    <Color x:Key="ThemeError">#DC3545</Color>
+    <Color x:Key="ThemeInfo">#17A2B8</Color>
+
+    <!-- Brushes -->
+    <SolidColorBrush x:Key="ThemePrimaryBrush" Color="{StaticResource ThemePrimary}" />
+    <SolidColorBrush x:Key="ThemePageBackgroundBrush" Color="{StaticResource ThemePageBackground}" />
+    <SolidColorBrush x:Key="ThemeTextPrimaryBrush" Color="{StaticResource ThemeTextPrimary}" />
+
+</ResourceDictionary>

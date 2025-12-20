@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+    MainPage: Home/hub page for XAML Overview Learning Project.
+    Navigation hub to all module pages demonstrating Shell navigation.
+    Docs: https://learn.microsoft.com/dotnet/maui/fundamentals/shell/navigation
+-->
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:_01_Overview.ViewModels"
+             x:Class="_01_Overview.Pages.MainPage"
+             x:DataType="viewmodels:MainPageViewModel"
+             Title="XAML Overview">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="15">
+
+            <!-- Page Header -->
+            <Label Text="{Binding WelcomeMessage}"
+                   Style="{StaticResource PageTitleStyle}" />
+            
+            <Label Text="{Binding Description}"
+                   Style="{StaticResource DescriptionStyle}"
+                   HorizontalTextAlignment="Center" />
+
+            <!-- Introduction Card -->
+            <Border Style="{StaticResource ElevatedCardStyle}">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="📚 About This Project"
+                           Style="{StaticResource SectionHeaderStyle}" />
+                    <Label Text="This learning project demonstrates fundamental XAML concepts in .NET MAUI. Each module focuses on specific topics with working examples and explanations."
+                           Style="{StaticResource DescriptionStyle}" />
+                    <Label Text="Use the navigation buttons below or the flyout menu to explore each module."
+                           TextColor="{StaticResource Gray500}"
+                           FontSize="12" />
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- Navigation Buttons Grid -->
+            <Label Text="🎯 Modules"
+                   Style="{StaticResource SectionHeaderStyle}" />
+
+            <Grid ColumnDefinitions="*,*"
+                  RowDefinitions="Auto,Auto,Auto,Auto"
+                  ColumnSpacing="10"
+                  RowSpacing="10">
+
+                <!-- Layout Lab -->
+                <Button Grid.Row="0" Grid.Column="0"
+                        Text="📐 Layout Lab"
+                        Style="{StaticResource NavButtonStyle}"
+                        Command="{Binding NavigateToLayoutLabCommand}" />
+
+                <!-- Binding Lab -->
+                <Button Grid.Row="0" Grid.Column="1"
+                        Text="🔗 Binding Lab"
+                        Style="{StaticResource NavButtonStyle}"
+                        Command="{Binding NavigateToBindingLabCommand}" />
+
+                <!-- Styles Studio -->
+                <Button Grid.Row="1" Grid.Column="0"
+                        Text="🎨 Styles Studio"
+                        Style="{StaticResource NavButtonStyle}"
+                        Command="{Binding NavigateToStylesStudioCommand}" />
+
+                <!-- Template Forge -->
+                <Button Grid.Row="1" Grid.Column="1"
+                        Text="🔧 Template Forge"
+                        Style="{StaticResource NavButtonStyle}"
+                        Command="{Binding NavigateToTemplateForgeCommand}" />
+
+                <!-- Trigger Clinic -->
+                <Button Grid.Row="2" Grid.Column="0"
+                        Text="⚡ Trigger Clinic"
+                        Style="{StaticResource NavButtonStyle}"
+                        Command="{Binding NavigateToTriggerClinicCommand}" />
+
+                <!-- States Arena -->
+                <Button Grid.Row="2" Grid.Column="1"
+                        Text="🔄 States Arena"
+                        Style="{StaticResource NavButtonStyle}"
+                        Command="{Binding NavigateToStatesArenaCommand}" />
+
+                <!-- Theme Switcher (full width) -->
+                <Button Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"
+                        Text="🌙 Theme Switcher"
+                        Style="{StaticResource NavButtonStyle}"
+                        Command="{Binding NavigateToThemeSwitcherCommand}" />
+            </Grid>
+
+            <!-- Example: Navigation with Query Parameter -->
+            <Border Style="{StaticResource AccentCardStyle}" Margin="0,20,0,0">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="🚀 Navigation with Parameters"
+                           Style="{StaticResource SectionHeaderStyle}" />
+                    <Label Text="Shell navigation supports passing query parameters. Click below to navigate to Binding Lab with a custom message."
+                           Style="{StaticResource DescriptionStyle}" />
+                    <Button Text="Go to Binding Lab with Parameter"
+                            Style="{StaticResource PrimaryButtonStyle}"
+                            Command="{Binding NavigateWithParameterCommand}"
+                            CommandParameter="Hello from MainPage navigation!" />
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- Footer -->
+            <Label Text="Built with .NET MAUI 10 • Hot Reload Friendly"
+                   HorizontalOptions="Center"
+                   TextColor="{StaticResource Gray400}"
+                   FontSize="11"
+                   Margin="0,20,0,0" />
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>

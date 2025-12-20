@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+    LayoutLabPage: Demonstrates Grid, StackLayout, FlexLayout and responsive layout tips.
+    Shows different layout containers and their properties.
+    Docs: https://learn.microsoft.com/dotnet/maui/user-interface/layouts/
+-->
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:_01_Overview.ViewModels"
+             x:Class="_01_Overview.Pages.LayoutLabPage"
+             x:DataType="viewmodels:LayoutLabViewModel"
+             Title="Layout Lab">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="15">
+
+            <Label Text="?? Layout Lab"
+                   Style="{StaticResource PageTitleStyle}" />
+            
+            <Label Text="Explore different layout containers and their behaviors."
+                   Style="{StaticResource DescriptionStyle}"
+                   HorizontalTextAlignment="Center" />
+
+            <!-- 
+                ???????????????????????????????????????????????????????????????
+                SECTION 1: VerticalStackLayout
+                Simple vertical arrangement of children.
+                Docs: https://learn.microsoft.com/dotnet/maui/user-interface/layouts/verticalstacklayout
+                ???????????????????????????????????????????????????????????????
+            -->
+            <Border Style="{StaticResource ElevatedCardStyle}">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="VerticalStackLayout"
+                           Style="{StaticResource SectionHeaderStyle}" />
+                    <Label Text="Arranges children vertically in a single column. Use Spacing for consistent gaps."
+                           Style="{StaticResource DescriptionStyle}" />
+                    
+                    <VerticalStackLayout Spacing="5" BackgroundColor="{StaticResource Gray100}" Padding="10">
+                        <BoxView Color="{StaticResource Primary}" HeightRequest="40" CornerRadius="5" />
+                        <BoxView Color="{StaticResource Secondary}" HeightRequest="40" CornerRadius="5" />
+                        <BoxView Color="{StaticResource Tertiary}" HeightRequest="40" CornerRadius="5" />
+                    </VerticalStackLayout>
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- 
+                ???????????????????????????????????????????????????????????????
+                SECTION 2: HorizontalStackLayout
+                Simple horizontal arrangement of children.
+                Docs: https://learn.microsoft.com/dotnet/maui/user-interface/layouts/horizontalstacklayout
+                ???????????????????????????????????????????????????????????????
+            -->
+            <Border Style="{StaticResource ElevatedCardStyle}">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="HorizontalStackLayout"
+                           Style="{StaticResource SectionHeaderStyle}" />
+                    <Label Text="Arranges children horizontally in a single row. Does not wrap."
+                           Style="{StaticResource DescriptionStyle}" />
+                    
+                    <HorizontalStackLayout Spacing="5" BackgroundColor="{StaticResource Gray100}" Padding="10">
+                        <BoxView Color="{StaticResource Primary}" WidthRequest="60" HeightRequest="60" CornerRadius="5" />
+                        <BoxView Color="{StaticResource Secondary}" WidthRequest="60" HeightRequest="60" CornerRadius="5" />
+                        <BoxView Color="{StaticResource Tertiary}" WidthRequest="60" HeightRequest="60" CornerRadius="5" />
+                        <BoxView Color="{StaticResource Magenta}" WidthRequest="60" HeightRequest="60" CornerRadius="5" />
+                    </HorizontalStackLayout>
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- 
+                ???????????????????????????????????????????????????????????????
+                SECTION 3: Grid Layout
+                Powerful grid-based layout with rows and columns.
+                Docs: https://learn.microsoft.com/dotnet/maui/user-interface/layouts/grid
+                ???????????????????????????????????????????????????????????????
+            -->
+            <Border Style="{StaticResource ElevatedCardStyle}">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="Grid Layout"
+                           Style="{StaticResource SectionHeaderStyle}" />
+                    <Label Text="Arranges children in rows and columns. Supports star sizing (*), auto, and absolute values."
+                           Style="{StaticResource DescriptionStyle}" />
+                    
+                    <!-- Grid with different sizing modes -->
+                    <Grid RowDefinitions="Auto,50,*"
+                          ColumnDefinitions="100,*,2*"
+                          RowSpacing="5"
+                          ColumnSpacing="5"
+                          HeightRequest="180"
+                          BackgroundColor="{StaticResource Gray100}"
+                          Padding="5">
+                        
+                        <!-- Row 0: Auto height -->
+                        <Label Grid.Row="0" Grid.Column="0" 
+                               Text="Auto" 
+                               BackgroundColor="{StaticResource Primary}"
+                               TextColor="White"
+                               HorizontalTextAlignment="Center"
+                               Padding="5" />
+                        <Label Grid.Row="0" Grid.Column="1" 
+                               Text="Star (*)" 
+                               BackgroundColor="{StaticResource Secondary}"
+                               HorizontalTextAlignment="Center"
+                               Padding="5" />
+                        <Label Grid.Row="0" Grid.Column="2" 
+                               Text="2 Star (2*)" 
+                               BackgroundColor="{StaticResource Tertiary}"
+                               TextColor="White"
+                               HorizontalTextAlignment="Center"
+                               Padding="5" />
+
+                        <!-- Row 1: Fixed 50px height -->
+                        <BoxView Grid.Row="1" Grid.Column="0" Color="{StaticResource Magenta}" CornerRadius="5" />
+                        <BoxView Grid.Row="1" Grid.Column="1" Color="{StaticResource Primary}" CornerRadius="5" />
+                        <BoxView Grid.Row="1" Grid.Column="2" Color="{StaticResource Secondary}" CornerRadius="5" />
+
+                        <!-- Row 2: Star (*) takes remaining space -->
+                        <BoxView Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Color="{StaticResource Tertiary}" CornerRadius="5" />
+                        <BoxView Grid.Row="2" Grid.Column="2" Color="{StaticResource Primary}" CornerRadius="5" />
+                    </Grid>
+
+                    <Label Text="RowDefinitions: Auto, 50, * | ColumnDefinitions: 100, *, 2*"
+                           Style="{StaticResource CodeBlockStyle}" />
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- 
+                ???????????????????????????????????????????????????????????????
+                SECTION 4: FlexLayout
+                Flexible layout with wrapping and alignment options.
+                Docs: https://learn.microsoft.com/dotnet/maui/user-interface/layouts/flexlayout
+                ???????????????????????????????????????????????????????????????
+            -->
+            <Border Style="{StaticResource ElevatedCardStyle}">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="FlexLayout"
+                           Style="{StaticResource SectionHeaderStyle}" />
+                    <Label Text="Flexible layout with wrapping. Use Wrap, JustifyContent, and AlignItems for control."
+                           Style="{StaticResource DescriptionStyle}" />
+                    
+                    <!-- FlexLayout with Wrap -->
+                    <FlexLayout Wrap="Wrap"
+                                JustifyContent="SpaceAround"
+                                AlignItems="Center"
+                                BackgroundColor="{StaticResource Gray100}"
+                                Padding="10">
+                        <BoxView Color="{StaticResource Primary}" WidthRequest="80" HeightRequest="50" Margin="5" CornerRadius="5" />
+                        <BoxView Color="{StaticResource Secondary}" WidthRequest="100" HeightRequest="50" Margin="5" CornerRadius="5" />
+                        <BoxView Color="{StaticResource Tertiary}" WidthRequest="60" HeightRequest="50" Margin="5" CornerRadius="5" />
+                        <BoxView Color="{StaticResource Magenta}" WidthRequest="90" HeightRequest="50" Margin="5" CornerRadius="5" />
+                        <BoxView Color="{StaticResource Primary}" WidthRequest="70" HeightRequest="50" Margin="5" CornerRadius="5" />
+                        <BoxView Color="{StaticResource Secondary}" WidthRequest="85" HeightRequest="50" Margin="5" CornerRadius="5" />
+                    </FlexLayout>
+
+                    <Label Text="Wrap=&quot;Wrap&quot; JustifyContent=&quot;SpaceAround&quot;"
+                           Style="{StaticResource CodeBlockStyle}" />
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- 
+                ???????????????????????????????????????????????????????????????
+                SECTION 5: AbsoluteLayout
+                Precise positioning with coordinates or proportional values.
+                Docs: https://learn.microsoft.com/dotnet/maui/user-interface/layouts/absolutelayout
+                ???????????????????????????????????????????????????????????????
+            -->
+            <Border Style="{StaticResource ElevatedCardStyle}">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="AbsoluteLayout"
+                           Style="{StaticResource SectionHeaderStyle}" />
+                    <Label Text="Precise positioning using coordinates. Use sparingly; prefer Grid/Stack for responsive layouts."
+                           Style="{StaticResource DescriptionStyle}" />
+                    
+                    <AbsoluteLayout HeightRequest="150" BackgroundColor="{StaticResource Gray100}">
+                        <!-- Absolute positioning (x=10, y=10, width=80, height=40) -->
+                        <BoxView Color="{StaticResource Primary}"
+                                 AbsoluteLayout.LayoutBounds="10,10,80,40"
+                                 AbsoluteLayout.LayoutFlags="None"
+                                 CornerRadius="5" />
+                        
+                        <!-- Proportional positioning (50% x, 50% y, 30% width, 30% height) -->
+                        <BoxView Color="{StaticResource Tertiary}"
+                                 AbsoluteLayout.LayoutBounds="0.5,0.5,0.3,0.3"
+                                 AbsoluteLayout.LayoutFlags="All"
+                                 CornerRadius="5" />
+                        
+                        <!-- Mixed: proportional position, absolute size -->
+                        <BoxView Color="{StaticResource Magenta}"
+                                 AbsoluteLayout.LayoutBounds="0.9,0.1,60,60"
+                                 AbsoluteLayout.LayoutFlags="PositionProportional"
+                                 CornerRadius="30" />
+                    </AbsoluteLayout>
+
+                    <Label Text="LayoutFlags: None (absolute), All (proportional), PositionProportional"
+                           Style="{StaticResource CodeBlockStyle}" />
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- 
+                ???????????????????????????????????????????????????????????????
+                SECTION 6: Responsive Layout Tips
+                Best practices for adaptive layouts.
+                ???????????????????????????????????????????????????????????????
+            -->
+            <Border Style="{StaticResource AccentCardStyle}">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="?? Responsive Layout Tips"
+                           Style="{StaticResource SectionHeaderStyle}" />
+                    
+                    <Label Text="• Use Grid with star (*) sizing for proportional layouts" />
+                    <Label Text="• Prefer VerticalStackLayout over StackLayout (better performance)" />
+                    <Label Text="• Use FlexLayout for wrapping content" />
+                    <Label Text="• Avoid nested layouts when possible" />
+                    <Label Text="• Use OnPlatform/OnIdiom for platform-specific values" />
+                    <Label Text="• Use MinimumWidthRequest/MinimumHeightRequest for constraints" />
+                </VerticalStackLayout>
+            </Border>
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>

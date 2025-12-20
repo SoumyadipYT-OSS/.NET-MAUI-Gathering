@@ -1,0 +1,388 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+    TriggerClinicPage: Demonstrates XAML triggers including:
+    - Property Triggers
+    - Data Triggers
+    - Multi Triggers
+    - Triggers via Styles
+    All triggers use XAML only (no code-behind).
+    Docs: https://learn.microsoft.com/dotnet/maui/fundamentals/triggers
+    
+    IMPORTANT: Elements with DataTriggers must have explicit default values 
+    for any property that a trigger will modify to avoid KeyNotFoundException.
+-->
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:_01_Overview.ViewModels"
+             x:Class="_01_Overview.Pages.TriggerClinicPage"
+             x:DataType="viewmodels:TriggerClinicViewModel"
+             Title="Trigger Clinic">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="15">
+
+            <Label Text="⚡ Trigger Clinic"
+                   Style="{StaticResource PageTitleStyle}" />
+            
+            <Label Text="Learn about XAML triggers for dynamic UI behavior."
+                   Style="{StaticResource DescriptionStyle}"
+                   HorizontalTextAlignment="Center" />
+
+            <!-- 
+                ═══════════════════════════════════════════════════════════════
+                SECTION 1: Property Trigger - Entry Focus
+                Changes appearance when Entry is focused.
+                ═══════════════════════════════════════════════════════════════
+            -->
+            <Border Style="{StaticResource ElevatedCardStyle}">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="Property Trigger"
+                           Style="{StaticResource SectionHeaderStyle}" />
+                    <Label Text="Changes visual properties when a specific property value is met."
+                           Style="{StaticResource DescriptionStyle}" />
+                    
+                    <Label Text="Focus the Entry to see the trigger in action:"
+                           FontSize="12"
+                           TextColor="#6B6B6B" />
+
+                    <Entry Placeholder="Tap to focus..."
+                           Style="{StaticResource ValidationEntryStyle}">
+                        <Entry.Triggers>
+                            <!-- Additional inline trigger -->
+                            <Trigger TargetType="Entry" Property="IsFocused" Value="True">
+                                <Setter Property="Placeholder" Value="Now I'm focused!" />
+                            </Trigger>
+                        </Entry.Triggers>
+                    </Entry>
+
+                    <Label Text="&lt;Trigger Property=&quot;IsFocused&quot; Value=&quot;True&quot;&gt;"
+                           Style="{StaticResource CodeBlockStyle}" />
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- 
+                ═══════════════════════════════════════════════════════════════
+                SECTION 2: Data Trigger - Text Length Validation
+                Changes appearance based on bound data.
+                ═══════════════════════════════════════════════════════════════
+            -->
+            <Border Style="{StaticResource ElevatedCardStyle}">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="Data Trigger"
+                           Style="{StaticResource SectionHeaderStyle}" />
+                    <Label Text="Triggers based on bound data values. The Save button is disabled when Entry is empty."
+                           Style="{StaticResource DescriptionStyle}" />
+                    
+                    <Entry x:Name="inputEntry"
+                           Placeholder="Enter at least 3 characters..."
+                           Text="{Binding InputText}" />
+                    
+                    <Label Text="{Binding CharacterCount, StringFormat='Characters: {0}'}" />
+
+                    <!-- Button with DataTrigger - explicit defaults required for all trigger-set properties -->
+                    <Button Text="Save"
+                            IsEnabled="True"
+                            BackgroundColor="#512BD4"
+                            TextColor="White">
+                        <Button.Triggers>
+                            <DataTrigger TargetType="Button"
+                                         Binding="{Binding CanSave}"
+                                         Value="False">
+                                <Setter Property="IsEnabled" Value="False" />
+                                <Setter Property="BackgroundColor" Value="#ACACAC" />
+                                <Setter Property="Text" Value="Enter 3+ characters to save" />
+                            </DataTrigger>
+                            <DataTrigger TargetType="Button"
+                                         Binding="{Binding CanSave}"
+                                         Value="True">
+                                <Setter Property="IsEnabled" Value="True" />
+                                <Setter Property="BackgroundColor" Value="#512BD4" />
+                                <Setter Property="TextColor" Value="White" />
+                            </DataTrigger>
+                        </Button.Triggers>
+                    </Button>
+
+                    <Label Text="&lt;DataTrigger Binding=&quot;{Binding CanSave}&quot; Value=&quot;False&quot;&gt;"
+                           Style="{StaticResource CodeBlockStyle}" />
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- 
+                ═══════════════════════════════════════════════════════════════
+                SECTION 3: Multi Trigger - Form Validation
+                Requires multiple conditions to be true.
+                ═══════════════════════════════════════════════════════════════
+            -->
+            <Border Style="{StaticResource ElevatedCardStyle}">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="Multi Trigger"
+                           Style="{StaticResource SectionHeaderStyle}" />
+                    <Label Text="Activates only when ALL conditions are met. Complete the form to enable Submit."
+                           Style="{StaticResource DescriptionStyle}" />
+                    
+                    <Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto" RowSpacing="10">
+                        
+                        <!-- Email Field with validation indicator -->
+                        <Grid Grid.Row="0" ColumnDefinitions="*,Auto" ColumnSpacing="10">
+                            <Entry Grid.Column="0"
+                                   Placeholder="Email address"
+                                   Keyboard="Email"
+                                   Text="{Binding Email}" />
+                            <!-- Explicit default Text required for DataTrigger -->
+                            <Label Grid.Column="1" 
+                                   VerticalOptions="Center"
+                                   Text="❌">
+                                <Label.Triggers>
+                                    <DataTrigger TargetType="Label"
+                                                 Binding="{Binding IsValidEmail}"
+                                                 Value="True">
+                                        <Setter Property="Text" Value="✅" />
+                                    </DataTrigger>
+                                    <DataTrigger TargetType="Label"
+                                                 Binding="{Binding IsValidEmail}"
+                                                 Value="False">
+                                        <Setter Property="Text" Value="❌" />
+                                    </DataTrigger>
+                                </Label.Triggers>
+                            </Label>
+                        </Grid>
+
+                        <!-- Password Field with strength indicator -->
+                        <Grid Grid.Row="1" ColumnDefinitions="*,Auto" ColumnSpacing="10">
+                            <Entry Grid.Column="0"
+                                   Placeholder="Password (8+ characters)"
+                                   IsPassword="True"
+                                   Text="{Binding Password}" />
+                            <!-- Explicit default TextColor required for DataTrigger -->
+                            <Label Grid.Column="1"
+                                   Text="{Binding PasswordStrength}"
+                                   TextColor="#6B6B6B"
+                                   VerticalOptions="Center">
+                                <Label.Triggers>
+                                    <DataTrigger TargetType="Label"
+                                                 Binding="{Binding PasswordStrength}"
+                                                 Value="Weak">
+                                        <Setter Property="TextColor" Value="#DC3545" />
+                                    </DataTrigger>
+                                    <DataTrigger TargetType="Label"
+                                                 Binding="{Binding PasswordStrength}"
+                                                 Value="Medium">
+                                        <Setter Property="TextColor" Value="#FFC107" />
+                                    </DataTrigger>
+                                    <DataTrigger TargetType="Label"
+                                                 Binding="{Binding PasswordStrength}"
+                                                 Value="Strong">
+                                        <Setter Property="TextColor" Value="#28A745" />
+                                    </DataTrigger>
+                                </Label.Triggers>
+                            </Label>
+                        </Grid>
+
+                        <!-- Terms Checkbox -->
+                        <HorizontalStackLayout Grid.Row="2" Spacing="10">
+                            <CheckBox IsChecked="{Binding TermsAccepted}" />
+                            <Label Text="I accept the terms and conditions"
+                                   VerticalOptions="Center" />
+                        </HorizontalStackLayout>
+
+                        <!-- Submit Button with DataTrigger using combined CanSubmit property -->
+                        <Button Grid.Row="3"
+                                Text="Submit Form"
+                                IsEnabled="False"
+                                BackgroundColor="#ACACAC"
+                                TextColor="White"
+                                Style="{StaticResource SubmitButtonStyle}">
+                            <Button.Triggers>
+                                <DataTrigger TargetType="Button"
+                                             Binding="{Binding CanSubmit}"
+                                             Value="True">
+                                    <Setter Property="IsEnabled" Value="True" />
+                                    <Setter Property="BackgroundColor" Value="#28A745" />
+                                    <Setter Property="Text" Value="✅ Submit Form" />
+                                </DataTrigger>
+                            </Button.Triggers>
+                        </Button>
+
+                        <!-- Status Label - explicit defaults required -->
+                        <Label Grid.Row="4"
+                               Text="Please complete all fields correctly."
+                               TextColor="#6B6B6B">
+                            <Label.Triggers>
+                                <DataTrigger TargetType="Label"
+                                             Binding="{Binding CanSubmit}"
+                                             Value="True">
+                                    <Setter Property="Text" Value="Form is ready to submit!" />
+                                    <Setter Property="TextColor" Value="#28A745" />
+                                </DataTrigger>
+                                <DataTrigger TargetType="Label"
+                                             Binding="{Binding CanSubmit}"
+                                             Value="False">
+                                    <Setter Property="Text" Value="Please complete all fields correctly." />
+                                    <Setter Property="TextColor" Value="#6B6B6B" />
+                                </DataTrigger>
+                            </Label.Triggers>
+                        </Label>
+                    </Grid>
+
+                    <Label Text="&lt;MultiDataTrigger&gt; with 3 BindingConditions"
+                           Style="{StaticResource CodeBlockStyle}" />
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- 
+                ═══════════════════════════════════════════════════════════════
+                SECTION 4: Property Trigger on Switch
+                ═══════════════════════════════════════════════════════════════
+            -->
+            <Border Style="{StaticResource ElevatedCardStyle}">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="Switch Trigger"
+                           Style="{StaticResource SectionHeaderStyle}" />
+                    <Label Text="Property trigger responds to Switch.IsToggled changes."
+                           Style="{StaticResource DescriptionStyle}" />
+                    
+                    <HorizontalStackLayout Spacing="15">
+                        <Switch x:Name="subscribeSwitch" 
+                                IsToggled="{Binding IsSubscribed}" />
+                        <!-- Explicit defaults for Text, TextColor, FontAttributes -->
+                        <Label VerticalOptions="Center"
+                               Text="Not subscribed"
+                               TextColor="#6B6B6B"
+                               FontAttributes="None">
+                            <Label.Triggers>
+                                <DataTrigger TargetType="Label"
+                                             Binding="{Binding Source={x:Reference subscribeSwitch}, Path=IsToggled}"
+                                             Value="True">
+                                    <Setter Property="Text" Value="✅ Subscribed to newsletter" />
+                                    <Setter Property="TextColor" Value="#28A745" />
+                                    <Setter Property="FontAttributes" Value="Bold" />
+                                </DataTrigger>
+                                <DataTrigger TargetType="Label"
+                                             Binding="{Binding Source={x:Reference subscribeSwitch}, Path=IsToggled}"
+                                             Value="False">
+                                    <Setter Property="Text" Value="Not subscribed" />
+                                    <Setter Property="TextColor" Value="#6B6B6B" />
+                                    <Setter Property="FontAttributes" Value="None" />
+                                </DataTrigger>
+                            </Label.Triggers>
+                        </Label>
+                    </HorizontalStackLayout>
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- 
+                ═══════════════════════════════════════════════════════════════
+                SECTION 5: Quantity with Discount Trigger
+                ═══════════════════════════════════════════════════════════════
+            -->
+            <Border Style="{StaticResource ElevatedCardStyle}">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="Quantity Discount Trigger"
+                           Style="{StaticResource SectionHeaderStyle}" />
+                    <Label Text="DataTrigger shows discount message when quantity ≥ 5 or premium user."
+                           Style="{StaticResource DescriptionStyle}" />
+                    
+                    <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="10">
+                        <Label Grid.Column="0" Text="Quantity:" VerticalOptions="Center" />
+                        <Stepper Grid.Column="1"
+                                 Minimum="1"
+                                 Maximum="20"
+                                 Value="{Binding Quantity}"
+                                 HorizontalOptions="Start" />
+                        <Label Grid.Column="2"
+                               Text="{Binding Quantity}"
+                               FontSize="24"
+                               FontAttributes="Bold"
+                               VerticalOptions="Center" />
+                    </Grid>
+
+                    <HorizontalStackLayout Spacing="10">
+                        <CheckBox IsChecked="{Binding IsPremiumUser}" />
+                        <Label Text="Premium User (10% off)" VerticalOptions="Center" />
+                    </HorizontalStackLayout>
+
+                    <Label Text="{Binding TotalPrice, StringFormat='Total: ${0:F2}'}"
+                           FontSize="20"
+                           FontAttributes="Bold" />
+
+                    <!-- Discount indicator with DataTrigger - explicit defaults for BackgroundColor and Stroke -->
+                    <Border Padding="10" 
+                            StrokeShape="RoundRectangle 8"
+                            BackgroundColor="#F3F3F3"
+                            Stroke="#ACACAC">
+                        <Border.Triggers>
+                            <DataTrigger TargetType="Border"
+                                         Binding="{Binding HasDiscount}"
+                                         Value="True">
+                                <Setter Property="BackgroundColor" Value="#E8F5E9" />
+                                <Setter Property="Stroke" Value="#28A745" />
+                            </DataTrigger>
+                            <DataTrigger TargetType="Border"
+                                         Binding="{Binding HasDiscount}"
+                                         Value="False">
+                                <Setter Property="BackgroundColor" Value="#F3F3F3" />
+                                <Setter Property="Stroke" Value="#ACACAC" />
+                            </DataTrigger>
+                        </Border.Triggers>
+                        
+                        <!-- Explicit defaults for Text, TextColor, FontAttributes -->
+                        <Label HorizontalOptions="Center"
+                               Text="Buy 5+ items or become Premium for discount"
+                               TextColor="#6B6B6B"
+                               FontAttributes="None">
+                            <Label.Triggers>
+                                <DataTrigger TargetType="Label"
+                                             Binding="{Binding HasDiscount}"
+                                             Value="True">
+                                    <Setter Property="Text" Value="🎉 Discount Applied!" />
+                                    <Setter Property="TextColor" Value="#28A745" />
+                                    <Setter Property="FontAttributes" Value="Bold" />
+                                </DataTrigger>
+                                <DataTrigger TargetType="Label"
+                                             Binding="{Binding HasDiscount}"
+                                             Value="False">
+                                    <Setter Property="Text" Value="Buy 5+ items or become Premium for discount" />
+                                    <Setter Property="TextColor" Value="#6B6B6B" />
+                                    <Setter Property="FontAttributes" Value="None" />
+                                </DataTrigger>
+                            </Label.Triggers>
+                        </Label>
+                    </Border>
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- 
+                ═══════════════════════════════════════════════════════════════
+                SECTION 6: Trigger Types Summary
+                ═══════════════════════════════════════════════════════════════
+            -->
+            <Border Style="{StaticResource AccentCardStyle}">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="💡 Trigger Types"
+                           Style="{StaticResource SectionHeaderStyle}" />
+                    
+                    <Grid RowDefinitions="Auto,Auto,Auto,Auto" ColumnDefinitions="Auto,*" RowSpacing="8" ColumnSpacing="15">
+                        <Label Grid.Row="0" Grid.Column="0" Text="Trigger" FontAttributes="Bold" />
+                        <Label Grid.Row="0" Grid.Column="1" Text="Based on element's own property value" />
+                        
+                        <Label Grid.Row="1" Grid.Column="0" Text="DataTrigger" FontAttributes="Bold" />
+                        <Label Grid.Row="1" Grid.Column="1" Text="Based on data binding value" />
+                        
+                        <Label Grid.Row="2" Grid.Column="0" Text="MultiTrigger" FontAttributes="Bold" />
+                        <Label Grid.Row="2" Grid.Column="1" Text="Multiple property conditions (AND)" />
+                        
+                        <Label Grid.Row="3" Grid.Column="0" Text="MultiDataTrigger" FontAttributes="Bold" />
+                        <Label Grid.Row="3" Grid.Column="1" Text="Multiple binding conditions (AND)" />
+                    </Grid>
+
+                    <Label Text="All triggers revert changes when conditions are no longer met."
+                           FontSize="12"
+                           FontAttributes="Italic"
+                           TextColor="#6B6B6B" />
+                </VerticalStackLayout>
+            </Border>
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>

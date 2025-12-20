@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+    ThemeSwitcherPage: Demonstrates Light/Dark theme switching including:
+    - DynamicResource for runtime theme updates
+    - AppThemeBinding for automatic system theme response
+    - Programmatic theme switching via UserAppTheme
+    - System theme responsiveness
+    Docs: https://learn.microsoft.com/dotnet/maui/user-interface/theming
+-->
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:_01_Overview.ViewModels"
+             x:Class="_01_Overview.Pages.ThemeSwitcherPage"
+             x:DataType="viewmodels:ThemeSwitcherViewModel"
+             Title="Theme Switcher">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="15">
+
+            <Label Text="?? Theme Switcher"
+                   Style="{StaticResource PageTitleStyle}" />
+            
+            <Label Text="Learn about Light/Dark theming and runtime theme switching."
+                   Style="{StaticResource DescriptionStyle}"
+                   HorizontalTextAlignment="Center" />
+
+            <!-- 
+                ???????????????????????????????????????????????????????????????
+                SECTION 1: Current Theme Status
+                ???????????????????????????????????????????????????????????????
+            -->
+            <Border Style="{StaticResource ElevatedCardStyle}">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="Current Theme"
+                           Style="{StaticResource SectionHeaderStyle}" />
+                    
+                    <Grid ColumnDefinitions="*,*" RowSpacing="10">
+                        <VerticalStackLayout Grid.Column="0" HorizontalOptions="Center">
+                            <Label Text="Selected Theme"
+                                   FontSize="12"
+                                   TextColor="{StaticResource Gray500}" />
+                            <Label Text="{Binding CurrentTheme}"
+                                   FontSize="24"
+                                   FontAttributes="Bold"
+                                   TextColor="{StaticResource Primary}" />
+                        </VerticalStackLayout>
+                        
+                        <VerticalStackLayout Grid.Column="1" HorizontalOptions="Center">
+                            <Label Text="System Theme"
+                                   FontSize="12"
+                                   TextColor="{StaticResource Gray500}" />
+                            <Label Text="{Binding ActualTheme}"
+                                   FontSize="24"
+                                   FontAttributes="Bold" />
+                        </VerticalStackLayout>
+                    </Grid>
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- 
+                ???????????????????????????????????????????????????????????????
+                SECTION 2: Theme Selection Buttons
+                ???????????????????????????????????????????????????????????????
+            -->
+            <Border Style="{StaticResource ElevatedCardStyle}">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="Select Theme"
+                           Style="{StaticResource SectionHeaderStyle}" />
+                    <Label Text="Choose a theme mode. Changes apply immediately using DynamicResource."
+                           Style="{StaticResource DescriptionStyle}" />
+                    
+                    <Grid ColumnDefinitions="*,*,*" ColumnSpacing="10">
+                        <!-- Light Theme Button -->
+                        <Button Grid.Column="0"
+                                Text="?? Light"
+                                Command="{Binding SetLightThemeCommand}"
+                                BackgroundColor="{AppThemeBinding Light={StaticResource Secondary}, Dark={StaticResource Gray600}}"
+                                TextColor="{AppThemeBinding Light={StaticResource Tertiary}, Dark={StaticResource White}}" />
+                        
+                        <!-- Dark Theme Button -->
+                        <Button Grid.Column="1"
+                                Text="?? Dark"
+                                Command="{Binding SetDarkThemeCommand}"
+                                BackgroundColor="{AppThemeBinding Light={StaticResource Gray600}, Dark={StaticResource Secondary}}"
+                                TextColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Tertiary}}" />
+                        
+                        <!-- System Theme Button -->
+                        <Button Grid.Column="2"
+                                Text="?? System"
+                                Command="{Binding SetSystemThemeCommand}"
+                                BackgroundColor="{StaticResource Primary}"
+                                TextColor="White" />
+                    </Grid>
+
+                    <Button Text="Toggle Theme"
+                            Command="{Binding ToggleThemeCommand}"
+                            Style="{StaticResource SecondaryButtonStyle}"
+                            HorizontalOptions="Center" />
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- 
+                ???????????????????????????????????????????????????????????????
+                SECTION 3: AppThemeBinding Demo
+                Shows automatic color switching based on theme.
+                ???????????????????????????????????????????????????????????????
+            -->
+            <Border Style="{StaticResource ElevatedCardStyle}">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="AppThemeBinding"
+                           Style="{StaticResource SectionHeaderStyle}" />
+                    <Label Text="These colors automatically switch based on the current theme:"
+                           Style="{StaticResource DescriptionStyle}" />
+                    
+                    <Grid ColumnDefinitions="*,*" RowDefinitions="Auto,Auto,Auto" RowSpacing="10" ColumnSpacing="10">
+                        <!-- Background Demo -->
+                        <Border Grid.Row="0" Grid.Column="0"
+                                Padding="15"
+                                BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Gray900}}"
+                                StrokeShape="RoundRectangle 8">
+                            <Label Text="Background"
+                                   HorizontalOptions="Center"
+                                   TextColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}" />
+                        </Border>
+                        
+                        <Border Grid.Row="0" Grid.Column="1"
+                                Padding="15"
+                                BackgroundColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryDark}}"
+                                StrokeShape="RoundRectangle 8">
+                            <Label Text="Primary"
+                                   HorizontalOptions="Center"
+                                   TextColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource PrimaryDarkText}}" />
+                        </Border>
+
+                        <!-- Text Color Demo -->
+                        <Label Grid.Row="1" Grid.Column="0"
+                               Text="Light: Black / Dark: White"
+                               FontSize="12"
+                               TextColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
+                               HorizontalOptions="Center" />
+                        
+                        <Label Grid.Row="1" Grid.Column="1"
+                               Text="Light: Gray / Dark: Light Gray"
+                               FontSize="12"
+                               TextColor="{AppThemeBinding Light={StaticResource Gray600}, Dark={StaticResource Gray300}}"
+                               HorizontalOptions="Center" />
+
+                        <!-- Border Color Demo -->
+                        <Border Grid.Row="2" Grid.Column="0"
+                                Padding="10"
+                                StrokeShape="RoundRectangle 8"
+                                Stroke="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource PrimaryDark}}"
+                                StrokeThickness="3">
+                            <Label Text="Border Color"
+                                   HorizontalOptions="Center"
+                                   FontSize="12" />
+                        </Border>
+                        
+                        <Border Grid.Row="2" Grid.Column="1"
+                                Padding="10"
+                                StrokeShape="RoundRectangle 8"
+                                Stroke="{AppThemeBinding Light={StaticResource Tertiary}, Dark={StaticResource Secondary}}"
+                                StrokeThickness="3">
+                            <Label Text="Accent Border"
+                                   HorizontalOptions="Center"
+                                   FontSize="12" />
+                        </Border>
+                    </Grid>
+
+                    <Label Text="Color=&quot;{AppThemeBinding Light={StaticResource X}, Dark={StaticResource Y}}&quot;"
+                           Style="{StaticResource CodeBlockStyle}" />
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- 
+                ???????????????????????????????????????????????????????????????
+                SECTION 4: StaticResource vs DynamicResource
+                ???????????????????????????????????????????????????????????????
+            -->
+            <Border Style="{StaticResource ElevatedCardStyle}">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="StaticResource vs DynamicResource"
+                           Style="{StaticResource SectionHeaderStyle}" />
+                    <Label Text="Understanding when to use each type of resource binding:"
+                           Style="{StaticResource DescriptionStyle}" />
+                    
+                    <Grid RowDefinitions="Auto,Auto" ColumnDefinitions="Auto,*" RowSpacing="15" ColumnSpacing="15">
+                        <Label Grid.Row="0" Grid.Column="0"
+                               Text="StaticResource"
+                               FontAttributes="Bold"
+                               TextColor="{StaticResource Primary}" />
+                        <VerticalStackLayout Grid.Row="0" Grid.Column="1" Spacing="3">
+                            <Label Text="• Resolved once at XAML load time" />
+                            <Label Text="• Better performance (no change tracking)" />
+                            <Label Text="• Use for values that never change" />
+                            <Label Text="• Won't update if resource value changes" />
+                        </VerticalStackLayout>
+                        
+                        <Label Grid.Row="1" Grid.Column="0"
+                               Text="DynamicResource"
+                               FontAttributes="Bold"
+                               TextColor="{StaticResource Tertiary}" />
+                        <VerticalStackLayout Grid.Row="1" Grid.Column="1" Spacing="3">
+                            <Label Text="• Re-evaluated when resource changes" />
+                            <Label Text="• Required for runtime theme switching" />
+                            <Label Text="• Slight performance overhead" />
+                            <Label Text="• Use for theme colors and dynamic values" />
+                        </VerticalStackLayout>
+                    </Grid>
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- 
+                ???????????????????????????????????????????????????????????????
+                SECTION 5: Theme-Aware Components
+                ???????????????????????????????????????????????????????????????
+            -->
+            <Border Style="{StaticResource ElevatedCardStyle}">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="Theme-Aware Components"
+                           Style="{StaticResource SectionHeaderStyle}" />
+                    <Label Text="These controls automatically adapt to the current theme:"
+                           Style="{StaticResource DescriptionStyle}" />
+                    
+                    <Entry Placeholder="Theme-aware Entry" />
+                    
+                    <HorizontalStackLayout Spacing="15">
+                        <CheckBox />
+                        <Label Text="Theme-aware CheckBox" VerticalOptions="Center" />
+                    </HorizontalStackLayout>
+                    
+                    <HorizontalStackLayout Spacing="15">
+                        <Switch />
+                        <Label Text="Theme-aware Switch" VerticalOptions="Center" />
+                    </HorizontalStackLayout>
+                    
+                    <Slider Minimum="0" Maximum="100" Value="50" />
+                    
+                    <ProgressBar Progress="0.7" />
+
+                    <Label Text="Default styles in Styles.xaml use AppThemeBinding for colors."
+                           FontSize="11"
+                           FontAttributes="Italic"
+                           TextColor="{StaticResource Gray500}" />
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- 
+                ???????????????????????????????????????????????????????????????
+                SECTION 6: Programmatic Theme Switching
+                ???????????????????????????????????????????????????????????????
+            -->
+            <Border Style="{StaticResource ElevatedCardStyle}">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="Programmatic Theme Switching"
+                           Style="{StaticResource SectionHeaderStyle}" />
+                    <Label Text="Theme can be changed at runtime using Application.Current.UserAppTheme:"
+                           Style="{StaticResource DescriptionStyle}" />
+                    
+                    <Label Text="// Set to Light theme
+Application.Current.UserAppTheme = AppTheme.Light;
+
+// Set to Dark theme
+Application.Current.UserAppTheme = AppTheme.Dark;
+
+// Follow system theme
+Application.Current.UserAppTheme = AppTheme.Unspecified;"
+                           Style="{StaticResource CodeBlockStyle}" />
+
+                    <Label Text="Note: UserAppTheme overrides system theme. Set to Unspecified to follow system."
+                           FontSize="11"
+                           FontAttributes="Italic"
+                           TextColor="{StaticResource Gray500}" />
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- 
+                ???????????????????????????????????????????????????????????????
+                SECTION 7: System Theme Detection
+                ???????????????????????????????????????????????????????????????
+            -->
+            <Border Style="{StaticResource ElevatedCardStyle}">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="System Theme Detection"
+                           Style="{StaticResource SectionHeaderStyle}" />
+                    <Label Text="Detect and respond to system theme changes:"
+                           Style="{StaticResource DescriptionStyle}" />
+                    
+                    <Label Text="// Get current system theme
+var systemTheme = Application.Current.RequestedTheme;
+
+// Listen for theme changes
+Application.Current.RequestedThemeChanged += (s, e) =>
+{
+    var newTheme = e.RequestedTheme;
+    // Handle theme change
+};"
+                           Style="{StaticResource CodeBlockStyle}" />
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- 
+                ???????????????????????????????????????????????????????????????
+                SECTION 8: Theme Explanation
+                ???????????????????????????????????????????????????????????????
+            -->
+            <Border Style="{StaticResource AccentCardStyle}">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="?? Theme Summary"
+                           Style="{StaticResource SectionHeaderStyle}" />
+                    
+                    <Label Text="{Binding ThemeExplanation}"
+                           LineBreakMode="WordWrap" />
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- 
+                ???????????????????????????????????????????????????????????????
+                SECTION 9: Best Practices
+                ???????????????????????????????????????????????????????????????
+            -->
+            <Border Style="{StaticResource AccentCardStyle}">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="?? Theme Best Practices"
+                           Style="{StaticResource SectionHeaderStyle}" />
+                    
+                    <Label Text="• Define theme colors in separate ResourceDictionary files" />
+                    <Label Text="• Use AppThemeBinding for automatic theme adaptation" />
+                    <Label Text="• Use DynamicResource for colors that may change at runtime" />
+                    <Label Text="• Test both Light and Dark modes thoroughly" />
+                    <Label Text="• Consider accessibility (contrast ratios)" />
+                    <Label Text="• Remember to handle system theme changes" />
+                    <Label Text="• Use semantic color names (Primary, Background, Surface)" />
+                </VerticalStackLayout>
+            </Border>
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>

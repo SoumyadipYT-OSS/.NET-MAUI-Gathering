@@ -1,0 +1,443 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+    StatesArenaPage: Demonstrates Visual State Manager (VSM) including:
+    - CommonStates group (Normal, Disabled, Focused, PointerOver)
+    - Custom state groups
+    - Inline VSM definitions
+    - VSM via Styles
+    All state changes use XAML only (no code-behind).
+    Docs: https://learn.microsoft.com/dotnet/maui/user-interface/visual-states
+-->
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:_01_Overview.ViewModels"
+             x:Class="_01_Overview.Pages.StatesArenaPage"
+             x:DataType="viewmodels:StatesArenaViewModel"
+             Title="States Arena">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            
+            <!-- 
+                ???????????????????????????????????????????????????????????????
+                STYLE WITH VSM
+                Visual states defined inside a style for reuse.
+                ???????????????????????????????????????????????????????????????
+            -->
+            <Style x:Key="VSMButtonStyle" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="{StaticResource Primary}" />
+                <Setter Property="TextColor" Value="White" />
+                <Setter Property="CornerRadius" Value="10" />
+                <Setter Property="Padding" Value="20,12" />
+                <Setter Property="VisualStateManager.VisualStateGroups">
+                    <VisualStateGroupList>
+                        <VisualStateGroup x:Name="CommonStates">
+                            <VisualState x:Name="Normal">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="{StaticResource Primary}" />
+                                    <Setter Property="Scale" Value="1" />
+                                </VisualState.Setters>
+                            </VisualState>
+                            <VisualState x:Name="PointerOver">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="{StaticResource Tertiary}" />
+                                    <Setter Property="Scale" Value="1.02" />
+                                </VisualState.Setters>
+                            </VisualState>
+                            <VisualState x:Name="Pressed">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="{StaticResource MidnightBlue}" />
+                                    <Setter Property="Scale" Value="0.98" />
+                                </VisualState.Setters>
+                            </VisualState>
+                            <VisualState x:Name="Disabled">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="{StaticResource Gray300}" />
+                                    <Setter Property="TextColor" Value="{StaticResource Gray500}" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </Setter>
+            </Style>
+
+            <!-- Entry with focus states -->
+            <Style x:Key="VSMEntryStyle" TargetType="Entry">
+                <Setter Property="BackgroundColor" Value="Transparent" />
+                <Setter Property="VisualStateManager.VisualStateGroups">
+                    <VisualStateGroupList>
+                        <VisualStateGroup x:Name="CommonStates">
+                            <VisualState x:Name="Normal">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="Transparent" />
+                                </VisualState.Setters>
+                            </VisualState>
+                            <VisualState x:Name="Focused">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="{StaticResource Secondary}" />
+                                </VisualState.Setters>
+                            </VisualState>
+                            <VisualState x:Name="Disabled">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="{StaticResource Gray200}" />
+                                    <Setter Property="TextColor" Value="{StaticResource Gray400}" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </Setter>
+            </Style>
+
+            <!-- Selectable item style -->
+            <Style x:Key="SelectableItemStyle" TargetType="Border">
+                <Setter Property="Padding" Value="15" />
+                <Setter Property="StrokeShape" Value="RoundRectangle 8" />
+                <Setter Property="StrokeThickness" Value="2" />
+                <Setter Property="VisualStateManager.VisualStateGroups">
+                    <VisualStateGroupList>
+                        <VisualStateGroup x:Name="CommonStates">
+                            <VisualState x:Name="Normal">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Gray900}}" />
+                                    <Setter Property="Stroke" Value="{StaticResource Gray300}" />
+                                </VisualState.Setters>
+                            </VisualState>
+                            <VisualState x:Name="PointerOver">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="{StaticResource Secondary}" />
+                                    <Setter Property="Stroke" Value="{StaticResource Primary}" />
+                                </VisualState.Setters>
+                            </VisualState>
+                            <VisualState x:Name="Selected">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="{StaticResource Primary}" />
+                                    <Setter Property="Stroke" Value="{StaticResource Tertiary}" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </Setter>
+            </Style>
+
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="15">
+
+            <Label Text="?? States Arena"
+                   Style="{StaticResource PageTitleStyle}" />
+            
+            <Label Text="Explore Visual State Manager for dynamic UI states."
+                   Style="{StaticResource DescriptionStyle}"
+                   HorizontalTextAlignment="Center" />
+
+            <!-- 
+                ???????????????????????????????????????????????????????????????
+                SECTION 1: Common States - Button
+                Shows Normal, PointerOver, Pressed, Disabled states.
+                ???????????????????????????????????????????????????????????????
+            -->
+            <Border Style="{StaticResource ElevatedCardStyle}">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="Button States (via Style)"
+                           Style="{StaticResource SectionHeaderStyle}" />
+                    <Label Text="Hover and click the button to see visual state changes. Toggle enabled/disabled."
+                           Style="{StaticResource DescriptionStyle}" />
+                    
+                    <Button Text="Interactive Button"
+                            Style="{StaticResource VSMButtonStyle}"
+                            IsEnabled="{Binding IsControlEnabled}"
+                            HorizontalOptions="Center" />
+
+                    <HorizontalStackLayout HorizontalOptions="Center" Spacing="10">
+                        <Label Text="Enabled:" VerticalOptions="Center" />
+                        <Switch IsToggled="{Binding IsControlEnabled}" />
+                        <Label Text="{Binding EnabledStatusText}" 
+                               VerticalOptions="Center"
+                               FontAttributes="Bold" />
+                    </HorizontalStackLayout>
+
+                    <Label Text="States: Normal ? PointerOver ? Pressed ? Disabled"
+                           Style="{StaticResource CodeBlockStyle}" />
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- 
+                ???????????????????????????????????????????????????????????????
+                SECTION 2: Entry States - Focus
+                Shows Normal, Focused, Disabled states.
+                ???????????????????????????????????????????????????????????????
+            -->
+            <Border Style="{StaticResource ElevatedCardStyle}">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="Entry States (Focus)"
+                           Style="{StaticResource SectionHeaderStyle}" />
+                    <Label Text="Tap the Entry to see the Focused state. Toggle enabled/disabled."
+                           Style="{StaticResource DescriptionStyle}" />
+                    
+                    <Entry Placeholder="Tap to focus me..."
+                           Style="{StaticResource VSMEntryStyle}"
+                           IsEnabled="{Binding IsControlEnabled}" />
+
+                    <Label Text="States: Normal ? Focused ? Disabled"
+                           Style="{StaticResource CodeBlockStyle}" />
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- 
+                ???????????????????????????????????????????????????????????????
+                SECTION 3: Inline VSM Definition
+                VSM defined directly on the control.
+                ???????????????????????????????????????????????????????????????
+            -->
+            <Border Style="{StaticResource ElevatedCardStyle}">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="Inline VSM Definition"
+                           Style="{StaticResource SectionHeaderStyle}" />
+                    <Label Text="Visual states can be defined directly on controls (inline)."
+                           Style="{StaticResource DescriptionStyle}" />
+                    
+                    <Button Text="Inline VSM Button" HorizontalOptions="Center">
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroupList>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Normal">
+                                        <VisualState.Setters>
+                                            <Setter Property="BackgroundColor" Value="{StaticResource Tertiary}" />
+                                            <Setter Property="TextColor" Value="White" />
+                                        </VisualState.Setters>
+                                    </VisualState>
+                                    <VisualState x:Name="PointerOver">
+                                        <VisualState.Setters>
+                                            <Setter Property="BackgroundColor" Value="{StaticResource Primary}" />
+                                            <Setter Property="BorderColor" Value="{StaticResource Tertiary}" />
+                                            <Setter Property="BorderWidth" Value="3" />
+                                        </VisualState.Setters>
+                                    </VisualState>
+                                    <VisualState x:Name="Pressed">
+                                        <VisualState.Setters>
+                                            <Setter Property="BackgroundColor" Value="{StaticResource MidnightBlue}" />
+                                            <Setter Property="Scale" Value="0.95" />
+                                        </VisualState.Setters>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateGroupList>
+                        </VisualStateManager.VisualStateGroups>
+                    </Button>
+
+                    <Label Text="&lt;VisualStateManager.VisualStateGroups&gt; defined inline"
+                           Style="{StaticResource CodeBlockStyle}" />
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- 
+                ???????????????????????????????????????????????????????????????
+                SECTION 4: Label with Multiple Visual Properties
+                ???????????????????????????????????????????????????????????????
+            -->
+            <Border Style="{StaticResource ElevatedCardStyle}">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="Multiple Property Changes"
+                           Style="{StaticResource SectionHeaderStyle}" />
+                    <Label Text="A single state can set multiple properties. Hover over the label:"
+                           Style="{StaticResource DescriptionStyle}" />
+                    
+                    <Label Text="Hover Over Me!"
+                           FontSize="20"
+                           HorizontalOptions="Center"
+                           Padding="20">
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroupList>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Normal">
+                                        <VisualState.Setters>
+                                            <Setter Property="TextColor" Value="{StaticResource Primary}" />
+                                            <Setter Property="BackgroundColor" Value="Transparent" />
+                                            <Setter Property="FontAttributes" Value="None" />
+                                            <Setter Property="Scale" Value="1" />
+                                        </VisualState.Setters>
+                                    </VisualState>
+                                    <VisualState x:Name="PointerOver">
+                                        <VisualState.Setters>
+                                            <Setter Property="TextColor" Value="White" />
+                                            <Setter Property="BackgroundColor" Value="{StaticResource Primary}" />
+                                            <Setter Property="FontAttributes" Value="Bold" />
+                                            <Setter Property="Scale" Value="1.1" />
+                                        </VisualState.Setters>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateGroupList>
+                        </VisualStateManager.VisualStateGroups>
+                    </Label>
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- 
+                ???????????????????????????????????????????????????????????????
+                SECTION 5: CheckBox States
+                ???????????????????????????????????????????????????????????????
+            -->
+            <Border Style="{StaticResource ElevatedCardStyle}">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="CheckBox States"
+                           Style="{StaticResource SectionHeaderStyle}" />
+                    <Label Text="CheckBox has IsChecked visual state built-in. Custom VSM can add more states."
+                           Style="{StaticResource DescriptionStyle}" />
+                    
+                    <HorizontalStackLayout Spacing="15" HorizontalOptions="Center">
+                        <CheckBox>
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroupList>
+                                    <VisualStateGroup x:Name="CommonStates">
+                                        <VisualState x:Name="Normal">
+                                            <VisualState.Setters>
+                                                <Setter Property="Color" Value="{StaticResource Primary}" />
+                                            </VisualState.Setters>
+                                        </VisualState>
+                                        <VisualState x:Name="IsChecked">
+                                            <VisualState.Setters>
+                                                <Setter Property="Color" Value="#28A745" />
+                                            </VisualState.Setters>
+                                        </VisualState>
+                                    </VisualStateGroup>
+                                </VisualStateGroupList>
+                            </VisualStateManager.VisualStateGroups>
+                        </CheckBox>
+                        <Label Text="Check me - color changes!"
+                               VerticalOptions="Center" />
+                    </HorizontalStackLayout>
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- 
+                ???????????????????????????????????????????????????????????????
+                SECTION 6: Frame/Border with Interactive States
+                ???????????????????????????????????????????????????????????????
+            -->
+            <Border Style="{StaticResource ElevatedCardStyle}">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="Interactive Cards"
+                           Style="{StaticResource SectionHeaderStyle}" />
+                    <Label Text="Hover over these cards to see PointerOver state:"
+                           Style="{StaticResource DescriptionStyle}" />
+                    
+                    <HorizontalStackLayout Spacing="10" HorizontalOptions="Center">
+                        <Border WidthRequest="100" HeightRequest="80">
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroupList>
+                                    <VisualStateGroup x:Name="CommonStates">
+                                        <VisualState x:Name="Normal">
+                                            <VisualState.Setters>
+                                                <Setter Property="BackgroundColor" Value="{StaticResource Secondary}" />
+                                                <Setter Property="Scale" Value="1" />
+                                            </VisualState.Setters>
+                                        </VisualState>
+                                        <VisualState x:Name="PointerOver">
+                                            <VisualState.Setters>
+                                                <Setter Property="BackgroundColor" Value="{StaticResource Primary}" />
+                                                <Setter Property="Scale" Value="1.05" />
+                                            </VisualState.Setters>
+                                        </VisualState>
+                                    </VisualStateGroup>
+                                </VisualStateGroupList>
+                            </VisualStateManager.VisualStateGroups>
+                            <Label Text="Card 1" 
+                                   HorizontalOptions="Center" 
+                                   VerticalOptions="Center"
+                                   TextColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}" />
+                        </Border>
+
+                        <Border WidthRequest="100" HeightRequest="80">
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroupList>
+                                    <VisualStateGroup x:Name="CommonStates">
+                                        <VisualState x:Name="Normal">
+                                            <VisualState.Setters>
+                                                <Setter Property="BackgroundColor" Value="{StaticResource Tertiary}" />
+                                                <Setter Property="Rotation" Value="0" />
+                                            </VisualState.Setters>
+                                        </VisualState>
+                                        <VisualState x:Name="PointerOver">
+                                            <VisualState.Setters>
+                                                <Setter Property="BackgroundColor" Value="{StaticResource Magenta}" />
+                                                <Setter Property="Rotation" Value="5" />
+                                            </VisualState.Setters>
+                                        </VisualState>
+                                    </VisualStateGroup>
+                                </VisualStateGroupList>
+                            </VisualStateManager.VisualStateGroups>
+                            <Label Text="Card 2" 
+                                   HorizontalOptions="Center" 
+                                   VerticalOptions="Center"
+                                   TextColor="White" />
+                        </Border>
+
+                        <Border WidthRequest="100" HeightRequest="80">
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroupList>
+                                    <VisualStateGroup x:Name="CommonStates">
+                                        <VisualState x:Name="Normal">
+                                            <VisualState.Setters>
+                                                <Setter Property="BackgroundColor" Value="{StaticResource Gray200}" />
+                                                <Setter Property="Opacity" Value="0.8" />
+                                            </VisualState.Setters>
+                                        </VisualState>
+                                        <VisualState x:Name="PointerOver">
+                                            <VisualState.Setters>
+                                                <Setter Property="BackgroundColor" Value="#28A745" />
+                                                <Setter Property="Opacity" Value="1" />
+                                            </VisualState.Setters>
+                                        </VisualState>
+                                    </VisualStateGroup>
+                                </VisualStateGroupList>
+                            </VisualStateManager.VisualStateGroups>
+                            <Label Text="Card 3" 
+                                   HorizontalOptions="Center" 
+                                   VerticalOptions="Center" />
+                        </Border>
+                    </HorizontalStackLayout>
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- 
+                ???????????????????????????????????????????????????????????????
+                SECTION 7: VSM State Groups Summary
+                ???????????????????????????????????????????????????????????????
+            -->
+            <Border Style="{StaticResource AccentCardStyle}">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="?? Visual State Groups"
+                           Style="{StaticResource SectionHeaderStyle}" />
+                    
+                    <Label Text="CommonStates group (built-in):"
+                           FontAttributes="Bold" />
+                    <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto,Auto,Auto,Auto,Auto" RowSpacing="5" ColumnSpacing="15">
+                        <Label Grid.Row="0" Grid.Column="0" Text="Normal" FontAttributes="Bold" TextColor="{StaticResource Primary}" />
+                        <Label Grid.Row="0" Grid.Column="1" Text="Default state" />
+                        
+                        <Label Grid.Row="1" Grid.Column="0" Text="Disabled" FontAttributes="Bold" TextColor="{StaticResource Primary}" />
+                        <Label Grid.Row="1" Grid.Column="1" Text="When IsEnabled=False" />
+                        
+                        <Label Grid.Row="2" Grid.Column="0" Text="Focused" FontAttributes="Bold" TextColor="{StaticResource Primary}" />
+                        <Label Grid.Row="2" Grid.Column="1" Text="When control has input focus" />
+                        
+                        <Label Grid.Row="3" Grid.Column="0" Text="PointerOver" FontAttributes="Bold" TextColor="{StaticResource Primary}" />
+                        <Label Grid.Row="3" Grid.Column="1" Text="Mouse pointer over control (desktop)" />
+                        
+                        <Label Grid.Row="4" Grid.Column="0" Text="Pressed" FontAttributes="Bold" TextColor="{StaticResource Primary}" />
+                        <Label Grid.Row="4" Grid.Column="1" Text="Control is being pressed/clicked" />
+                    </Grid>
+
+                    <Label Text="You can define custom VisualStateGroups for app-specific states."
+                           FontSize="12"
+                           FontAttributes="Italic"
+                           TextColor="{StaticResource Gray500}"
+                           Margin="0,10,0,0" />
+                </VerticalStackLayout>
+            </Border>
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>
