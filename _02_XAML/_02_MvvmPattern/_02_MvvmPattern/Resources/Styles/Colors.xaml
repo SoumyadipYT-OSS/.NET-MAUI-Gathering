@@ -1,0 +1,137 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ResourceDictionary 
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <!-- PREMIUM JEWEL TONE PALETTE - Elegant & Sophisticated            -->
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+
+    <!-- Primary: Deep Emerald -->
+    <Color x:Key="Primary">#0D4F4F</Color>
+    <Color x:Key="PrimaryDark">#1A6B6B</Color>
+    <Color x:Key="PrimaryLight">#2D9191</Color>
+    <Color x:Key="PrimaryMuted">#E8F5F5</Color>
+
+    <!-- Secondary: Warm Gold/Amber -->
+    <Color x:Key="Secondary">#C9A227</Color>
+    <Color x:Key="SecondaryLight">#E8C547</Color>
+    <Color x:Key="SecondaryDark">#A68B1F</Color>
+    <Color x:Key="SecondaryMuted">#FDF8E8</Color>
+
+    <!-- Accent: Coral Rose -->
+    <Color x:Key="Accent">#E07A5F</Color>
+    <Color x:Key="AccentLight">#F4A594</Color>
+    <Color x:Key="AccentDark">#C45D42</Color>
+
+    <!-- Tertiary: Royal Purple -->
+    <Color x:Key="Tertiary">#5D4E6D</Color>
+    <Color x:Key="TertiaryLight">#8B7A9E</Color>
+
+    <!-- Category Colors - Sophisticated Food Palette -->
+    <Color x:Key="CategoryFruits">#E07A5F</Color>
+    <Color x:Key="CategoryVegetables">#2D9191</Color>
+    <Color x:Key="CategoryGrains">#C9A227</Color>
+    <Color x:Key="CategoryProteins">#9B4F4F</Color>
+    <Color x:Key="CategoryDairy">#5B8FA8</Color>
+    <Color x:Key="CategoryBeverages">#7B5EA8</Color>
+
+    <!-- Semantic Colors -->
+    <Color x:Key="Success">#2D9191</Color>
+    <Color x:Key="Warning">#E8C547</Color>
+    <Color x:Key="Danger">#C45D42</Color>
+    <Color x:Key="Info">#5B8FA8</Color>
+
+    <!-- Surface Colors - Light Mode -->
+    <Color x:Key="Surface">#FFFFFF</Color>
+    <Color x:Key="SurfaceVariant">#F8F9FA</Color>
+    <Color x:Key="SurfaceElevated">#FFFFFF</Color>
+    <Color x:Key="Background">#F5F6F8</Color>
+
+    <!-- Surface Colors - Dark Mode -->
+    <Color x:Key="SurfaceDark">#1A1D21</Color>
+    <Color x:Key="SurfaceVariantDark">#242830</Color>
+    <Color x:Key="SurfaceElevatedDark">#2A2E36</Color>
+    <Color x:Key="BackgroundDark">#12151A</Color>
+
+    <!-- Base Colors -->
+    <Color x:Key="White">#FFFFFF</Color>
+    <Color x:Key="Black">#000000</Color>
+    <Color x:Key="OffWhite">#FAFBFC</Color>
+    <Color x:Key="OffBlack">#12151A</Color>
+
+    <!-- Gray Scale - Refined -->
+    <Color x:Key="Gray50">#FAFBFC</Color>
+    <Color x:Key="Gray100">#F1F3F5</Color>
+    <Color x:Key="Gray200">#E9ECEF</Color>
+    <Color x:Key="Gray300">#DEE2E6</Color>
+    <Color x:Key="Gray400">#CED4DA</Color>
+    <Color x:Key="Gray500">#ADB5BD</Color>
+    <Color x:Key="Gray600">#6C757D</Color>
+    <Color x:Key="Gray700">#495057</Color>
+    <Color x:Key="Gray800">#343A40</Color>
+    <Color x:Key="Gray900">#212529</Color>
+    <Color x:Key="Gray950">#0D1117</Color>
+
+    <!-- Text Colors -->
+    <Color x:Key="TextPrimary">#1A1D21</Color>
+    <Color x:Key="TextSecondary">#6C757D</Color>
+    <Color x:Key="TextMuted">#ADB5BD</Color>
+    <Color x:Key="TextPrimaryDark">#F1F3F5</Color>
+    <Color x:Key="TextSecondaryDark">#ADB5BD</Color>
+
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+    <!-- BRUSHES                                                          -->
+    <!-- ═══════════════════════════════════════════════════════════════ -->
+
+    <SolidColorBrush x:Key="PrimaryBrush" Color="{StaticResource Primary}"/>
+    <SolidColorBrush x:Key="SecondaryBrush" Color="{StaticResource Secondary}"/>
+    <SolidColorBrush x:Key="AccentBrush" Color="{StaticResource Accent}"/>
+    <SolidColorBrush x:Key="WhiteBrush" Color="{StaticResource White}"/>
+    <SolidColorBrush x:Key="BlackBrush" Color="{StaticResource Black}"/>
+
+    <!-- Premium Gradients -->
+    <LinearGradientBrush x:Key="PremiumHeaderGradient" StartPoint="0,0" EndPoint="1,1">
+        <GradientStop Color="#0D4F4F" Offset="0.0"/>
+        <GradientStop Color="#1A6B6B" Offset="0.5"/>
+        <GradientStop Color="#2D9191" Offset="1.0"/>
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="GoldGradient" StartPoint="0,0" EndPoint="1,0">
+        <GradientStop Color="#C9A227" Offset="0.0"/>
+        <GradientStop Color="#E8C547" Offset="0.5"/>
+        <GradientStop Color="#C9A227" Offset="1.0"/>
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="SunsetGradient" StartPoint="0,0" EndPoint="1,1">
+        <GradientStop Color="#E07A5F" Offset="0.0"/>
+        <GradientStop Color="#C9A227" Offset="1.0"/>
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="OceanGradient" StartPoint="0,0" EndPoint="1,1">
+        <GradientStop Color="#0D4F4F" Offset="0.0"/>
+        <GradientStop Color="#5B8FA8" Offset="1.0"/>
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="DarkGradient" StartPoint="0,0" EndPoint="0,1">
+        <GradientStop Color="#1A1D21" Offset="0.0"/>
+        <GradientStop Color="#242830" Offset="1.0"/>
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="CardShimmer" StartPoint="0,0" EndPoint="1,1">
+        <GradientStop Color="#FFFFFF" Offset="0.0"/>
+        <GradientStop Color="#F8F9FA" Offset="0.5"/>
+        <GradientStop Color="#FFFFFF" Offset="1.0"/>
+    </LinearGradientBrush>
+
+    <!-- Gray Brushes -->
+    <SolidColorBrush x:Key="Gray100Brush" Color="{StaticResource Gray100}"/>
+    <SolidColorBrush x:Key="Gray200Brush" Color="{StaticResource Gray200}"/>
+    <SolidColorBrush x:Key="Gray300Brush" Color="{StaticResource Gray300}"/>
+    <SolidColorBrush x:Key="Gray400Brush" Color="{StaticResource Gray400}"/>
+    <SolidColorBrush x:Key="Gray500Brush" Color="{StaticResource Gray500}"/>
+    <SolidColorBrush x:Key="Gray600Brush" Color="{StaticResource Gray600}"/>
+    <SolidColorBrush x:Key="Gray900Brush" Color="{StaticResource Gray900}"/>
+    <SolidColorBrush x:Key="Gray950Brush" Color="{StaticResource Gray950}"/>
+
+</ResourceDictionary>

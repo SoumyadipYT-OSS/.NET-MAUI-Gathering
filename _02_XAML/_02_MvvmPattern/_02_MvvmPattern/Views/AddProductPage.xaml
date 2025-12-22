@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:_02_MvvmPattern.ViewModels"
+             x:Class="_02_MvvmPattern.Views.AddProductPage"
+             x:DataType="viewmodels:AddProductViewModel"
+             Title="Add Product"
+             BackgroundColor="{AppThemeBinding Light={StaticResource OffWhite}, Dark={StaticResource OffBlack}}">
+
+    <Grid>
+        <ScrollView>
+            <VerticalStackLayout Padding="24" Spacing="20">
+                
+                <!-- Header -->
+                <VerticalStackLayout Spacing="8" Margin="0,8,0,16">
+                    <Label Text="Add New Product" Style="{StaticResource PageTitle}"/>
+                    <Label Text="Fill in the details to add a product to your inventory"
+                           Style="{StaticResource PageSubtitle}"/>
+                </VerticalStackLayout>
+
+                <!-- Image Section -->
+                <Border Style="{StaticResource FormField}">
+                    <VerticalStackLayout Spacing="16">
+                        <Label Text="PRODUCT IMAGE" Style="{StaticResource SectionHeader}" Margin="0"/>
+                        
+                        <Border StrokeShape="RoundRectangle 20"
+                                Stroke="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray700}}"
+                                StrokeThickness="2"
+                                StrokeDashArray="6,4"
+                                HeightRequest="180"
+                                HorizontalOptions="Center"
+                                WidthRequest="180"
+                                BackgroundColor="{AppThemeBinding Light={StaticResource Gray50}, Dark={StaticResource Gray800}}">
+                            <Image Source="{Binding ImagePath}" Aspect="AspectFill"/>
+                        </Border>
+                        
+                        <Button Text="📷  Choose Image"
+                                Command="{Binding PickImageCommand}"
+                                Style="{StaticResource SecondaryButton}"
+                                HeightRequest="48"
+                                CornerRadius="12"/>
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- Name Field -->
+                <Border Style="{StaticResource FormField}">
+                    <VerticalStackLayout Spacing="8">
+                        <HorizontalStackLayout Spacing="6">
+                            <Label Text="PRODUCT NAME" Style="{StaticResource FormLabel}" Margin="0"/>
+                            <Label Text="*" TextColor="{StaticResource Danger}" FontSize="14" FontAttributes="Bold"/>
+                        </HorizontalStackLayout>
+                        <Border StrokeShape="RoundRectangle 12"
+                                Stroke="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray600}}"
+                                Padding="16,4"
+                                BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource SurfaceDark}}">
+                            <Entry Placeholder="e.g., Organic Apples"
+                                   Text="{Binding Name}"
+                                   ClearButtonVisibility="WhileEditing"/>
+                        </Border>
+                        <Label Text="{Binding NameError}" 
+                               TextColor="{StaticResource Danger}" 
+                               FontSize="12"
+                               IsVisible="{Binding NameError, Converter={StaticResource StringToBoolConverter}}"/>
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- Description Field -->
+                <Border Style="{StaticResource FormField}">
+                    <VerticalStackLayout Spacing="8">
+                        <Label Text="DESCRIPTION" Style="{StaticResource FormLabel}" Margin="0"/>
+                        <Border StrokeShape="RoundRectangle 12"
+                                Stroke="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray600}}"
+                                Padding="16,8"
+                                BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource SurfaceDark}}">
+                            <Editor Placeholder="Describe your product..."
+                                    Text="{Binding Description}"
+                                    HeightRequest="100"
+                                    AutoSize="TextChanges"/>
+                        </Border>
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- Category Field -->
+                <Border Style="{StaticResource FormField}">
+                    <VerticalStackLayout Spacing="8">
+                        <HorizontalStackLayout Spacing="6">
+                            <Label Text="CATEGORY" Style="{StaticResource FormLabel}" Margin="0"/>
+                            <Label Text="*" TextColor="{StaticResource Danger}" FontSize="14" FontAttributes="Bold"/>
+                        </HorizontalStackLayout>
+                        <Border StrokeShape="RoundRectangle 12"
+                                Stroke="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray600}}"
+                                Padding="16,4"
+                                BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource SurfaceDark}}">
+                            <Picker Title="Select a category"
+                                    ItemsSource="{Binding Categories}"
+                                    SelectedItem="{Binding SelectedCategory}"/>
+                        </Border>
+                        <Label Text="{Binding CategoryError}" 
+                               TextColor="{StaticResource Danger}" 
+                               FontSize="12"
+                               IsVisible="{Binding CategoryError, Converter={StaticResource StringToBoolConverter}}"/>
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- Price Field -->
+                <Border Style="{StaticResource FormField}">
+                    <VerticalStackLayout Spacing="8">
+                        <HorizontalStackLayout Spacing="6">
+                            <Label Text="PRICE" Style="{StaticResource FormLabel}" Margin="0"/>
+                            <Label Text="*" TextColor="{StaticResource Danger}" FontSize="14" FontAttributes="Bold"/>
+                        </HorizontalStackLayout>
+                        <Grid ColumnDefinitions="Auto, *">
+                            <Border Grid.Column="0"
+                                    StrokeShape="RoundRectangle 12,0,0,12"
+                                    Stroke="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray600}}"
+                                    Background="{StaticResource GoldGradient}"
+                                    Padding="20,0">
+                                <Label Text="$" 
+                                       TextColor="{StaticResource White}"
+                                       FontSize="20"
+                                       FontAttributes="Bold"
+                                       VerticalOptions="Center"/>
+                            </Border>
+                            <Border Grid.Column="1"
+                                    StrokeShape="RoundRectangle 0,12,12,0"
+                                    Stroke="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray600}}"
+                                    Padding="16,4"
+                                    BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource SurfaceDark}}">
+                                <Entry Placeholder="0.00"
+                                       Text="{Binding PriceText}"
+                                       Keyboard="Numeric"
+                                       ClearButtonVisibility="WhileEditing"/>
+                            </Border>
+                        </Grid>
+                        <Label Text="{Binding PriceError}" 
+                               TextColor="{StaticResource Danger}" 
+                               FontSize="12"
+                               IsVisible="{Binding PriceError, Converter={StaticResource StringToBoolConverter}}"/>
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- Action Buttons -->
+                <Grid ColumnDefinitions="*, *" ColumnSpacing="16" Margin="0,16,0,0">
+                    <Button Grid.Column="0"
+                            Text="Cancel"
+                            Command="{Binding CancelCommand}"
+                            Style="{StaticResource SecondaryButton}"/>
+                    <Button Grid.Column="1"
+                            Text="Save Product"
+                            Command="{Binding SaveProductCommand}"
+                            Style="{StaticResource PrimaryButton}"/>
+                </Grid>
+
+                <!-- Required Note -->
+                <HorizontalStackLayout HorizontalOptions="Center" Spacing="6" Margin="0,8,0,24">
+                    <Label Text="*" TextColor="{StaticResource Danger}" FontSize="12"/>
+                    <Label Text="Required fields" FontSize="12" TextColor="{StaticResource Gray500}"/>
+                </HorizontalStackLayout>
+
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <!-- Loading Overlay -->
+        <Grid BackgroundColor="#E0000000" IsVisible="{Binding IsBusy}">
+            <Border StrokeShape="RoundRectangle 24"
+                    Stroke="Transparent"
+                    BackgroundColor="{AppThemeBinding Light={StaticResource Surface}, Dark={StaticResource SurfaceDark}}"
+                    Padding="40"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center">
+                <Border.Shadow>
+                    <Shadow Brush="Black" Offset="0,8" Radius="24" Opacity="0.15"/>
+                </Border.Shadow>
+                <VerticalStackLayout Spacing="20" HorizontalOptions="Center">
+                    <ActivityIndicator IsRunning="{Binding IsBusy}" HeightRequest="48" WidthRequest="48"/>
+                    <Label Text="Saving product..." FontSize="16" FontAttributes="Bold"/>
+                </VerticalStackLayout>
+            </Border>
+        </Grid>
+    </Grid>
+</ContentPage>

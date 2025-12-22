@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:_02_MvvmPattern.ViewModels"
+             xmlns:models="clr-namespace:_02_MvvmPattern.Models"
+             x:Class="_02_MvvmPattern.Views.HomePage"
+             x:DataType="viewmodels:HomeViewModel"
+             Title="Food Products"
+             Shell.NavBarIsVisible="False"
+             BackgroundColor="{AppThemeBinding Light={StaticResource OffWhite}, Dark={StaticResource OffBlack}}">
+
+    <Grid RowDefinitions="Auto, *">
+        
+        <!-- Premium Header -->
+        <Border Grid.Row="0" 
+                StrokeShape="RoundRectangle 0,0,32,32"
+                Stroke="Transparent"
+                Padding="24,56,24,28"
+                Background="{StaticResource PremiumHeaderGradient}">
+            <Border.Shadow>
+                <Shadow Brush="{StaticResource Primary}" Offset="0,8" Radius="24" Opacity="0.25"/>
+            </Border.Shadow>
+            <Grid RowDefinitions="Auto, Auto, Auto" ColumnDefinitions="*, Auto">
+                
+                <!-- Welcome Text -->
+                <Label Grid.Row="0" Grid.Column="0"
+                       Text="Welcome back 👋"
+                       FontSize="14"
+                       TextColor="{StaticResource PrimaryLight}"
+                       Opacity="0.9"/>
+                
+                <!-- Title -->
+                <Label Grid.Row="1" Grid.Column="0"
+                       Text="Food Products" 
+                       FontSize="32" 
+                       FontAttributes="Bold"
+                       TextColor="{StaticResource White}"
+                       Margin="0,4,0,0"/>
+                
+                <!-- Product Count Badge -->
+                <Border Grid.Row="0" Grid.RowSpan="2" Grid.Column="1"
+                        StrokeShape="RoundRectangle 16"
+                        Stroke="Transparent"
+                        Background="{StaticResource GoldGradient}"
+                        Padding="16,10"
+                        VerticalOptions="Center">
+                    <Border.Shadow>
+                        <Shadow Brush="{StaticResource Secondary}" Offset="0,4" Radius="8" Opacity="0.3"/>
+                    </Border.Shadow>
+                    <Label Text="{Binding Products.Count, StringFormat='{0}'}"
+                           FontSize="18"
+                           FontAttributes="Bold"
+                           TextColor="{StaticResource White}"/>
+                </Border>
+                
+                <!-- Hint Text -->
+                <HorizontalStackLayout Grid.Row="2" Grid.ColumnSpan="2" 
+                                       Spacing="8" 
+                                       Margin="0,20,0,0"
+                                       Opacity="0.8">
+                    <Border StrokeShape="RoundRectangle 12"
+                            Stroke="Transparent"
+                            BackgroundColor="#30FFFFFF"
+                            Padding="12,6">
+                        <Label Text="👆 Tap to view  •  👈 Swipe to manage"
+                               FontSize="12"
+                               TextColor="{StaticResource White}"/>
+                    </Border>
+                </HorizontalStackLayout>
+            </Grid>
+        </Border>
+
+        <!-- Main Content -->
+        <Grid Grid.Row="1">
+            <RefreshView IsRefreshing="False" Padding="20,20,20,100">
+                <CollectionView ItemsSource="{Binding Products}" SelectionMode="None">
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Vertical" ItemSpacing="16"/>
+                    </CollectionView.ItemsLayout>
+                    
+                    <!-- Empty State -->
+                    <CollectionView.EmptyView>
+                        <VerticalStackLayout VerticalOptions="Center" 
+                                             HorizontalOptions="Center" 
+                                             Spacing="20"
+                                             Padding="40">
+                            <Border StrokeShape="RoundRectangle 40"
+                                    Stroke="Transparent"
+                                    BackgroundColor="{AppThemeBinding Light={StaticResource PrimaryMuted}, Dark={StaticResource Gray800}}"
+                                    HeightRequest="140"
+                                    WidthRequest="140"
+                                    HorizontalOptions="Center">
+                                <Label Text="🛒" 
+                                       FontSize="64" 
+                                       HorizontalOptions="Center"
+                                       VerticalOptions="Center"/>
+                            </Border>
+                            <Label Text="No Products Yet" Style="{StaticResource EmptyStateTitle}"/>
+                            <Label Text="Start building your inventory by&#x0a;adding your first food product"
+                                   Style="{StaticResource EmptyStateSubtitle}"/>
+                            <Button Text="+ Add First Product"
+                                    Style="{StaticResource PrimaryButton}"
+                                    Command="{Binding NavigateToAddProductCommand}"
+                                    Margin="0,12,0,0"/>
+                        </VerticalStackLayout>
+                    </CollectionView.EmptyView>
+                    
+                    <!-- Product Cards -->
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="models:FoodProduct">
+                            <SwipeView x:Name="ProductSwipeView">
+                                <SwipeView.RightItems>
+                                    <SwipeItems Mode="Reveal">
+                                        <SwipeItem Text="✏️ Edit"
+                                                   BackgroundColor="{StaticResource Info}"
+                                                   BindingContext="{Binding Source={x:Reference ProductSwipeView}, Path=BindingContext}"
+                                                   Invoked="OnEditSwipeItemInvoked"/>
+                                        <SwipeItem Text="🗑️ Delete"
+                                                   BackgroundColor="{StaticResource Danger}"
+                                                   BindingContext="{Binding Source={x:Reference ProductSwipeView}, Path=BindingContext}"
+                                                   Invoked="OnDeleteSwipeItemInvoked"/>
+                                    </SwipeItems>
+                                </SwipeView.RightItems>
+                                
+                                <!-- Premium Product Card -->
+                                <Border Style="{StaticResource ProductCard}">
+                                    <Border.Shadow>
+                                        <Shadow Brush="Black" Offset="0,6" Radius="16" Opacity="0.06"/>
+                                    </Border.Shadow>
+                                    <Grid ColumnDefinitions="100, *" ColumnSpacing="16">
+                                        
+                                        <!-- Product Image -->
+                                        <Border Grid.Column="0" 
+                                                StrokeShape="RoundRectangle 16"
+                                                Stroke="Transparent"
+                                                BackgroundColor="{AppThemeBinding Light={StaticResource Gray100}, Dark={StaticResource Gray800}}"
+                                                HeightRequest="100"
+                                                WidthRequest="100">
+                                            <Image Source="{Binding ImagePath}" Aspect="AspectFill"/>
+                                        </Border>
+                                        
+                                        <!-- Product Info -->
+                                        <VerticalStackLayout Grid.Column="1" Spacing="8" VerticalOptions="Center">
+                                            <Label Text="{Binding Name}" 
+                                                   FontSize="18" 
+                                                   FontAttributes="Bold"
+                                                   TextColor="{AppThemeBinding Light={StaticResource Gray900}, Dark={StaticResource Gray100}}"
+                                                   LineBreakMode="TailTruncation"/>
+                                            
+                                            <Label Text="{Binding Description}" 
+                                                   FontSize="14" 
+                                                   TextColor="{StaticResource Gray500}"
+                                                   MaxLines="2"
+                                                   LineBreakMode="TailTruncation"/>
+                                            
+                                            <Grid ColumnDefinitions="Auto, *" Margin="0,6,0,0">
+                                                <Border Grid.Column="0"
+                                                        Style="{StaticResource CategoryBadge}"
+                                                        BackgroundColor="{StaticResource Primary}">
+                                                    <Label Text="{Binding Category}" 
+                                                           FontSize="11"
+                                                           FontAttributes="Bold"
+                                                           TextColor="{StaticResource White}"/>
+                                                </Border>
+                                                
+                                                <Label Grid.Column="1"
+                                                       Text="{Binding Price, StringFormat='${0:F2}'}" 
+                                                       Style="{StaticResource PriceLabel}"
+                                                       HorizontalOptions="End"
+                                                       VerticalOptions="Center"/>
+                                            </Grid>
+                                        </VerticalStackLayout>
+                                    </Grid>
+                                </Border>
+                            </SwipeView>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </RefreshView>
+
+            <!-- Premium FAB -->
+            <Button Text="+"
+                    Style="{StaticResource FloatingActionButton}"
+                    Command="{Binding NavigateToAddProductCommand}"
+                    HorizontalOptions="End"
+                    VerticalOptions="End"
+                    Margin="0,0,24,32">
+                <Button.Shadow>
+                    <Shadow Brush="{StaticResource Secondary}" Offset="0,6" Radius="16" Opacity="0.4"/>
+                </Button.Shadow>
+            </Button>
+        </Grid>
+
+        <!-- Deleting Overlay -->
+        <Grid Grid.RowSpan="2" BackgroundColor="#E0000000" IsVisible="{Binding IsDeleting}">
+            <Border StrokeShape="RoundRectangle 24"
+                    Stroke="Transparent"
+                    BackgroundColor="{AppThemeBinding Light={StaticResource Surface}, Dark={StaticResource SurfaceDark}}"
+                    Padding="40"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center">
+                <Border.Shadow>
+                    <Shadow Brush="Black" Offset="0,8" Radius="24" Opacity="0.15"/>
+                </Border.Shadow>
+                <VerticalStackLayout Spacing="20" HorizontalOptions="Center">
+                    <ActivityIndicator IsRunning="{Binding IsDeleting}" HeightRequest="48" WidthRequest="48"/>
+                    <Label Text="Deleting product..." FontSize="16" FontAttributes="Bold"/>
+                </VerticalStackLayout>
+            </Border>
+        </Grid>
+    </Grid>
+</ContentPage>
