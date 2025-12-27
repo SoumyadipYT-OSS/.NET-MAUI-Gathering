@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModels="clr-namespace:_03_DataBindMvvm.ViewModels"
+             x:Class="_03_DataBindMvvm.Pages.DetailPage"
+             x:DataType="viewModels:DetailViewModel"
+             Title="DetailPage">
+
+    <VerticalStackLayout Padding="20" Spacing="12">
+        <Label Text="Detail View"
+               FontAttributes="Bold"
+               FontSize="24" />
+
+        <Label Text="Full name:" FontAttributes="Bold" />
+        <Label Text="{Binding FullName}" />
+
+        <Label Text="Age:" FontAttributes="Bold" />
+        <Label Text="{Binding AgeDisplay}" />
+    </VerticalStackLayout>
+</ContentPage>

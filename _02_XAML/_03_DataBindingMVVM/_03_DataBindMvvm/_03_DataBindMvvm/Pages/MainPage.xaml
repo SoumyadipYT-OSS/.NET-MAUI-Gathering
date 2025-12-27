@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModels="clr-namespace:_03_DataBindMvvm.ViewModels"
+             xmlns:models="clr-namespace:_03_DataBindMvvm.Models"
+             xmlns:helpers="clr-namespace:_03_DataBindMvvm.Helpers"
+             x:Class="_03_DataBindMvvm.Pages.MainPage"
+             x:DataType="viewModels:MainViewModel"
+             x:Name="MainPageRoot"
+             Title="MainPage">
+
+    <!--
+        Binding overview:
+        - One-way: Label bound to CurrentTime (formatted with converter).
+        - Two-way: Entry bound to Name.
+        - Command: Buttons bound to RefreshTimeCommand and GreetCommand.
+        - Collection: CollectionView bound to People with SelectedPerson two-way binding.
+    -->
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <!-- Converter formats DateTime for display without putting formatting logic in the viewmodel. -->
+            <helpers:DateTimeToStringConverter x:Key="DateTimeToStringConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="12">
+
+            <!-- One-way binding: page title text bound to Title property. -->
+            <Label Text="{Binding Title}"
+                   FontAttributes="Bold"
+                   FontSize="24"
+                   HorizontalOptions="Center" />
+
+            <!-- One-way binding with converter: displays current time. -->
+            <Label Text="Current time:"
+                   FontAttributes="Bold" />
+            <Label Text="{Binding CurrentTime, Converter={StaticResource DateTimeToStringConverter}, ConverterParameter='HH:mm:ss'}" />
+
+            <!-- Two-way binding: Entry updates Name in the viewmodel and reflects changes back. -->
+            <Label Text="Enter your name (two-way binding):" />
+            <Entry Text="{Binding Name, Mode=TwoWay}" Placeholder="Your name" />
+
+            <!-- Command binding: refreshes the time. -->
+            <Button Text="Refresh Time"
+                    Command="{Binding RefreshTimeCommand}" />
+
+            <!-- Command binding: greets the user; CanExecute depends on Name not being empty. -->
+            <Button Text="Greet"
+                    Command="{Binding GreetCommand}" />
+
+            <!-- Collection binding: displays people from the ObservableCollection. -->
+            <Label Text="People (collection binding):"
+                   FontAttributes="Bold"
+                   Margin="0,20,0,0" />
+
+            <CollectionView ItemsSource="{Binding People}"
+                            SelectedItem="{Binding SelectedPerson, Mode=TwoWay}"
+                            SelectionMode="Single">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="models:Person">
+                        <Grid Padding="4" ColumnDefinitions="2*,Auto">
+                            <!-- One-way bindings: each Label reads properties from a Person item. -->
+                            <Label Grid.Column="0"
+                                   Text="{Binding FirstName}" />
+                            <Label Grid.Column="0"
+                                   Text="{Binding LastName}"
+                                   Margin="60,0,0,0" />
+                            <Label Grid.Column="1"
+                                   Text="{Binding Age}" />
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <!-- One-way binding from SelectedPerson via nested bindings. -->
+            <Label Text="Selected person details:"
+                   FontAttributes="Bold"
+                   Margin="0,20,0,0" />
+            <!-- One-way bindings to properties of the SelectedPerson reference. -->
+            <Label Text="{Binding SelectedPerson.FirstName}" />
+            <Label Text="{Binding SelectedPerson.LastName}" />
+            <Label Text="{Binding SelectedPerson.Age}" />
+
+            <!-- Command binding for navigation: uses NavigateToDetailsCommand, which depends on SelectedPerson. -->
+            <Button Text="View Details"
+                    Command="{Binding NavigateToDetailsCommand}" />
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
