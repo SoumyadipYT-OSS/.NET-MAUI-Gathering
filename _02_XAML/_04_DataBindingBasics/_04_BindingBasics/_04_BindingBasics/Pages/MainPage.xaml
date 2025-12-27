@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:model="clr-namespace:_04_BindingBasics.Models"
+             x:Class="_04_BindingBasics.Pages.MainPage"
+             x:DataType="model:PersonModel"
+             Title="Binding Basics">
+
+    <VerticalStackLayout Padding="24" Spacing="12">
+        <Label Text="Enter a name to update the greeting" />
+
+        <Entry Text="{Binding Name, Mode=TwoWay}" Placeholder="Type a name" />
+
+        <Label Text="{Binding Greeting}" FontSize="20" />
+    </VerticalStackLayout>
+</ContentPage>
