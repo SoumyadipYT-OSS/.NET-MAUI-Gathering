@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="_01_Accessibility.Pages.MainPage"
+             Title="Accessible Demo"
+             SemanticProperties.Description="Inclusive sample page demonstrating WCAG-aligned semantics for screen readers.">
+    <ScrollView>
+        <VerticalStackLayout Padding="24" Spacing="16" SemanticProperties.Description="Main content container for the accessibility sample.">
+            <Label Text="Inclusive application demo"
+                   SemanticProperties.HeadingLevel="Level1"
+                   FontSize="24"
+                   HorizontalOptions="Start" />
+
+            <Label Text="This page shows how to add descriptions, hints, and headings so screen readers can navigate content confidently."
+                   SemanticProperties.Description="Introductory text explaining the accessibility features on this page." />
+
+            <Image Source="dotnet_bot.png"
+                   WidthRequest="140"
+                   HeightRequest="140"
+                   HorizontalOptions="Center"
+                   SemanticProperties.Description="A friendly .NET bot illustration waving hello." />
+
+            <Label Text="Newsletter sign-up"
+                   SemanticProperties.HeadingLevel="Level2"
+                   FontAttributes="Bold"
+                   FontSize="18" />
+
+            <Entry Placeholder="Email address"
+                   Keyboard="Email"
+                   SemanticProperties.Description="Email address input field"
+                   SemanticProperties.Hint="Double tap to enter your email address for updates." />
+
+            <Switch x:Name="AccessibilityToggle"
+                    SemanticProperties.Description="Toggle to agree to receive accessible content tips"
+                    SemanticProperties.Hint="Double tap to change agreement state" />
+            <Label Text="Receive accessibility tips"
+                   SemanticProperties.Description="Label describing the toggle above"
+                   VerticalTextAlignment="Center" />
+
+            <Button Text="Subscribe"
+                    SemanticProperties.Description="Submit your email to subscribe to updates"
+                    SemanticProperties.Hint="Activates subscription for the email provided." />
+
+            <Label Text="Preferences"
+                   SemanticProperties.HeadingLevel="Level2"
+                   FontAttributes="Bold"
+                   FontSize="18" />
+
+            <Slider Minimum="0" Maximum="100" Value="40"
+                    SemanticProperties.Description="Adjust preferred text size percentage"
+                    SemanticProperties.Hint="Slide left or right to decrease or increase preferred text size." />
+
+            <Label Text="Remember: all interactive elements above include hints and descriptions to guide screen reader users." />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
