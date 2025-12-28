@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="_02_AppLifecycle.Views.MainPage"
+             Title="App Lifecycle">
+    <ContentPage.Content>
+        <VerticalStackLayout Padding="20" Spacing="12">
+            <Label Text=".NET MAUI App Lifecycle"
+                   FontSize="24"
+                   FontAttributes="Bold" />
+            <Label Text="Events from Application, Window, and platform lifecycle hooks will appear below."
+                   FontSize="14"
+                   TextColor="Gray" />
+            <HorizontalStackLayout Spacing="10">
+                <Button Text="Add Test Event"
+                        Clicked="OnAddTestEventClicked" />
+                <Button Text="Clear"
+                        Clicked="OnClearClicked" />
+            </HorizontalStackLayout>
+            <Border Stroke="LightGray" StrokeThickness="1" StrokeShape="RoundRectangle 8" Padding="10">
+                <CollectionView x:Name="LogView" ItemsSource="{Binding LogEntries}" HeightRequest="400">
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Vertical" ItemSpacing="8" />
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Label Text="{Binding}" FontSize="13" />
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </Border>
+        </VerticalStackLayout>
+    </ContentPage.Content>
+</ContentPage>
