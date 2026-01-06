@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:behaviors="clr-namespace:_03_Behaviors.Behaviors"
+             x:Class="_03_Behaviors.Pages.MainPage"
+             xmlns:vm="clr-namespace:_03_Behaviors.ViewModels"
+             x:DataType="vm:MainPageViewModel"
+             Title="Behaviors">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="14">
+
+            <Label
+                Text="Behaviors in .NET MAUI"
+                FontSize="22"
+                FontAttributes="Bold" />
+
+            <Label
+                Text="Behaviors let you attach reusable functionality to controls (no subclassing)."
+                Opacity="0.8" />
+
+            <Label Text="Custom behavior: numeric-only Entry" FontAttributes="Bold" />
+
+            <Entry
+                Placeholder="Type a number"
+                Keyboard="Numeric"
+                Text="{Binding AgeText}">
+
+                <!-- Custom Behavior attached in XAML: the Entry becomes numeric-only. -->
+                <Entry.Behaviors>
+                    <behaviors:NumericValidationBehavior />
+                </Entry.Behaviors>
+            </Entry>
+
+            <Button Text="Submit" Command="{Binding SubmitCommand}" />
+
+            <Label
+                Text="{Binding Status}"
+                FontAttributes="Italic" />
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
