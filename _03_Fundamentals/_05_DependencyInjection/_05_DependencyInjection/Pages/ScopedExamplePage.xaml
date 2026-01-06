@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="_05_DependencyInjection.Pages.ScopedExamplePage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="Scoped DI">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="16" Spacing="12">
+            <Label FontSize="20" FontAttributes="Bold" Text="Scoped lifetime (manual scope)" />
+
+            <Label Text="In ASP.NET Core, scopes are created per web request automatically. In MAUI, you often create a scope manually when you need a short-lived container boundary." />
+
+            <Border StrokeThickness="1" Padding="12">
+                <VerticalStackLayout Spacing="8">
+                    <Button Text="Create scope and resolve twice" Clicked="OnResolveInSameScopeClicked" />
+                    <Label x:Name="SameScopeLabel" />
+                </VerticalStackLayout>
+            </Border>
+
+            <Border StrokeThickness="1" Padding="12">
+                <VerticalStackLayout Spacing="8">
+                    <Button Text="Create two scopes and resolve once" Clicked="OnResolveAcrossScopesClicked" />
+                    <Label x:Name="AcrossScopesLabel" />
+                </VerticalStackLayout>
+            </Border>
+
+            <Button Text="Back" Clicked="OnBackClicked" />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

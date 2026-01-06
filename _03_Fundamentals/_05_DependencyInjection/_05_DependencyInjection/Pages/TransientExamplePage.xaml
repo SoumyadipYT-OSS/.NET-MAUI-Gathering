@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="_05_DependencyInjection.Pages.TransientExamplePage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="Transient DI">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="16" Spacing="12">
+            <Label FontSize="20" FontAttributes="Bold" Text="Transient lifetime" />
+            <Label Text="{Binding Explanation}" />
+
+            <Border StrokeThickness="1" Padding="12">
+                <VerticalStackLayout Spacing="8">
+                    <Button Text="Load data" Command="{Binding LoadCommand}" />
+                    <Label Text="{Binding Data, StringFormat='Fruits: {0}'}" />
+                    <Label Text="{Binding ClockInstanceInfo}" />
+                </VerticalStackLayout>
+            </Border>
+
+            <Label FontSize="12" Text="Tip: Navigate away and back to create a new page + view model, which results in new transient service instances." />
+
+            <Button Text="Back" Clicked="OnBackClicked" />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

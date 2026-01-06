@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="_05_DependencyInjection.Pages.MainPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="DI Fundamentals">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="16" Spacing="12">
+
+            <Label FontSize="22" FontAttributes="Bold" Text="{Binding Title}" />
+
+            <Border StrokeThickness="1" Padding="12">
+                <VerticalStackLayout Spacing="8">
+                    <Label FontAttributes="Bold" Text="App configuration (Singleton)" />
+                    <Label Text="{Binding Summary}" />
+                    <Button Text="Log from ViewModel" Command="{Binding LogHelloCommand}" />
+                </VerticalStackLayout>
+            </Border>
+
+            <Label FontAttributes="Bold" Text="Examples" />
+
+            <Button Text="1) Singleton lifetime" Clicked="OnSingletonClicked" />
+            <Button Text="2) Transient lifetime" Clicked="OnTransientClicked" />
+            <Button Text="3) Scoped lifetime (manual scope)" Clicked="OnScopedClicked" />
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

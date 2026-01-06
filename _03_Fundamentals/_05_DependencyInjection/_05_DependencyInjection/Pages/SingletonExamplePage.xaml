@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="_05_DependencyInjection.Pages.SingletonExamplePage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="Singleton DI">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="16" Spacing="12">
+            <Label FontSize="20" FontAttributes="Bold" Text="Singleton lifetime" />
+            <Label Text="{Binding Explanation}" />
+
+            <Border StrokeThickness="1" Padding="12">
+                <VerticalStackLayout Spacing="8">
+                    <Label FontAttributes="Bold" Text="Injected singleton values" />
+                    <Label Text="{Binding EnvironmentName, StringFormat='Environment: {0}'}" />
+                    <Label Text="{Binding ApiBaseUrl, StringFormat='API Base URL: {0}'}" />
+                    <Button Text="Log current values" Clicked="OnLogClicked" />
+                </VerticalStackLayout>
+            </Border>
+
+            <Button Text="Back" Clicked="OnBackClicked" />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
