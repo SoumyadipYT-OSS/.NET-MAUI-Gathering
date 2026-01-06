@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:_04_DataBinding.ViewModels"
+             x:Class="_04_DataBinding.Views.CommandingPage"
+             x:DataType="vm:CommandingViewModel"
+             Title="8. Commanding">
+
+    <ContentPage.BindingContext>
+        <vm:CommandingViewModel />
+    </ContentPage.BindingContext>
+
+    <ScrollView>
+        <VerticalStackLayout Padding="16" Spacing="16">
+            <Label Text="Commanding"
+                   FontSize="22"
+                   FontAttributes="Bold" />
+
+            <Label Text="Commands let the View invoke ViewModel logic without event handlers in code-behind." />
+
+            <Border Padding="12" Stroke="LightGray" StrokeShape="RoundRectangle 8">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="A) Basic command" FontAttributes="Bold" />
+
+                    <Button Text="Increment"
+                            Command="{Binding IncrementCommand}" />
+
+                    <Label Text="{Binding Count, StringFormat='Count = {0}'}" />
+                </VerticalStackLayout>
+            </Border>
+
+            <Border Padding="12" Stroke="LightGray" StrokeShape="RoundRectangle 8">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="B) CommandParameter (shared command)" FontAttributes="Bold" />
+
+                    <Label Text="Tap a preset to set Count:" />
+
+                    <HorizontalStackLayout Spacing="8">
+                        <Button Text="0" Command="{Binding SetCountCommand}" CommandParameter="0" />
+                        <Button Text="5" Command="{Binding SetCountCommand}" CommandParameter="5" />
+                        <Button Text="10" Command="{Binding SetCountCommand}" CommandParameter="10" />
+                    </HorizontalStackLayout>
+                </VerticalStackLayout>
+            </Border>
+
+            <Border Padding="12" Stroke="LightGray" StrokeShape="RoundRectangle 8">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="C) CanExecute" FontAttributes="Bold" />
+
+                    <Label Text="Decrement is disabled when Count == 0." />
+
+                    <Button Text="Decrement"
+                            Command="{Binding DecrementCommand}" />
+                </VerticalStackLayout>
+            </Border>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

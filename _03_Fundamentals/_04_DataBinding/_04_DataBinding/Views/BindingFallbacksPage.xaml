@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:_04_DataBinding.ViewModels"
+             x:Class="_04_DataBinding.Views.BindingFallbacksPage"
+             x:DataType="vm:BindingFallbacksViewModel"
+             Title="6. Binding fallbacks">
+
+    <ContentPage.BindingContext>
+        <vm:BindingFallbacksViewModel />
+    </ContentPage.BindingContext>
+
+    <ScrollView>
+        <VerticalStackLayout Padding="16" Spacing="16">
+            <Label Text="Binding fallbacks"
+                   FontSize="22"
+                   FontAttributes="Bold" />
+
+            <Label Text="Use FallbackValue when the binding source/path can't be resolved. Use TargetNullValue when the binding succeeds but returns null." />
+
+            <Border Padding="12" Stroke="LightGray" StrokeShape="RoundRectangle 8">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="A) TargetNullValue" FontAttributes="Bold" />
+
+                    <Label Text="CurrentNickname is null on purpose:" />
+
+                    <Label Text="{Binding CurrentNickname, TargetNullValue='(no nickname set)'}" />
+
+                    <Button Text="Toggle nickname"
+                            Command="{Binding ToggleNicknameCommand}" />
+                </VerticalStackLayout>
+            </Border>
+
+            <Border Padding="12" Stroke="LightGray" StrokeShape="RoundRectangle 8">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="B) FallbackValue" FontAttributes="Bold" />
+
+                    <Label Text="This binding uses an invalid Path on purpose, so FallbackValue is shown:" />
+
+                    <!--
+                        Invalid path (DoesNotExist) => binding can't resolve => FallbackValue is used.
+                        We use x:DataType="{x:Null}" locally to allow an invalid path without compile error.
+                    -->
+                    <Label x:DataType="{x:Null}"
+                           Text="{Binding DoesNotExist, FallbackValue='(binding failed: no such property)'}" />
+                </VerticalStackLayout>
+            </Border>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

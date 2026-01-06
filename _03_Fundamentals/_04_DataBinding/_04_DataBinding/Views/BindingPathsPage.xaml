@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:globe="clr-namespace:System.Globalization;assembly=netstandard"
+             x:Class="_04_DataBinding.Views.BindingPathsPage"
+             Title="3. Binding paths"
+             x:Name="page">
+
+    <!-- 
+        This page demonstrates binding paths. We do NOT use x:DataType here
+        because bindings with Source={x:Reference} to sub-properties like
+        Text.Length or Time.TotalSeconds are not supported by compiled bindings.
+    -->
+
+    <ScrollView>
+        <VerticalStackLayout Padding="16" Spacing="16">
+
+            <Label Text="Binding paths"
+                   FontSize="22"
+                   FontAttributes="Bold" />
+
+            <Label Text="Path can point at a property, a sub-property (property of a property), or an indexed collection element." />
+
+            <Border Padding="12" Stroke="LightGray" StrokeShape="RoundRectangle 8">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="A) Sub-property: Time.TotalSeconds" FontAttributes="Bold" />
+
+                    <TimePicker x:Name="timePicker" />
+
+                    <!--
+                        TimePicker.Time is TimeSpan? (nullable).
+                        At runtime the binding engine handles nullable unwrapping.
+                    -->
+                    <Label x:Name="timeLabel" />
+                </VerticalStackLayout>
+            </Border>
+
+            <Border Padding="12" Stroke="LightGray" StrokeShape="RoundRectangle 8">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="B) Nested properties + indexer" FontAttributes="Bold" />
+
+                    <!--
+                        CultureInfo.CurrentCulture.DateTimeFormat.DayNames is a string[].
+                        The [3] index gets the 4th day name.
+                    -->
+                    <Label x:Name="cultureLabel" />
+
+                    <Label x:Name="frenchCultureLabel" />
+                </VerticalStackLayout>
+            </Border>
+
+            <Border Padding="12" Stroke="LightGray" StrokeShape="RoundRectangle 8">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="C) Path into another control: Label.Text.Length" FontAttributes="Bold" />
+
+                    <Entry x:Name="textEntry" Text="" Placeholder="Type here" />
+
+                    <Label x:Name="echoLabel" />
+
+                    <Label x:Name="echoLengthLabel" />
+                </VerticalStackLayout>
+            </Border>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

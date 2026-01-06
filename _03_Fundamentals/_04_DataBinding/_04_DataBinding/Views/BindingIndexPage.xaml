@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:views="clr-namespace:_04_DataBinding.Views"
+             xmlns:vm="clr-namespace:_04_DataBinding.ViewModels"
+             x:Class="_04_DataBinding.Views.BindingIndexPage"
+             x:DataType="vm:BindingIndexViewModel"
+             Title="Data Binding (Index)">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="16" Spacing="12">
+            <Label Text="Data Binding in .NET MAUI"
+                   FontSize="22"
+                   FontAttributes="Bold" />
+
+            <Label Text="Tap a topic below. Each page is self-contained so you can experiment safely." />
+
+            <Button Text="1. Basic bindings"
+                    Command="{Binding NavigateCommand}"
+                    CommandParameter="basic" />
+
+            <Button Text="2. Binding modes"
+                    Command="{Binding NavigateCommand}"
+                    CommandParameter="modes" />
+
+            <Button Text="3. Binding paths"
+                    Command="{Binding NavigateCommand}"
+                    CommandParameter="paths" />
+
+            <Button Text="4. Converters"
+                    Command="{Binding NavigateCommand}"
+                    CommandParameter="converters" />
+
+            <Button Text="5. Relative bindings"
+                    Command="{Binding NavigateCommand}"
+                    CommandParameter="relative" />
+
+            <Button Text="6. Binding fallbacks"
+                    Command="{Binding NavigateCommand}"
+                    CommandParameter="fallbacks" />
+
+            <Button Text="7. MultiBinding"
+                    Command="{Binding NavigateCommand}"
+                    CommandParameter="multibinding" />
+
+            <Button Text="8. Commanding"
+                    Command="{Binding NavigateCommand}"
+                    CommandParameter="commanding" />
+
+            <Button Text="9. Compiled bindings"
+                    Command="{Binding NavigateCommand}"
+                    CommandParameter="compiled" />
+
+            <BoxView HeightRequest="1" Color="Gray" Opacity="0.25" Margin="0,8" />
+
+            <Label FontSize="12"
+                   Text="Tip: Many pages set x:DataType to enable compiled bindings. MultiBinding currently doesn't support compiled bindings in XAML."
+                   Opacity="0.75" />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

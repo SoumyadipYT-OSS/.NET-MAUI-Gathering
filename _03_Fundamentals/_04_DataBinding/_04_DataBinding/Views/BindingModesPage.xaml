@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:_04_DataBinding.ViewModels"
+             x:Class="_04_DataBinding.Views.BindingModesPage"
+             x:DataType="vm:BindingModesViewModel"
+             Title="2. Binding modes">
+
+    <ContentPage.BindingContext>
+        <vm:BindingModesViewModel />
+    </ContentPage.BindingContext>
+
+    <ScrollView>
+        <VerticalStackLayout Padding="16" Spacing="16">
+
+            <Label Text="Binding modes"
+                   FontSize="22"
+                   FontAttributes="Bold" />
+
+            <Label Text="BindingMode controls the direction and lifetime of value flow between source and target." />
+
+            <Border Padding="12" Stroke="LightGray" StrokeShape="RoundRectangle 8">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="A) TwoWay (default for Slider.Value)" FontAttributes="Bold" />
+
+                    <Label Text="Angle (Label binds OneWay to the viewmodel):" />
+                    <Label Text="{Binding Angle, StringFormat='Angle = {0:F0}°'}" />
+
+                    <!--
+                        Slider.Value has a default BindingMode of TwoWay.
+                        That means moving the slider updates the viewmodel, and the viewmodel can also update the Slider.
+                    -->
+                    <Slider Minimum="0" Maximum="360" Value="{Binding Angle}" />
+
+                    <Label Text="Rotate the BoxView using a OneWay binding:" />
+                    <BoxView HeightRequest="40"
+                            WidthRequest="160"
+                            Color="#512BD4"
+                            Rotation="{Binding Angle, Mode=OneWay}"
+                            HorizontalOptions="Center" />
+                </VerticalStackLayout>
+            </Border>
+
+            <Border Padding="12" Stroke="LightGray" StrokeShape="RoundRectangle 8">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="B) OneTime (snapshot)" FontAttributes="Bold" />
+
+                    <Label Text="This label takes a snapshot of DraftText when the BindingContext is created." />
+                    <Label Text="{Binding DraftText, Mode=OneTime, StringFormat='OneTime snapshot: {0}'}" />
+
+                    <Entry Text="{Binding DraftText}" />
+                    <Label Text="{Binding DraftText, StringFormat='Live (TwoWay): {0}'}" />
+                </VerticalStackLayout>
+            </Border>
+
+            <Border Padding="12" Stroke="LightGray" StrokeShape="RoundRectangle 8">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="C) Save pattern (TwoWay + command)" FontAttributes="Bold" />
+
+                    <Label Text="DraftText updates immediately because Entry.Text is TwoWay by default." />
+                    <Label Text="SavedText only changes when you press Save." />
+
+                    <Button Text="Save"
+                            Command="{Binding SaveCommand}" />
+
+                    <Label Text="{Binding SavedText, StringFormat='SavedText: {0}'}" />
+                </VerticalStackLayout>
+            </Border>
+
+            <Border Padding="12" Stroke="LightGray" StrokeShape="RoundRectangle 8">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="D) OneWayToSource" FontAttributes="Bold" />
+
+                    <Label Text="Sometimes you want the target to push values into the source only." />
+
+                    <!--
+                        Here we bind the Slider.Value to Angle in OneWayToSource mode.
+                        This means the slider pushes values to the viewmodel, but does NOT get initialized from it.
+                    -->
+                    <Label Text="Move the slider. Angle updates; the slider does NOT get initialized from Angle." />
+                    <Slider Minimum="0" Maximum="100"
+                            Value="{Binding Angle, Mode=OneWayToSource}" />
+                    <Label Text="{Binding Angle, StringFormat='Angle (updated by target) = {0:F0}'}" />
+                </VerticalStackLayout>
+            </Border>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

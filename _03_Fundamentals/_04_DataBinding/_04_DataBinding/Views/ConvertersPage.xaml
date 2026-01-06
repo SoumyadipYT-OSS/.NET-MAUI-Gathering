@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:conv="clr-namespace:_04_DataBinding.Converters"
+             x:Class="_04_DataBinding.Views.ConvertersPage"
+             Title="4. Converters">
+
+    <ContentPage.Resources>
+        <!--
+            Converters are often placed in Resources so multiple bindings can reuse them.
+            (You can also add converters to App-level resources if you want global reuse.)
+        -->
+        <conv:IntToBoolConverter x:Key="IntToBool" />
+        <conv:InverterConverter x:Key="Invert" />
+    </ContentPage.Resources>
+
+    <ScrollView>
+        <VerticalStackLayout Padding="16" Spacing="16">
+
+            <Label Text="Binding value converters"
+                   FontSize="22"
+                   FontAttributes="Bold" />
+
+            <Label Text="Use IValueConverter when the source and target types don't match (or when you want custom transformation logic)." />
+
+            <Border Padding="12" Stroke="LightGray" StrokeShape="RoundRectangle 8">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="A) Enable a Button based on Entry.Text.Length" FontAttributes="Bold" />
+
+                    <Entry x:Name="searchEntry"
+                           Text=""
+                           Placeholder="Type at least 1 character" />
+
+                    <!--
+                        Entry.Text is a string.
+                        Text.Length is an int.
+                        Button.IsEnabled is a bool.
+                        This binding uses IntToBoolConverter to turn int -> bool.
+
+                        The binding is set in code-behind to avoid XAML analyzer issues.
+                    -->
+                    <Button x:Name="searchButton" Text="Search" />
+                </VerticalStackLayout>
+            </Border>
+
+            <Border Padding="12" Stroke="LightGray" StrokeShape="RoundRectangle 8">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="B) Invert a boolean" FontAttributes="Bold" />
+
+                    <Switch x:Name="toggle" />
+
+                    <Label x:Name="toggledLabel" />
+
+                    <Label x:Name="invertedLabel" />
+                </VerticalStackLayout>
+            </Border>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

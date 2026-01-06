@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:_04_DataBinding.ViewModels"
+             xmlns:models="clr-namespace:_04_DataBinding.Models"
+             x:Class="_04_DataBinding.Views.RelativeBindingsPage"
+             x:DataType="vm:RelativeBindingsViewModel"
+             Title="5. Relative bindings">
+
+    <ContentPage.BindingContext>
+        <vm:RelativeBindingsViewModel />
+    </ContentPage.BindingContext>
+
+    <ScrollView>
+        <VerticalStackLayout Padding="16" Spacing="16">
+
+            <Label Text="Relative bindings"
+                   FontSize="22"
+                   FontAttributes="Bold" />
+
+            <Label Text="RelativeSource lets you bind relative to the target element: Self, an Ancestor, or an ancestor's BindingContext." />
+
+            <Border Padding="12" Stroke="LightGray" StrokeShape="RoundRectangle 8">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="A) Self" FontAttributes="Bold" />
+
+                    <!--
+                        Bind HeightRequest to WidthRequest on the same element.
+                        This is a simple, visual example that proves the binding source is the target itself.
+                    -->
+                    <BoxView x:Name="selfBindingBox"
+                            Color="#512BD4"
+                            WidthRequest="160"
+                            HorizontalOptions="Center" />
+
+                    <Label Text="HeightRequest binds to WidthRequest using RelativeSource Self (set in code-behind)." />
+                </VerticalStackLayout>
+            </Border>
+
+            <Border Padding="12" Stroke="LightGray" StrokeShape="RoundRectangle 8">
+                <VerticalStackLayout Spacing="10">
+                    <Label Text="B) FindAncestorBindingContext (inside a DataTemplate)" FontAttributes="Bold" />
+
+                    <Label Text="Selected:" FontAttributes="Bold" />
+                    <Label Text="{Binding Selected.Name, TargetNullValue='(none selected)'}" />
+
+                    <CollectionView ItemsSource="{Binding People}"
+                                    SelectionMode="None">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:DataType="models:Person">
+                                <Grid ColumnDefinitions="*,Auto" Padding="4">
+                                    <Label Text="{Binding Name}"
+                                           VerticalOptions="Center" />
+
+                                    <!--
+                                        In a DataTemplate, BindingContext is the current Person item.
+                                        But the command we want lives on the page's viewmodel.
+                                        The button binding is set in code-behind to avoid analyzer issues.
+                                    -->
+                                    <Button Grid.Column="1"
+                                            Text="Select"
+                                            Clicked="OnSelectClicked" />
+                                </Grid>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </VerticalStackLayout>
+            </Border>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

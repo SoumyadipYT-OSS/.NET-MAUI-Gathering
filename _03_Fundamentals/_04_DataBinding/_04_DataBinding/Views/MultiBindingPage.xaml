@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:conv="clr-namespace:_04_DataBinding.Converters"
+             xmlns:vm="clr-namespace:_04_DataBinding.ViewModels"
+             x:Class="_04_DataBinding.Views.MultiBindingPage"
+             Title="7. MultiBinding">
+
+    <!--
+        Note: MultiBinding currently doesn't support compiled bindings in XAML.
+        So we intentionally do NOT set x:DataType on the page.
+    -->
+
+    <ContentPage.Resources>
+        <conv:AllTrueMultiConverter x:Key="AllTrue" />
+        <conv:InverterConverter x:Key="Invert" />
+    </ContentPage.Resources>
+
+    <ContentPage.BindingContext>
+        <vm:MultiBindingViewModel />
+    </ContentPage.BindingContext>
+
+    <ScrollView>
+        <VerticalStackLayout Padding="16" Spacing="16">
+
+            <Label Text="MultiBinding"
+                   FontSize="22"
+                   FontAttributes="Bold" />
+
+            <Label Text="MultiBinding attaches multiple bindings to a single target property and combines them using an IMultiValueConverter." />
+
+            <Border Padding="12" Stroke="LightGray" StrokeShape="RoundRectangle 8">
+                <VerticalStackLayout Spacing="10">
+
+                    <Label Text="Toggle all conditions, then observe the combined result." />
+
+                    <HorizontalStackLayout Spacing="12">
+                        <CheckBox IsChecked="{Binding IsOver16}" />
+                        <Label Text="IsOver16" VerticalOptions="Center" />
+                    </HorizontalStackLayout>
+
+                    <HorizontalStackLayout Spacing="12">
+                        <CheckBox IsChecked="{Binding HasPassedTest}" />
+                        <Label Text="HasPassedTest" VerticalOptions="Center" />
+                    </HorizontalStackLayout>
+
+                    <HorizontalStackLayout Spacing="12">
+                        <CheckBox IsChecked="{Binding IsSuspended}" />
+                        <Label Text="IsSuspended (will be inverted in MultiBinding)" VerticalOptions="Center" />
+                    </HorizontalStackLayout>
+
+                    <Label Text="Eligible (AllTrue with IsSuspended inverted):" FontAttributes="Bold" />
+
+                    <CheckBox x:Name="eligibleCheckBox" IsEnabled="False" />
+
+                </VerticalStackLayout>
+            </Border>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
