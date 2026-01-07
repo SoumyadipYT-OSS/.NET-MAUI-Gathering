@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="_02_Brushes.Views.GradientStopsPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:vm="clr-namespace:_02_Brushes.ViewModels"
+    x:DataType="vm:GradientStopsViewModel"
+    Title="{Binding Title}">
+
+    <ScrollView>
+        <VerticalStackLayout Spacing="16" Padding="16">
+            <Label Text="Gradient stops (GradientBrush)" FontSize="24" FontAttributes="Bold" />
+            <Label
+                Text="A GradientBrush is made of GradientStop objects. Each stop defines a Color and an Offset (0..1) along the gradient axis."
+                FontSize="14"
+                Opacity="0.85" />
+
+            <Border
+                Stroke="{AppThemeBinding Light=#D0D0D0, Dark=#404040}"
+                StrokeThickness="1"
+                StrokeShape="RoundRectangle 12"
+                HeightRequest="140">
+                <Border.Background>
+                    <!-- Diagonal gradient (StartPoint default 0,0 ; EndPoint default 1,1) -->
+                    <LinearGradientBrush>
+                        <GradientStop Color="Yellow" Offset="0" />
+                        <!-- This middle stop is interactive. -->
+                        <GradientStop Color="Red" Offset="{Binding Stop2Offset}" />
+                        <GradientStop Color="Blue" Offset="0.75" />
+                        <GradientStop Color="LimeGreen" Offset="1" />
+                    </LinearGradientBrush>
+                </Border.Background>
+                <Grid Padding="12">
+                    <Label
+                        VerticalOptions="Center"
+                        TextColor="Black"
+                        Text="Move the Red stop to see how interpolation changes" />
+                </Grid>
+            </Border>
+
+            <Label Text="Red stop offset: {Binding Stop2Offset, StringFormat='{0:F2}'}" />
+            <Slider Minimum="0" Maximum="1" Value="{Binding Stop2Offset}" />
+
+            <Label
+                Text="Note: Gradient coordinates are relative to the painted area. (0,0) = top-left, (1,1) = bottom-right."
+                FontSize="12"
+                Opacity="0.75" />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

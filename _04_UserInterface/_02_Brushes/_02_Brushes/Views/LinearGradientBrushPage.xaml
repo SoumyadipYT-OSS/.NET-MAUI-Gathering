@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="_02_Brushes.Views.LinearGradientBrushPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="{Binding Title}">
+
+    <ScrollView>
+        <VerticalStackLayout Spacing="16" Padding="16">
+            <Label Text="LinearGradientBrush" FontSize="24" FontAttributes="Bold" />
+            <Label
+                Text="A linear gradient blends colors along a line (the gradient axis) from StartPoint to EndPoint. Points are relative to the painted area: (0,0)=top-left, (1,1)=bottom-right."
+                FontSize="14"
+                Opacity="0.85" />
+
+            <Border
+                Stroke="{AppThemeBinding Light=#D0D0D0, Dark=#404040}"
+                StrokeThickness="1"
+                StrokeShape="RoundRectangle 12"
+                HeightRequest="160">
+                <Border.Background>
+                    <!-- StartPoint/EndPoint are updated from code-behind based on slider values. -->
+                    <LinearGradientBrush x:Name="PreviewBrush">
+                        <GradientStop Color="#FFCC00" Offset="0" />
+                        <GradientStop Color="#FF0066" Offset="{Binding MiddleOffset}" />
+                        <GradientStop Color="#3B82F6" Offset="1" />
+                    </LinearGradientBrush>
+                </Border.Background>
+                <Grid Padding="12">
+                    <Label Text="Try moving Start/End points" VerticalOptions="Center" />
+                </Grid>
+            </Border>
+
+            <Label Text="StartPoint: ({Binding StartX, StringFormat='{0:F2}'}, {Binding StartY, StringFormat='{0:F2}'})" />
+            <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto,Auto" ColumnSpacing="12" RowSpacing="10">
+                <Label Grid.Row="0" Grid.Column="0" Text="X" VerticalOptions="Center" />
+                <Slider Grid.Row="0" Grid.Column="1" Minimum="0" Maximum="1" Value="{Binding StartX}" ValueChanged="OnAnyPointChanged" />
+
+                <Label Grid.Row="1" Grid.Column="0" Text="Y" VerticalOptions="Center" />
+                <Slider Grid.Row="1" Grid.Column="1" Minimum="0" Maximum="1" Value="{Binding StartY}" ValueChanged="OnAnyPointChanged" />
+            </Grid>
+
+            <Label Text="EndPoint: ({Binding EndX, StringFormat='{0:F2}'}, {Binding EndY, StringFormat='{0:F2}'})" />
+            <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto,Auto" ColumnSpacing="12" RowSpacing="10">
+                <Label Grid.Row="0" Grid.Column="0" Text="X" VerticalOptions="Center" />
+                <Slider Grid.Row="0" Grid.Column="1" Minimum="0" Maximum="1" Value="{Binding EndX}" ValueChanged="OnAnyPointChanged" />
+
+                <Label Grid.Row="1" Grid.Column="0" Text="Y" VerticalOptions="Center" />
+                <Slider Grid.Row="1" Grid.Column="1" Minimum="0" Maximum="1" Value="{Binding EndY}" ValueChanged="OnAnyPointChanged" />
+            </Grid>
+
+            <Label Text="Middle stop offset: {Binding MiddleOffset, StringFormat='{0:F2}'}" />
+            <Slider Minimum="0" Maximum="1" Value="{Binding MiddleOffset}" />
+
+            <Label Text="Common presets" FontAttributes="Bold" />
+            <HorizontalStackLayout Spacing="10">
+                <Button Text="Horizontal" Clicked="OnHorizontalClicked" />
+                <Button Text="Vertical" Clicked="OnVerticalClicked" />
+                <Button Text="Diagonal" Clicked="OnDiagonalClicked" />
+                <Button Text="Reverse" Clicked="OnReverseClicked" />
+            </HorizontalStackLayout>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

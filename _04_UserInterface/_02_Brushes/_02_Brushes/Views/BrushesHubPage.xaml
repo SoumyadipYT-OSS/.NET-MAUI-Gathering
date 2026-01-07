@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="_02_Brushes.Views.BrushesHubPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="{Binding Title}">
+
+    <ScrollView>
+        <VerticalStackLayout Spacing="16" Padding="16">
+            <Label
+                Text="Brushes tutorial"
+                FontSize="24"
+                FontAttributes="Bold" />
+
+            <Label
+                Text="A brush paints an area (e.g., a control background, a Border stroke, or a Shape fill). Pick a topic below and experiment with the sliders."
+                FontSize="14"
+                TextColor="{AppThemeBinding Light=Black, Dark=White}" />
+
+            <CollectionView ItemsSource="{Binding Items}" SelectionMode="None">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Border
+                            Stroke="{AppThemeBinding Light=#D0D0D0, Dark=#404040}"
+                            StrokeThickness="1"
+                            StrokeShape="RoundRectangle 12"
+                            Padding="14"
+                            Margin="0,0,0,10">
+                            <Grid RowDefinitions="Auto,Auto" ColumnDefinitions="*,Auto" RowSpacing="6">
+                                <VerticalStackLayout Grid.Row="0" Grid.Column="0" Spacing="2">
+                                    <Label Text="{Binding Title}" FontAttributes="Bold" FontSize="16" />
+                                    <Label Text="{Binding Description}" FontSize="12" Opacity="0.8" />
+                                </VerticalStackLayout>
+
+                                <Button
+                                    Grid.RowSpan="2"
+                                    Grid.Column="1"
+                                    Text="Open"
+                                    Command="{Binding BindingContext.NavigateCommand, Source={RelativeSource AncestorType={x:Type ContentPage}}}"
+                                    CommandParameter="{Binding .}" />
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

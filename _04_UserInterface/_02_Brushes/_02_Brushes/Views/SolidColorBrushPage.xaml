@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="_02_Brushes.Views.SolidColorBrushPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="SolidColorBrush">
+
+    <ScrollView>
+        <VerticalStackLayout Spacing="16" Padding="16">
+            <Label Text="SolidColorBrush" FontSize="24" FontAttributes="Bold" />
+            <Label
+                Text="SolidColorBrush paints an area with a single color. In XAML, many properties (like Background) accept a Color string and MAUI converts it to a SolidColorBrush automatically."
+                FontSize="14"
+                Opacity="0.85" />
+
+            <Label Text="1) Background created from a color name" FontAttributes="Bold" />
+            <Border
+                Background="DarkBlue"
+                Stroke="LightGray"
+                StrokeThickness="1"
+                StrokeShape="RoundRectangle 12"
+                HeightRequest="110">
+                <Grid Padding="12">
+                    <Label Text="Background=DarkBlue" TextColor="White" VerticalOptions="Center" />
+                </Grid>
+            </Border>
+
+            <Label Text="2) Background created with explicit SolidColorBrush" FontAttributes="Bold" />
+            <Border
+                Stroke="LightGray"
+                StrokeThickness="1"
+                StrokeShape="RoundRectangle 12"
+                HeightRequest="110">
+                <Border.Background>
+                    <!-- Explicit brush object (same result as setting Background to a color string). -->
+                    <SolidColorBrush Color="#FF9988" />
+                </Border.Background>
+                <Grid Padding="12">
+                    <Label VerticalOptions="Center">
+                        &lt;SolidColorBrush Color="#FF9988" /&gt;
+                    </Label>
+                </Grid>
+            </Border>
+
+            <Label Text="3) Predefined SolidColorBrush from Brush" FontAttributes="Bold" />
+            <Border
+                Background="{x:Static Brush.Indigo}"
+                Stroke="LightGray"
+                StrokeThickness="1"
+                StrokeShape="RoundRectangle 12"
+                HeightRequest="110">
+                <Grid Padding="12">
+                    <Label Text="Background={x:Static Brush.Indigo}" TextColor="White" VerticalOptions="Center" />
+                </Grid>
+            </Border>
+
+            <Label Text="4) Using a brush for a Stroke and Shape Fill" FontAttributes="Bold" />
+            <Grid ColumnDefinitions="*,*" ColumnSpacing="12">
+                <Border
+                    Grid.Column="0"
+                    Background="White"
+                    Stroke="DarkBlue"
+                    StrokeThickness="6"
+                    StrokeShape="RoundRectangle 18"
+                    HeightRequest="120" />
+
+                <Path
+                    Grid.Column="1"
+                    Data="M 10 80 C 40 10, 65 10, 95 80 S 150 150, 180 80"
+                    Stroke="{x:Static Brush.HotPink}"
+                    StrokeThickness="8"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center" />
+            </Grid>
+
+            <Label Text="5) Hex string -> Color -> SolidColorBrush (converter)" FontAttributes="Bold" />
+            <Label
+                Text="Type #RRGGBB or #AARRGGBB. The converter parses it to a Color. When assigned to Background/Fill, MAUI paints using a SolidColorBrush." 
+                FontSize="12"
+                Opacity="0.8" />
+
+            <Grid ColumnDefinitions="*,*" ColumnSpacing="12" RowDefinitions="Auto,Auto,Auto">
+                <VerticalStackLayout Grid.ColumnSpan="2" Spacing="6">
+                    <Label Text="HexColor" FontSize="12" Opacity="0.7" />
+                    <Entry
+                        Placeholder="#FF9988"
+                        Text="{Binding HexColor}"
+                        ClearButtonVisibility="WhileEditing" />
+                </VerticalStackLayout>
+
+                <Border
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    Stroke="LightGray"
+                    StrokeThickness="1"
+                    StrokeShape="RoundRectangle 12"
+                    HeightRequest="110"
+                    Background="{Binding HexColor, Converter={StaticResource ColorHexToColor}}">
+                    <Grid Padding="12">
+                        <Label Text="Border.Background bound via converter" VerticalOptions="Center" />
+                    </Grid>
+                </Border>
+
+                <Ellipse
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    HeightRequest="110"
+                    WidthRequest="110"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    Fill="{Binding HexColor, Converter={StaticResource ColorHexToColor}}"
+                    Stroke="Black"
+                    StrokeThickness="2" />
+
+                <HorizontalStackLayout Grid.Row="2" Grid.ColumnSpan="2" Spacing="10">
+                    <Button Text="Salmon" Command="{Binding SetSalmonCommand}" />
+                    <Button Text="Indigo" Command="{Binding SetIndigoCommand}" />
+                    <Button Text="50% Red" Command="{Binding SetTransparentRedCommand}" />
+                </HorizontalStackLayout>
+            </Grid>
+
+            <Label
+                Text="Tip: Brushes can be assigned to VisualElement.Background, Border.Stroke, and to Shape.Fill/Stroke."
+                FontSize="12"
+                Opacity="0.75" />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
