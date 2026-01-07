@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="_01_Animation.Views.EasingPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="Easing functions">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="16" Spacing="16">
+            <Label Style="{StaticResource SubHeadline}" Text="Easing comparison" />
+            <Label
+                Text="Easing functions control acceleration/deceleration during an animation. Run the same movement using different easings to see the difference." />
+
+            <Border Padding="16" StrokeThickness="1">
+                <VerticalStackLayout Spacing="12">
+                    <Label FontAttributes="Bold" Text="Choose an easing" />
+
+                    <Picker x:Name="EasingPicker" Title="Select easing" />
+
+                    <Grid ColumnDefinitions="*,*" ColumnSpacing="12">
+                        <Button Grid.Column="0" Text="Run" Clicked="OnRunClicked" />
+                        <Button Grid.Column="1" Text="Reset" Clicked="OnResetClicked" />
+                    </Grid>
+
+                    <Border
+                        BackgroundColor="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray800}}"
+                        HeightRequest="140"
+                        Padding="12"
+                        StrokeThickness="0">
+                        <Grid>
+                            <Border
+                                x:Name="Dot"
+                                BackgroundColor="{StaticResource Secondary}"
+                                HeightRequest="24"
+                                HorizontalOptions="Start"
+                                StrokeThickness="0"
+                                VerticalOptions="Center"
+                                WidthRequest="24" />
+                        </Grid>
+                    </Border>
+
+                    <Label
+                        x:Name="EasingDescription"
+                        TextColor="{AppThemeBinding Light={StaticResource Gray700}, Dark={StaticResource Gray300}}" />
+                </VerticalStackLayout>
+            </Border>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

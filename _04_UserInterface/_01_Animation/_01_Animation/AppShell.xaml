@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="_01_Animation.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:views="clr-namespace:_01_Animation.Views"
+    Title="Animations">
+
+    <!--
+        This tutorial uses Shell routes so each demo can be opened independently.
+        The Home page acts as a table of contents.
+    -->
+    <ShellContent
+        Title="Home"
+        ContentTemplate="{DataTemplate views:HomePage}"
+        Route="Home" />
+
+</Shell>

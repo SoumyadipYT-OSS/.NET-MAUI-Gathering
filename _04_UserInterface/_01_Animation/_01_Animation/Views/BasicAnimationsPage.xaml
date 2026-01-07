@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="_01_Animation.Views.BasicAnimationsPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="Basic animations">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="16" Spacing="16">
+            <Label Style="{StaticResource SubHeadline}" Text="Fade / Translate / Scale / Rotate" />
+            <Label
+                Text="These examples use the built-in View extension methods (FadeTo, TranslateTo, ScaleTo, RotateTo). Each returns a Task so you can await and chain animations." />
+
+            <Border
+                Padding="16"
+                StrokeThickness="1">
+                <VerticalStackLayout Spacing="12">
+                    <Label FontAttributes="Bold" Text="Target element" />
+
+                    <Border
+                        x:Name="Target"
+                        BackgroundColor="{StaticResource Primary}"
+                        HeightRequest="90"
+                        HorizontalOptions="Center"
+                        StrokeThickness="0"
+                        WidthRequest="90">
+                        <Label
+                            HorizontalOptions="Center"
+                            HorizontalTextAlignment="Center"
+                            Text="Animate"
+                            TextColor="White"
+                            VerticalOptions="Center"
+                            VerticalTextAlignment="Center" />
+                    </Border>
+
+                    <Grid ColumnDefinitions="*,*" RowDefinitions="Auto,Auto,Auto" ColumnSpacing="12" RowSpacing="12">
+                        <Button Grid.Row="0" Grid.Column="0" Text="Fade" Clicked="OnFadeClicked" />
+                        <Button Grid.Row="0" Grid.Column="1" Text="Translate" Clicked="OnTranslateClicked" />
+
+                        <Button Grid.Row="1" Grid.Column="0" Text="Scale" Clicked="OnScaleClicked" />
+                        <Button Grid.Row="1" Grid.Column="1" Text="Rotate" Clicked="OnRotateClicked" />
+
+                        <Button Grid.Row="2" Grid.ColumnSpan="2" Text="Reset" Clicked="OnResetClicked" />
+                    </Grid>
+
+                    <Label
+                        x:Name="StatusLabel"
+                        TextColor="{AppThemeBinding Light={StaticResource Gray700}, Dark={StaticResource Gray300}}" />
+                </VerticalStackLayout>
+            </Border>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
