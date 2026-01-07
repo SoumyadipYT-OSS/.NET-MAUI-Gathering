@@ -1,3 +1,4 @@
+```mermaid
 flowchart TB
   App["App (Application)\n- MainWindow: AppShell"] --> Shell
 
@@ -76,4 +77,4 @@ flowchart TB
     CUSTOM_ButtonGrid --> CUSTOM_Reset["Button\n- Text: Reset\n- Clicked: OnResetClicked"]
     CUSTOM_Stack --> CUSTOM_Status["Label (x:Name=Status)\n- Text: set via SetStatus(...)\n- TextColor: AppThemeBinding (Gray700/Gray300)"]
   end
-
+```
