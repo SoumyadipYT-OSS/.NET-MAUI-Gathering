@@ -95,7 +95,7 @@ Every .NET Multi-platform App UI (.NET MAUI) control that derives from [View](ht
 
 In addition, the `Margin` and `Padding` properties position controls relative to adjacent, or child controls. For more information, see [Position controls](https://learn.microsoft.com/en-us/dotnet/maui/user-interface/align-position?view=net-maui-10.0#position-controls).
 
-<img width="1000" height="380" alt="Margin_Alignment" src="https://github.com/user-attachments/assets/11db1b18-74d2-489b-a455-ea8de0dd67cb" />
+<img width="1920" height="1080" alt="Margin_Alignment" src="https://github.com/user-attachments/assets/11db1b18-74d2-489b-a455-ea8de0dd67cb" />
 
 ### Align Views in Layouts
 
