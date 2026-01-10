@@ -87,3 +87,86 @@ For a comprehensive sample demonstrating various controls, see the [.NET MAUI Co
 | [TwoPaneView](https://learn.microsoft.com/en-us/dotnet/api/microsoft.maui.controls.foldable.twopaneview) | Represents a container with two views that size and position their content in the available space, either side-by-side or top-to-bottom. For more information, see [TwoPaneView](https://learn.microsoft.com/en-us/dotnet/maui/user-interface/controls/twopaneview?view=net-maui-10.0). |
 | [WebView](https://learn.microsoft.com/en-us/dotnet/api/microsoft.maui.controls.webview) | Displays web pages or local HTML content. For more information, see [WebView](https://learn.microsoft.com/en-us/dotnet/maui/user-interface/controls/webview?view=net-maui-10.0). |
 
+
+## Align and Position Controls
+
+Every .NET Multi-platform App UI (.NET MAUI) control that derives from [View](https://learn.microsoft.com/en-us/dotnet/api/microsoft.maui.controls.view), which includes views and layouts, has `HorizontalOptions` and `VerticalOptions` properties, of type `LayoutOptions`. The `LayoutOptions` structure encapsulates a view's preferred alignment, which determines its position and size within its parent layout when the parent layout contains unused space (that is, the parent layout is larger than the combined size of all its children).
+
+In addition, the `Margin` and `Padding` properties position controls relative to adjacent, or child controls. For more information, see [Position controls](https://learn.microsoft.com/en-us/dotnet/maui/user-interface/align-position?view=net-maui-10.0#position-controls).
+
+### Align Views in Layouts
+
+The alignment of a [View](https://learn.microsoft.com/en-us/dotnet/api/microsoft.maui.controls.view), relative to its parent, can be controlled by setting the `HorizontalOptions` or `VerticalOptions` property of the [View](https://learn.microsoft.com/en-us/dotnet/api/microsoft.maui.controls.view) to one of the public fields from the `LayoutOptions` structure. The public fields are `Start`, `Center`, `End`, and `Fill`.
+
+The `Start`, `Center`, `End`, and `Fill` fields are used to define the view's alignment within the parent layout:
+
+- For horizontal alignment, `Start` positions the [View](https://learn.microsoft.com/en-us/dotnet/api/microsoft.maui.controls.view) on the left hand side of the parent layout, and for vertical alignment, it positions the [View](https://learn.microsoft.com/en-us/dotnet/api/microsoft.maui.controls.view) at the top of the parent layout.
+- For horizontal and vertical alignment, `Center` horizontally or vertically centers the [View](https://learn.microsoft.com/en-us/dotnet/api/microsoft.maui.controls.view).
+- For horizontal alignment, `End` positions the [View](https://learn.microsoft.com/en-us/dotnet/api/microsoft.maui.controls.view) on the right hand side of the parent layout, and for vertical alignment, it positions the [View](https://learn.microsoft.com/en-us/dotnet/api/microsoft.maui.controls.view) at the bottom of the parent layout.
+- For horizontal alignment, `Fill` ensures that the [View](https://learn.microsoft.com/en-us/dotnet/api/microsoft.maui.controls.view) fills the width of the parent layout, and for vertical alignment, it ensures that the [View](https://learn.microsoft.com/en-us/dotnet/api/microsoft.maui.controls.view) fills the height of the parent layout.
+
+Note: The default value of a view's `HorizontalOptions` and `VerticalOptions` properties is `LayoutOptions.Fill`.
+
+A [StackLayout](https://learn.microsoft.com/en-us/dotnet/api/microsoft.maui.controls.stacklayout) only respects the `Start`, `Center`, `End`, and `Fill` `LayoutOptions` fields on child views that are in the opposite direction to the [StackLayout](https://learn.microsoft.com/en-us/dotnet/api/microsoft.maui.controls.stacklayout) orientation. Therefore, child views within a vertically oriented [StackLayout](https://learn.microsoft.com/en-us/dotnet/api/microsoft.maui.controls.stacklayout) can set their `HorizontalOptions` properties to one of the `Start`, `Center`, `End`, or `Fill` fields. Similarly, child views within a horizontally oriented [StackLayout](https://learn.microsoft.com/en-us/dotnet/api/microsoft.maui.controls.stacklayout) can set their `VerticalOptions` properties to one of the `Start`, `Center`, `End`, or `Fill` fields.
+
+A [StackLayout](https://learn.microsoft.com/en-us/dotnet/api/microsoft.maui.controls.stacklayout) does not respect the `Start`, `Center`, `End`, and `Fill` `LayoutOptions` fields on child views that are in the same direction as the [StackLayout](https://learn.microsoft.com/en-us/dotnet/api/microsoft.maui.controls.stacklayout) orientation. Therefore, a vertically oriented [StackLayout](https://learn.microsoft.com/en-us/dotnet/api/microsoft.maui.controls.stacklayout) ignores the `Start`, `Center`, `End`, or `Fill` fields if they are set on the `VerticalOptions` properties of child views. Similarly, a horizontally oriented [StackLayout](https://learn.microsoft.com/en-us/dotnet/api/microsoft.maui.controls.stacklayout) ignores the `Start`, `Center`, `End`, or `Fill` fields if they are set on the `HorizontalOptions` properties of child views.
+
+Important: `LayoutOptions.Fill` generally overrides size requests specified using the [HeightRequest](https://learn.microsoft.com/en-us/dotnet/api/microsoft.maui.controls.visualelement.heightrequest) and [WidthRequest](https://learn.microsoft.com/en-us/dotnet/api/microsoft.maui.controls.visualelement.widthrequest) properties.
+
+The following XAML example demonstrates a vertically oriented [StackLayout](https://learn.microsoft.com/en-us/dotnet/api/microsoft.maui.controls.stacklayout) where each child [Label](https://learn.microsoft.com/en-us/dotnet/api/microsoft.maui.controls.label) sets its `HorizontalOptions` property to one of the four alignment fields from the `LayoutOptions` structure:
+
+```xml
+<StackLayout>
+  ...
+  <Label Text="Start" BackgroundColor="Gray" HorizontalOptions="Start" />
+  <Label Text="Center" BackgroundColor="Gray" HorizontalOptions="Center" />
+  <Label Text="End" BackgroundColor="Gray" HorizontalOptions="End" />
+  <Label Text="Fill" BackgroundColor="Gray" HorizontalOptions="Fill" />
+</StackLayout>
+```
+
+### Position Controls
+
+The `Margin` and `Padding` properties position controls relative to adjacent, or child controls. Margin and padding are related layout concepts:
+
+- The `Margin` property represents the distance between an element and its adjacent elements, and is used to control the element's rendering position, and the rendering position of its neighbors. `Margin` values can be specified on layouts and views.
+- The `Padding` property represents the distance between an element and its child elements, and is used to separate the control from its own content. `Padding` values can be specified on pages, layouts, and views.
+
+Note: `Margin` values are additive. Therefore, if two adjacent elements specify a margin of 20 device-independent units, the distance between the elements will be 40 device-independent units. In addition, margin and padding values are additive when both are applied, in that the distance between an element and any content will be the margin plus padding. For more information about device-independent units, see [Device-independent units](https://learn.microsoft.com/en-us/dotnet/maui/user-interface/device-independent-units?view=net-maui-10.0).
+
+The `Margin` and `Padding` properties are both of type `Thickness`. There are three possibilities when creating a `Thickness` structure:
+
+- Create a `Thickness` structure defined by a single uniform value. The single value is applied to the left, top, right, and bottom sides of the element.
+- Create a `Thickness` structure defined by horizontal and vertical values. The horizontal value is symmetrically applied to the left and right sides of the element, with the vertical value being symmetrically applied to the top and bottom sides of the element.
+- Create a `Thickness` structure defined by four distinct values that are applied to the left, top, right, and bottom sides of the element.
+
+The following XAML example shows all three possibilities:
+
+```xml
+<StackLayout Padding="0,20,0,0">
+  <!-- Margin defined by a single uniform value. -->
+  <Label Text=".NET MAUI" Margin="20" />
+  <!-- Margin defined by horizontal and vertical values. -->  
+  <Label Text=".NET for iOS" Margin="10,15" />
+  <!-- Margin defined by four distinct values that are applied to the left, top, right, and bottom. -->  
+  <Label Text=".NET for Android" Margin="0,20,15,5" />
+</StackLayout>
+```
+
+The equivalent C# code is:
+
+```csharp
+StackLayout stackLayout = new StackLayout
+{
+  Padding = new Thickness(0,20,0,0)
+};
+// Margin defined by a single uniform value.
+stackLayout.Add(new Label { Text = ".NET MAUI", Margin = new Thickness(20) });
+// Margin defined by horizontal and vertical values.
+stackLayout.Add(new Label { Text = ".NET for iOS", Margin = new Thickness(10,25) });
+// Margin defined by four distinct values that are applied to the left, top, right, and bottom.
+stackLayout.Add(new Label { Text = ".NET for Android", Margin = new Thickness(0,20,15,5) });  
+```
+
+Note: `Thickness` values can be negative, which typically clips or overdraws the content.
+
