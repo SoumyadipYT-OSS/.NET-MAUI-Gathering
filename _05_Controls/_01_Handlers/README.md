@@ -6,6 +6,8 @@ Handlers are the platform bridge in .NET MAUI that map cross-platform "virtual" 
 - Mapping cross-platform properties and commands to native APIs via mappers.
 - Exposing the cross-platform element as `VirtualView` so the handler can apply state from the MAUI control.
 
+<img width="1408" height="736" alt="Generated_MauiButtonArchitecture" src="https://github.com/user-attachments/assets/3d5dd6da-1106-4e65-bcd0-014f91158bad" />
+
 For most built-in controls there is a corresponding interface (for example `IButton`) and a handler (for example `ButtonHandler`) that provides property and command mappers. Using handlers keeps the cross-platform control API decoupled from platform-specific implementations and makes it straightforward to customize native behavior.
 
 Key concepts
