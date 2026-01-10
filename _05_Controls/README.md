@@ -15,7 +15,7 @@ For a comprehensive sample demonstrating various controls, see the [.NET MAUI Co
 | Page | Description |
 |------|-------------|
 | [ContentPage](https://learn.microsoft.com/en-us/dotnet/api/microsoft.maui.controls.contentpage) | Displays a single view, and is the most common page type. For more information, see [ContentPage](https://learn.microsoft.com/en-us/dotnet/maui/user-interface/pages/contentpage?view=net-maui-10.0). |
-| [FlyoutPage](https://learn.microsoft.com/en-us/dotnet/api/microsoft.maui.controls.flyoutpage) | Manages two related pages of information – a flyout page that presents items, and a detail page that presents details about items on the flyout page. For more information, see [FlyoutPage](https://learn.microsoft.com/en-us/dotnet/maui/user-interface/pages/flyoutpage?view=net-maui-10.0). |
+| [FlyoutPage](https://learn.microsoft.com/en-us/dotnet/api/microsoft.maui.controls.flyoutpage) | Manages two related pages of information â€“ a flyout page that presents items, and a detail page that presents details about items on the flyout page. For more information, see [FlyoutPage](https://learn.microsoft.com/en-us/dotnet/maui/user-interface/pages/flyoutpage?view=net-maui-10.0). |
 | [NavigationPage](https://learn.microsoft.com/en-us/dotnet/api/microsoft.maui.controls.navigationpage) | Provides a hierarchical navigation experience where you're able to navigate through pages, forwards and backwards, as desired. For more information, see [NavigationPage](https://learn.microsoft.com/en-us/dotnet/maui/user-interface/pages/navigationpage?view=net-maui-10.0). |
 | [TabbedPage](https://learn.microsoft.com/en-us/dotnet/api/microsoft.maui.controls.tabbedpage) | Consists of a series of pages that are navigable by tabs across the top or bottom of the page, with each tab loading the page content. For more information, see [TabbedPage](https://learn.microsoft.com/en-us/dotnet/maui/user-interface/pages/tabbedpage?view=net-maui-10.0). |
 
@@ -88,11 +88,14 @@ For a comprehensive sample demonstrating various controls, see the [.NET MAUI Co
 | [WebView](https://learn.microsoft.com/en-us/dotnet/api/microsoft.maui.controls.webview) | Displays web pages or local HTML content. For more information, see [WebView](https://learn.microsoft.com/en-us/dotnet/maui/user-interface/controls/webview?view=net-maui-10.0). |
 
 
+
 ## Align and Position Controls
 
 Every .NET Multi-platform App UI (.NET MAUI) control that derives from [View](https://learn.microsoft.com/en-us/dotnet/api/microsoft.maui.controls.view), which includes views and layouts, has `HorizontalOptions` and `VerticalOptions` properties, of type `LayoutOptions`. The `LayoutOptions` structure encapsulates a view's preferred alignment, which determines its position and size within its parent layout when the parent layout contains unused space (that is, the parent layout is larger than the combined size of all its children).
 
 In addition, the `Margin` and `Padding` properties position controls relative to adjacent, or child controls. For more information, see [Position controls](https://learn.microsoft.com/en-us/dotnet/maui/user-interface/align-position?view=net-maui-10.0#position-controls).
+
+<img width="1920" height="1080" alt="Margin_Alignment" src="https://github.com/user-attachments/assets/11db1b18-74d2-489b-a455-ea8de0dd67cb" />
 
 ### Align Views in Layouts
 
