@@ -383,4 +383,3 @@ myView.Margin = new Thickness(16);
 - [Layouts](https://learn.microsoft.com/en-us/dotnet/maui/user-interface/layouts/?view=net-maui-10.0)
 - [Fonts](https://learn.microsoft.com/en-us/dotnet/maui/user-interface/fonts?view=net-maui-10.0)
 - [Unit converters](https://learn.microsoft.com/en-us/dotnet/maui/platform-integration/device-media/unit-converters?view=net-maui-10.0)
-
